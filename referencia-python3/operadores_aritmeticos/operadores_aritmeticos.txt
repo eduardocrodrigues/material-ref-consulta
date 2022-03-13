@@ -1,0 +1,193 @@
+########################################
+#
+# Operadores aritméticos
+#
+########################################
+
+=============================================
+# operadores unários (usado em um ÙNICO NÙMERO ou EM UMA ÚNICA VARIÀVEL)
+============================================= 
+  +  operador de adição 
+ 
+  -  operador de subtração 
+
+
+=============================================
+# operadores binários (usado ENTRE DOIS NÚMEROS ou ENTRE DUAS VARIÀVEIS)
+============================================= 
+  +  operador de adição 
+ 
+  -  operador de subtração 
+
+  *  operador de multiplicação
+
+  /  operador de divisão
+
+  // divisão de resultado com número inteiro
+
+  ** um número elevado a outro número
+
+  % Resto da divisão
+
+
+#################################################
+#
+# Ordem de precedência de calculo em Python
+#
+#################################################
+
+  1 - Calculamos a(s) operaç(ões) que estiver(em) dentro de parênteses: ()
+
+    ex:
+        valor = 3 * (5 + 4) ** 2 # o resultado será: 243
+
+
+
+  2 - Calculamos as operações que tiver potênciação: **
+
+    ex:
+        valor = 3 * 5 + 4 ** 2 # o resultado será: 31
+
+
+
+  3 - Calculamos os operadores: *, /, //, %
+
+    OBS: se vc encontrar mais de um desses operadores, em uma mesma operação,
+    vc calcula a partir do primeiro operador que vc encontrar na operação,
+    fazendo a leitura da operação sempre da esquerda para a direita !!!
+
+    ex:
+        valor =  5 + 3 * 20 / 3 # o resultado será: 25.0
+
+
+
+    -------------------------------------------------
+     Entendendo como funciona os operadores: / e //
+    -------------------------------------------------
+
+        Se a divisão for com o operador: /, retorna o valor como ponto flutuante:
+
+            ex:
+                valor = 10 / 2 # o resultado será: 5.0 (número ponto flutuante)
+
+
+        Se a divisão for com o operador: //, o valor retornado será um número inteiro
+
+            ex:
+                valor = 10 // 2 # o resultado será: 5 (número inteiro)
+
+
+    ----------------------------------------------
+     Entendendo como funciona o operador de: %
+    ----------------------------------------------
+
+        O operador de: % (em programação) é usado para pegar o RESTO DE UMA DIVISÂO.
+
+        Para entendermos melhor como funciona o operador de: %, precisamos fazer um
+        mapeamento de quais são os atores em uma conta de divisão:
+
+
+        ------------------------------------------------------------
+        |
+        |                                               |
+        | dividendo <--- 21 | 4  ----> divisor          |
+        |              - 20 |----------                 |
+        |              ----   5 ----> quociente         |
+        |    RESTO  <--- 01                             |
+        |                                               |
+        -------------------------------------------------------------
+
+        como mostra o mapa acima, quando usamos o operador de: % (porcentagem) na
+        programação, e o valor do DIVIDENDO (no exemplo, o valor: 21) é MAIOR que
+        o valor do DIVISOR (no exemplo, o valor: 4), será retornado O VALOR
+        DO RESTO DA DIVISÃO (no exemplo, o valor: 1).
+
+
+        Agora VAMOS OBSERVAR um DETALHE IMPORTANTE !!!
+
+
+        quando usamos o operador de: % (porcentagem) na programação, e o valor
+        do DIVIDENDO for MENOR QUE O DO DIVISOR,
+
+        ------------------------------------------------------------
+        |
+        |                                               |
+        | dividendo <--- 23 | 24  ----> divisor         |
+        |              - 00 |----------                 |
+        |              -----   00 ----> quociente       |
+        |    RESTO  <--- 00                             |
+        |                                               |
+        -------------------------------------------------------------
+
+        Sempre será retornado o valor do DIVIDENDO, por que?, porque por algum
+        motivo, O SISTEMA DE COMPUTADOR faz a PROVA REAL da divisão RETORNANDO
+        O VALOR DO DIVIDENDO.
+
+            OBS: a PROVA REAL é um método matemático usado para saber se
+            a conta de divisão está correta. Para fazer a prova real de uma conta
+            de divisão, basta multiplicar o valor do QUOCIENTE com o valor do DIVISOR,
+            caso A CONTA DE DIVISÃO TERMINE COM RESTO na conta, esse valor de resto é
+            SOMADO JUNTO COM O VALOR DO: QUOCIENTE x DIVISOR.
+
+
+            vou deixar um pequeno script para mostrar como o calculo
+            com o operador de resto de divisão (%) funciona quando
+            o valor do DIVIDENDO é MENOR QUE o DIVISOR:
+
+              script exemplo:
+
+                numero = int(input('Digite um número: '))
+
+                for i in range(0, numero):
+                    print(f'{i}%{numero} = {i % numero}')
+
+
+            Repare que, ao executar o script exemplo, que todos os números (ESSES NÚMEROS
+            NA LETRA: i, SÂO OS DIVIDENDOS) são menores que o DIVISOR, retornando
+            o próprio número do DIVIDENDO.
+
+
+
+  4 - Calculamos os operadores: +, -
+
+      ex:
+          valor =  5 + (7 - 10) + 20 # o resultado será: 22
+
+
+############################################
+#
+# Calculando Raiz quadrada no Python
+#
+############################################
+
+  Para calcular a raiz quadrada de um número SEM USAR O MÉTODO: math.sqrt(), USAMOS A SINTAXE:
+
+    ex:
+        numero**(1/2)
+
+
+  alguns exemplos de contas com raiz quadrada:
+
+    ex1:
+        valor = 81**(1/2) # o resultado é: 9.0
+
+    ex2:
+        valor = 25**(1/2) # o resultado é: 5.0
+
+
+#############################################
+#
+# Calcular a Raiz Cúbica no Python
+#
+#############################################
+
+  Para calcular a raiz cúbica de um número no Python, USAMOS A SINTAXE:
+
+    ex:
+        numero**(1/3)
+
+
+  exemplo de conta com raiz cúbica:
+
+    ex:
+        valor = 127**(1/3) # o resultado é: 5.026525695313479

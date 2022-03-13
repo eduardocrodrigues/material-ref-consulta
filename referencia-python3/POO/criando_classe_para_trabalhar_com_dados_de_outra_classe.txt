@@ -1,0 +1,86 @@
+####################################
+#
+#  Agregação de classe POO Python
+#
+####################################
+
+Agregação de classe ocorre QUANDO CRIAMOS UMA CLASSE ESTRUTURADA PARA TRABALHAR
+COM OS DADOS DAS CLASSES RECEBIDAS.
+
+para exemplificar como funciona a agregação de classe, o código abaixo
+mostra um exemplo onde a classe: CarrinhoDeCompras É TODA ESTRUTURADA 
+PARA TRABALHAR COM DADOS DE OUTRA CLASSE, que no caso é a classe: Produto 
+
+
+
+
+
+
+#########################################
+#
+# Exemplo de como criar classe 
+# para trabalhar com dados 
+# de outra classe
+#
+#########################################
+
+----------------------------------------
+ Exemplo de código: 
+----------------------------------------
+
+class CarrinhoDeCompras:
+
+    def __init__(self):
+        self.produtos = []
+
+    def inserir_produtos(self, produto):
+        self.produtos.append(produto)
+
+    def lista_produto(self):
+        for produto in self.produtos:
+            print(produto.nome, produto.valor)
+
+    def soma_total(self):
+        total = 0
+        for produto in self.produtos:
+            total += produto.valor
+        return total
+
+
+
+class Produto:
+
+    def __init__(self):
+        self.nome = nome
+        self.valor = valor
+
+
+
+
+carrinho = CarrinhoDeCompras() # chama a estrutura da classe: CarrinhoDeCompras
+
+# define os produtos a ser inseridos no carrinho 
+p1 = Produto('Camiseta', 50)
+p2 = Produto('Iphone', 10000)
+p3 = Produto('Caneca', 15)
+
+# insere os produtos criados, no carrinho
+carrinho.inserir_produto(p1)
+carrinho.inserir_produto(p2)
+carrinho.inserir_produto(p3)
+
+
+carrinho.listar_produtos() # lista todos os produtos
+somaTotal = carrinho.soma_total() # retorna o valor total dos produtos...
+print(somaTotal) # mostra o valor total de todos os produtos
+
+
+
+
+
+
+
+
+# ESSAS DUAS LINHA ABAIXO É PARA OUTRO EXEMPLO DE CÓDIGO
+# ocorre quando UMA CLASSE FICA DEPENDENTE DE OUTRA CLASSE
+# PARA O SEU FUNCIONAMENTO

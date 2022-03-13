@@ -1,0 +1,604 @@
+###################################
+#
+#  métodos Built-in python
+#
+####################################
+
+---------------------------------------------------
+enumerate() - muito usado em listas no python para exibirmos 
+o indice do item, e o item. 
+---------------------------------------------------
+  ex:
+	listanomes = ['neri', 'lisiane', 'giulia', 'gustavo']
+	print(listanomes)
+	for i, nomeslista in enumerate(listanomes):
+	    print('Item: ', i+1, 'nome: ', nomeslista)
+
+	#print(nomeslista[2:])
+	print(listanomes[2:])
+
+
+--------------------------------------
+input() - usado para entrada de dados
+--------------------------------------
+  ex:
+	nome = input('Digite o seu nome: ')
+	print('o seu nome é :', nome)
+
+    OBS: você pode usar o input() em um codigo sem atribui-lo em uma variável para
+    fazer o usuário apertar a tecla ENTER para o programa seguir em frente, ex:
+    Basta não guardar o resultado do input em uma variável:
+
+     input("Pressione ENTER para continuar")
+
+   strings são como uma lista, só que de caracteres.
+
+
+
+-------------------------------------------------
+ord() - retorna o número que representa o código unicode do caracterere especificado.
+-------------------------------------------------
+    ex:
+        x = ord("h") # retorna o numero unicode do caractere
+		print(x) 
+
+
+---------------------------------------------------
+chr() - retorna o caractere unicode que representa o número passado como parâmetro.
+---------------------------------------------------
+    ex:
+        x = chr(97) # retorna o caractere unicode 
+		print(x)
+
+
+---------------------------------------------------
+dir() - mostra todas as funcionalidades de um modulo. (digite o nome do modulo entre os parenteses)
+---------------------------------------------------
+
+  # o método dir() é usado para vermos o conteúdo de um módulo embutido do Python
+
+
+
+---------------------------------------------------
+help() - método usado para ajuda no interpretador python.
+---------------------------------------------------
+
+  # o método help() é usado para pesquisarmos sobre algo em relação ao python pelo interpretador.
+
+  O método help() pode ser chamada de duas formas: 
+    
+    apenas help() ou help('pesquisa') 
+
+
+A primeira forma permite que você navegue pela ajuda disponível, de acordo com o que você esteja procurando.
+A segunda forma pesquisa alguma informação mais específica no interpretador.
+
+
+
+
+---------------------------------------------------
+min() - mostra o MENOR VALOR de um GRUPO DE VALORES armazenados em uma variavel. 
+---------------------------------------------------
+ Se vc utilizar o método min() com números...
+    ex1:
+        x = min(5, 10)
+		print(x)
+
+    ex2:
+	    a = (1, 5, 3, 9)
+		x = min(a)
+		print(x)
+
+
+ Podemos tbm usar o método: min() com strings. O método: min() entende qual é a menor
+ string, baseado NO PRIMEIRO CARACTERE DA STRING, e não no tamanho da string.
+
+    O MENOR VALOR de uma string, é CONTABILIZADO POR STRINGS que COMEÇAM COM A LETRA: A maiúsculo. 
+
+    Agora vem um detalhe importante, STRINGS QUE POSSUEM o seu PRIMEIRO CARACTERE em MAIÚSCULO
+    SÃO CONSIDERADAS STRINGS MENORES que strings QUE POSSUEM O MESMO CARACTERE, SÓ QUE EM MINÚSCULO.   
+
+    	ex:
+        	x = min("ami", "Ami", "Mike", "John", "Vicky")
+			print(x) # será impresso: "Ami" (em maiúsculo), pq PQ O PRIMEIRO CARACTERE da string: "Ami" (que 
+			é a letra: A (MAIÚSCULO) é o PRIMEIRO CARACTERE que está MAIS PROXIMO da letra: Z (MAIÚSCULA) do alfabeto.
+
+			"Ami" (em maiúsculo) É MENOR QUE: "ami" (em minusculo).
+
+
+    Caso exista duas STRINGS DIFERENTES dentro do método: min() COM O MESMO CARACTERE COMO PRIMEIRO CARACTERE da string, o VALOR RETORNADO será a PRIMEIRA STRING ENCONTRADA.
+        ex:
+            x = min("maria", "jose", "Ami", "Ami", "Mike", "John", "Vicky")
+			print(x) # será impresso o primeiro valor: "Ami" (em maiúsculo) encontrado. 
+
+
+---------------------------------------------------
+max() - mostra o MAIOR VALOR de um GRUPO DE VALORES armazenados em uma variavel. 
+---------------------------------------------------
+ Se vc utilizar o método max() com números...
+    ex1:
+        x = max(5, 10)
+		print(x)
+
+    ex2:
+	    a = (1, 5, 3, 9)
+		x = max(a)
+		print(x)
+
+
+ Podemos tbm usar o método: max() com strings. O método: max() entende qual é a menor
+ string, baseado NO PRIMEIRO CARACTERE DA STRING, e não no tamanho da string.
+
+    O MAIOR VALOR de uma string, para o método: max(), é CONTABILIZADO POR STRINGS que COMEÇAM 
+    COM A LETRA: z minúsculo. 
+
+    Agora vem um detalhe importante, STRINGS QUE POSSUEM o seu PRIMEIRO CARACTERE em MINÚSCULO
+    SÃO CONSIDERADAS STRINGS MAIORES que strings QUE POSSUEM O MESMO CARACTERE, SÓ QUE EM MAIÚSCULO.   
+
+    	ex:
+        	x = max("ami", "Ami", "Mike", "John", "Vicky")
+			print(x) # será impresso: "ami" (em minúsculo), PQ O PRIMEIRO CARACTERE da string: "ami" (que 
+			é a letra: a MINÚSCULO) é o PRIMEIRO CARACTERE que está MAIS PROXIMO da letra: z MINÚSCULA do alfabeto.
+
+
+    Caso exista duas STRINGS DIFERENTES dentro do método: max() COM O MESMO CARACTERE COMO PRIMEIRO CARACTERE da string, o VALOR RETORNADO será a PRIMEIRA STRING ENCONTRADA.
+        ex:
+            x = min("maria", "jose", "ami", "ami", "Mike", "John", "Vicky")
+			print(x) # será impresso o primeiro valor: "Ami" (em maiúsculo) encontrado. 
+
+
+---------------------------------------------------
+abs() - mostra o valor absoluto de um número. Se o número é: -4, o valor absoluto dele é: 4, se o
+numero é: -8.0, o seu valor absoluto é: 8.0, e assim por diante...
+---------------------------------------------------
+
+    ex:
+        x = abs(-7.25)
+		print(x) # o valor será: 7.25
+
+
+---------------------------------------------------
+round() - arredonda o número ponto flutuante, se o numero for 10.4, arredonda para baixo, se tornando
+o numero 10, se o número for 10.5, 10.6, arredonda para cima, se tornando o número 11. 
+---------------------------------------------------
+
+    ex:
+        x = round(5.76543)
+		print(x) # será arredondado para: 6, pq: 5.7 está mais próximo de ser arredondado para o número 6.
+
+
+  O método: round() possui um segundo parâmetro opcional, usado para definir a quantidade de casas decimais
+  queremos que o valor tenha, depois da vírgula:
+
+    ex:
+        x = round(5.76543, 2)
+		print(x) # o valor impresso será: 5.77 # o método: round() arredonda a última casa depois da vírgula.
+
+
+---------------------------------------------------
+type() - retorna o tipo de dado inserido no parametro (se o dado é do tipo: integer, string, float...).
+---------------------------------------------------
+  Antes de entendermos como funciona o método: type(), precisamos de entender como funciona os dados no Python.
+
+  No Python, tudo é: OBJETO, isso significa que TODO TIPO DE DADO NO PYTHON (por debaixo dos panos), É UMA CLASSE, ou seja, QUANDO DEFINIMOS UMA STRING EM UMA VARIÁVEL (por debaixo dos panos no Python), ESTÁ SENDO CHAMADO UMA CLASSE: STRING. QUANDO DEFINIMOS UMA VARIÁVEL COM UM VALOR DO TIPO: int (inteiro) (por debaixo dos panos no Python), ESTÁ SENDO CHAMADO UMA CLASSE: INT, e assim por diante...
+
+  Quando usamos o método: type(), o que ESSE MÉTODO ESTÁ MOSTRANDO é EXATAMENTE A CLASSE 
+  AO QUAL O TIPO DE DADO É PERTENCENTE.
+
+    ex:
+	    a = ('apple', 'banana', 'cherry')
+		b = "Hello World"
+		c = 33
+
+		x = type(a)
+		y = type(b)
+		z = type(c)
+
+		print(x) # pertence ao tipo de classe: <class 'tuple'>
+		print(y) # pertence ao tipo de classe: <class 'str'>
+		print(z) # pertence ao tipo de classe: <class 'int'> 
+
+
+---------------------------------------------------
+bin() - retorna uma string exibindo o valor binario de um número inteiro (a string sempre inicia
+ com os caracteres '0b' (zero b), que significa que é a representação binária de um número.)
+---------------------------------------------------
+  Essa função: bin(), retorna a VERSÃO BINÁRIA de UM NÚMERO INTEIRO, espeficicado no parâmetro.
+
+    ex:
+        x = bin(36)
+		print(x) # retorna o número binário: 0b100100. O resultado sempre começará com o prefixo: 0b (que é o prefixo binário)
+
+
+---------------------------------------------------
+int() - converte o valor especificado no parâmetro em um número inteiro. 
+---------------------------------------------------
+  O método int() possui dois parâmetros:
+
+    value - que é onde vc pode inserir um número ou uma string, 
+    e esse dado será convertido para um número inteiro.
+
+    base (opcional) - que é onde vc insere um número 
+    que representa a formatação de base numérica. O valor padrão é: 10
+
+    ex:
+        x = int("12")
+		print(x)
+
+
+    ex:
+        *** não explique como funciona a parte do parâmetro onde inserimos
+        a base, pq preciso estudar sobre Bases Numéricas ( tem no canal Curso em Video !!!)
+
+
+    O método int() também é usado para voltar um numero binário para inteiro:
+
+        ex:
+            0b1001 - o numero deve ser inserido sem as aspas...
+            x = int(0b1001)
+            print(x) # retornará o valor: 9
+
+
+    também podemos inserir uma string binária como parametro para retornar o valor em número inteiro:
+
+        ex:
+            int('0b1001', 2)
+    
+        OBS: Se o valor binario for inserido como uma string, é necessário inserir 
+        o número 2 como segundo parametro (o numero 2 indica que é para calcular em base 2 - (base binária)),
+        a string sempre inicia com os caracteres: 0b (zero b), que significa que é a representação binária 
+        de um número.
+
+
+    O método int() também é usado para voltar um NÚMERO HEXADECIMAL para inteiro:
+
+        ex:
+            0x4ef - o número deve ser inserido sem aspas...
+		    int(0x4ef) = 1263
+
+        OBS: Se o valor binario for inserido como uma string, é necessário inserir o 
+        número 16 como segundo parametro (o numero 16 indica que é para calcular em base 16 - (base hexadeciaml)),
+        a string sempre inicia com os caracteres '0x' (zero x), que significa que é a representação em hexadecimal de um número.
+
+
+    O método int() também é usado para voltar um NÚMERO OCTAL para inteiro:
+
+        ex:
+            0o217 - o número deve ser inserido sem aspas...
+		    int(0o217) = 143
+
+		OBS: Se o valor binario for inserido como uma string, é necessário inserir o 
+        número 8 como segundo parametro (o numero 8 indica que é para calcular em base 8 - (base octal)),
+        a string sempre inicia com os caracteres '0o' (zero o), que significa que é
+        a representação em octal de um número.
+
+
+
+---------------------------------------------------
+hex() - retorna uma string com o valor em hexadecimal.
+---------------------------------------------------
+  O método: hex() converte o número em um valor hexadecimal.
+  
+    ex:
+        x = hex(255)
+        print(x) # retorna o valor '0xff'.
+  
+    OBS: O valor '0x' no inicio da string, significa que o valor é em hexadecimal.
+
+
+---------------------------------------------------
+oct() - retorna uma string com o valor em octal.
+---------------------------------------------------
+  O método: oct() converte um número inteiro em uma string octal.
+
+    ex:
+        octal = oct(12) 
+        print(octal) # retorna o valor: '0o14'
+
+    OBS: O valor '0o' (zero e ó) no inicio da string, significa que o valor é em octal. 
+
+
+
+
+
+---------------------------------------------------
+enumerate() - retorna um conjunto de dados, com indice associado ao valor.
+---------------------------------------------------
+  O método: enumerate() possui dois parâmetros:
+
+    iterable - usado para inserir um conjunto de dados: (tupla com dados dentro ou array com dados dentro)
+
+    start - usado para inserir um número inteiro, representando a configuração de índice 
+    que a primeira tupla será configurada/inicializada. O valor padrão do parametro: start, é Zero.
+
+    ex:
+        x = ('apple', 'banana', 'cherry')
+		y = enumerate(x) # retorna 3 tuplas
+        listaComTupla = list(y) # temos que inserir as três tuplas em uma lista, para podermos exibir na tela.
+		print(listaComTupla) 
+
+
+  Outra forma de utilizarmos o método: enumerate(), é aplicando em um loop com um array:
+    
+    ex:
+        array = [1, 5, 'du', 'we', '7' ]
+
+        # inserimos duas variáveis no loop para armazenar o índice e o valor retornado pelo método: enumerate().
+	    for indice, valor in enumerate(array): 
+	        print(indice, valor)
+
+
+
+------------------------------------------
+range() - gera números a partir do valor x, até um valor y.
+------------------------------------------
+  A função: range() retorna uma sequencia de números, começando a partir do 0 por padrão, e 
+  aumentando por 1 (por padrão), e parando antes do número especificado.
+
+  O método: range() possui três parâmetros:
+
+    start (opcional) - um número inteiro especificando exatamente em qual posição começar. O padrão é: 0
+
+    stop (requerido) - um número inteiro especificando em qual posição parar (a contagem pára um número antes desse número requerido) 
+
+    step (opcional) -  um número inteiro especificando de quantos em quantos números será feita a incrementação. O padrão é: 1 
+
+
+    exemplo usando somente o parâmetro: stop
+
+        ex:
+	        for n in range(6):
+		        print(n)
+
+
+    exemplo usando os parâmetros: start e stop
+
+        ex:
+            for n in range(3, 6):
+                print(n)
+
+
+    exemplo usando os parâmetros: start e stop e step
+
+        ex:
+            for n in range(3, 20, 2):
+                print(n)
+
+
+
+-----------------------------------------------------------------
+list() - usado para converter um conjunto de dados em uma lista
+-----------------------------------------------------------------
+  a função list() cria uma lista de objetos.
+
+  a lista de objetos é uma coleção qual é ordenada e mutável.
+
+  o método list() possui um parâmetro:
+
+    iterable - uma sequencia de caracteres (uma string), uma coleção de strings (uma tupla), ou um objeto iterador
+
+        ex:
+
+            x = list(('apple', 'banana', 'cherry'))
+
+            print(x)
+        
+  
+
+
+-----------------------------------------
+map(x, y) - 
+-----------------------------------------
+
+
+
+------------------------------------------------
+set() - retorna um conjuno de elementos, garantindo 
+a ausencia de cópias duplicadas. Essa função tem somente 1 argumento.
+---------------------------------------------------
+  OBS: a palavra set em inglês significa: conjunto.
+
+  OBS2: o armazenamento dos elementos podem ser feitas com as seguintes estruturas:
+
+    - com a estrutura de lista:  []
+    - com a estrutura de tupla:  ()
+    - com a estrutura de chaves: {}
+
+    OBS: se vc for usar a estrutura de chaves: {}, vc deve usar essa estrutura JÁ COM OS VALORES DENTRO DA ESTRUTURA das chaves:
+
+      ex:
+        elementos = {10, 6, 5, 9, 20, 150} # maneira de CRIAR CONJUNTO DE ELEMENTOS SEM O MÉTODO: set()
+        print(elementos)
+
+	caso contrário, o python entenderá que vc está criando um dicionário.
+
+    Quando utilizamos a estrutura de chaves SEM VALORES DENTRO, O PYTHON ENTENDE QUE ESTAMOS CRIANDO UM DICIONÁRIO. Quando utilizamos a ESTRUTURA DE CHAVES JÁ COM OS VALORES (SOMENTE OS VALORES) aRMAZENADOS DENTRO DA ESTRUTURA, essa ESTRUTURA DE CHAVES SE COMPORTARÁ COMO UMA LISTA, por isso que essa estrutura FUNCIONA DE FORMA DIFERENTE DA ESTRUTURA DO DICIONÁRIO.
+
+
+    OBS2: outra diferença das ESTRUTURAS DE CONJUNTO DE DADOS é que elas NÃO POSSUI ÍNDICES, por isso NÃO CONSEGUIMOS ACESSAR OS ITENS DESSAS ESTRUTURAS.
+
+
+  OBS3: a ESTRUTURAS DE CONJUNTO DE DADOS aceita somente conjunto de elementos imutáveis (ou seja, aceita somente elementos que não podem ser modificados), como por exemplo os tipos de dados: string, 
+  número e tupla.
+
+    ex:
+      elementos = {'alex', 6, 5, 'eduardo', 20, 150, 19}
+
+
+  OBS4: existem duas maneiras de criar conjuntos no python, a primeira maneira é:
+
+      conjunto = {'alex', 6, 5, 'eduardo', 20, 150, 19}
+
+
+    já a segunda maneira, eu vou explicar de forma mais detalhada. 
+
+    -------------------------------------------
+    Criando um conjunto usando o método: set().
+	-------------------------------------------
+
+      thisset = set(("apple", "banana", "cherry")) # note a tupla de itens dentro do método: set()
+	  print(thisset) 
+
+
+    -------------------------------------------
+	Acessando itens de um conjunto:
+	-------------------------------------------
+      ex1:
+	    thisset = {"apple", "banana", "cherry"}
+
+	    for x in thisset:
+	      print(x) 
+
+      ex2:
+	    thisset = {"apple", "banana", "cherry"}
+
+	    print("banana" in thisset) 
+
+
+	-------------------------------------------
+    Adicionando itens ao conjunto:
+	-------------------------------------------
+	  -------------------------------
+	  adicionando 1 item ao conjunto
+	  -------------------------------
+	  ex1:
+        thisset = set()
+
+        thisset.add("apple")
+        thisset.add(6)
+        thisset.add("banana")
+        thisset.add(('Luiz', 20, 8))
+        thisset.add("cherry")
+
+        print(thisset)
+
+
+      ex2:
+	    thisset = {"apple", "banana", "cherry"}
+
+	    thisset.add("orange") # adiciona 1 item ao conjunto
+
+	    print(thisset) 
+
+
+	  -----------------------------------
+	  adicionando vários item ao conjunto
+	  -----------------------------------
+	  ex1:
+	    thisset = {"apple", "banana", "cherry"}
+		tropical = {"pineapple", "mango", "papaya"}
+
+		thisset.update(tropical) # adiciona vários itens ao conjunto
+
+		print(thisset) 
+
+
+      ex2:
+	    thisset = {"apple", "banana", "cherry"}
+		mylist = ["kiwi", "orange"]
+
+		thisset.update(mylist)
+
+		print(thisset) 
+
+
+	-------------------------------------------
+    Removendo itens ao conjunto:
+	-------------------------------------------
+	  -------------------------------
+	  removendo 1 item ao conjunto
+	  -------------------------------
+
+      ex1:
+		thisset = {"apple", "banana", "cherry"}
+
+		thisset.remove("banana")
+
+		print(thisset)
+
+
+	  ex2:
+	    thisset = {"apple", "banana", "cherry"}
+
+		thisset.discard("banana")
+
+		print(thisset) 
+
+
+	-------------------------------------------
+    removendo todos os itens do conjunto:
+	-------------------------------------------	
+    ex1:
+      thisset = {"apple", "banana", "cherry"}
+
+	  thisset.clear()
+
+	  print(thisset) 
+
+    
+	------------------------------------------------
+    excluindo a estrutura do conjunto do computador:
+	------------------------------------------------
+	ex1:
+	  thisset = {"apple", "banana", "cherry"}
+
+	  del thisset # deletou a estrutura do conjunto
+
+	  print(thisset) # vai dar erro porque a estrutura do conjunto não existe mais.
+
+
+
+---------------------------------------------------
+all() - a função all() retorna True se todos os itens em um interavel são verdadeira, caso contrário 
+retorna False. Se o objeto iteravel é vazio, a função all() também retorna Verdadeiro.
+---------------------------------------------------
+
+    -----------------------------------------
+     usando a função buil-in all() com lista
+    -----------------------------------------
+    ex1:
+        mylist = [0, 1, 1]
+        x = all(mylist)
+        print(x)
+
+        # Returns False because 0 is the same as False
+
+    -----------------------------------------
+     usando a função buil-in all() com tupla
+    -----------------------------------------
+    ex2:
+       mytuple = (0, True, False)
+       x = all(mytuple)
+       print(x)
+
+       # Returns False because both the first and the third items are False
+
+    -----------------------------------------
+     usando a função buil-in all() com conjunto (set)
+    -----------------------------------------
+    ex3:
+       myset = {0, 1, 0}
+       x = all(myset)
+       print(x)
+
+       # Returns False because both the first and the third items are False
+
+    -----------------------------------------------
+     usando a função buil-in all() com dicionário
+    -----------------------------------------------
+
+        mydict = {0 : "Apple", 1 : "Orange"}
+        x = all(mydict)
+        print(x)
+
+        # Returns False because the first key is false.
+
+        # For dictionaries the all() function checks the keys, not the values.
+
+
+
+---------------------------------------------------
+any() - 
+---------------------------------------------------
+
+

@@ -1,0 +1,617 @@
+#######################################
+#
+#  Módulo draw do pygame
+#
+#######################################
+
+O propósito desse módulo é desenhar LINHAS, CÍRCULOS e OUTRAS FORMAS GEOMÉTRICAS na tela. Você pode 
+usa-lo para criar um jogo completo sem carregar nenhuma imagem. O clássico jogo Asteroids do Atari
+é um exemplo de um ótimo jogo que utiliza somente formas desenhadas com linhas. Mesmo que 
+o módulo: pygame.draw não seja usado para crIar um jogo completo, você verá que ele é ÚTIL 
+PARA FAZER EXPERIMENTOS QUANDO VOCÊ NÃO QUISER SE DAR AO TRABALHO DE CRIAR IMAGENS. Esse módulo
+também poderá ser usado para desenhar um debug sobreposto ao seu jogo quando for necessário visualizar
+o que está acontecendo em seu código.
+
+Os DOIS PRIMEIROS PARÂMETROS DAS FUNÇÕES de: pygame.draw são A SUPERFÍCIE EM QUE 
+VOCÊ QUER RENDERIZAR - pode ser a tela (superfície de display) ou uma 
+superfície simples -  seguida da COR QUE VOCÊ QUER DESENHAR. CADA FUNÇÃO DE DESENHO também ACEITA 
+PELO MENOS UM PONTO E, POSSIVELMENTE, UMA LISTA DE PONTOS. Um PONTO DEVE SER ESPECIFICADO COMO UMA TUPLA 
+CONTENDO AS COORDENADAS x e y, em que (0,0) É O CANTO SUPERIOR ESQUERDO DA TELA.
+
+O VALOR DE RETORNO dessas funções de desenho É UM OBJETO: Rect que FORNECE A ÁREA DA TELA EM QUE 
+O DESENHO FOI FEITO; isso PODERÁ SER ÚTIL SE VOCÊ QUISER ATUALIZAR somente PARTES DA TELA QUE SOFRERAM ALTERAÇÕES. 
+
+
+
+
+pygame.draw.rect() - usado para desenhar retângulos sobre uma superfície, retornando a área retângular do desenho.
+    Esse método possui 4 parâmetros:
+
+        1 - insira uma superfície.
+        2 - insira uma cor (uma tupla com três valores representando: (r, g, b) )
+        3 - uma tupla com 4 valores representando os valores de uma área retangular: (v1, v2, v3, v4) ou 
+            um objeto do tipo: pygame.Rect() com os 4 valores dentro dos parênteses do: pygame.Rect(v1, v2, v3, v4).
+        4 - PARÂMETRO OPCIONAL (width=0) define se a área retângular será preenchida.
+
+            if width == 0, (default) o retângulo será preenchido
+            if width > 0, desenhará o retângulo sem preenchimento, definindo somente a grossura da borda retângular.
+            if width < 0, nada será desenhado.
+
+        OBS: Há outra maneira de desenhar retângulos preenchidos em um superfície. O método: .fill() de objetos surface
+        aceita um objeto do tipo Rect() que define a parte da superfície a ser preenchida - e desenha um retângulo
+        perfeitamente preenchido!
+        Com efeito, .fill() pode ser mais rápido que: pygame.draw.rect(); ele pode ser 
+        potencialmente acelerado por hardware (em outras palavras, pode ser executado pela placa de video, e não 
+        pelo processador principal).  
+
+
+
+    Exemplo de código usando o método: .rect():
+
+
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+    from random import randint
+    BLACK = (0, 0, 0)
+    RED = (225, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (200, 200, 0)
+    WHITE = (255, 255, 255)
+
+
+    pygame.init()
+    
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    clock = pygame.time.Clock()
+    FPS = 30
+
+    while True:
+
+        for event in pygame.event.get():
+	    if event.type == pygame.QUIT:
+		pygame.quit()
+		exit()
+
+
+	screen.lock()
+
+        for count in range(10):
+
+	    random_color = (randint(0, 255), randint(0, 255), randint(0, 255))
+            random_pos = (randint(0, 639), randint(0, 479))
+            random_size = (639-randint(random_pos[0], 639), 497-randint(random_pos[1], 479))
+            pygame.draw.rect(screen, random_color, Rect(random_pos, random_size))
+
+        screen.unlock()
+
+        clock.tick(FPS)
+        
+        pygame.display.update()
+
+
+		    
+
+    
+pygame.draw.circle() - usado para desenhar um circulo criado no pygame, retornando a área retângular do desenho.
+    Esse método possui 4 parâmetros:
+
+        1 - insira uma superficie.
+        2 - insira uma cor (uma tupla com três valores representando: (r, g, b))
+        3 - define a posição em que o centro do circulo ficará na tela. A posição pode ser:
+            
+            Uma tupla de números inteiros ou de ponto flutuante: (int or float)
+            Uma lista de dois números que sejam números inteiros ou de ponto flutuante: [int or float]
+            Uma classe Vector2() com números inteiros ou de ponto flutuante: pygame.Vector2(int or float, int or float)
+
+        4 - define o raio do circulo (linha que vai do centro do circulo até a borda do circulo), o valor 
+            pode ser uma tupla de: (int or float). Nada será desenhado se o valor do raio for menor do que: 1
+        5 - PARÂMETRO OPCIONAL (width=0) define se a área do círculo será preenchida.
+
+            if width == 0, (default) o círculo será preenchido
+            if width > 0, desenhará o círculo sem preenchimento, definindo somente a grossura da borda do círculo.
+            if width < 0, nada será desenhado.
+
+
+    Exemplo de código usando o método: .circle():
+
+
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+    from random import randint
+
+    BLACK = (0, 0, 0)
+    RED = (225, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (200, 200, 0)
+    WHITE = (255, 255, 255)
+
+
+    pygame.init()
+
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    clock = pygame.time.Clock()
+    FPS = 30
+
+    while True:
+
+        for event in pygame.event.get():
+	    if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+
+        for i in range(25):
+
+            random_color = (randint(0, 255), randint(0, 255), randint(0, 255))
+            random_pos = (randint(0, 639), randint(0, 479))
+            random_radius = (randint(1, 200))
+
+        pygame.draw.circle(screen, random_color, random_pos, random_radius)
+
+        clock.tick(FPS)
+
+        pygame.display.update()
+
+
+
+
+pygame.draw.polygon() - usado para desenhar um poligono no Pygame, retornando a área retângular do desenho.
+    Esse método possui 4 parâmetros:
+
+        1 - insira uma superficie.
+        2 - insira uma cor (uma tupla com três valores representando: (r, g, b))
+        3 - são os pontos. Os pontos são tuplas ou listas com valores (x,y), onde (x,y) representa
+            a posição em que cada ponto será desenhado na tela.
+        4 - PARÂMETRO OPCIONAL (width=0) define se a área do círculo será preenchida.
+
+            if width == 0, (default) o círculo será preenchido
+            if width > 0, desenhará o círculo sem preenchimento, definindo somente a grossura da borda do círculo.
+            if width < 0, nada será desenhado.  
+
+        OBS: o polígono é uma forma de desenhar vários lados, ou seja, pode ser qualquer forma geométrica, de
+        um triângulo a um poligono de mil lados ou mais. Uma chamada a: pygame.draw.poligon aceita uma lista
+        de pontos e desenha a forma constituída por esses pontos.
+
+
+    Exemplo de código usando o método: .polygon():
+
+
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+    from random import randint
+
+    BLACK = (0, 0, 0)
+    RED = (225, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (200, 200, 0)
+    WHITE = (255, 255, 255)
+
+
+    pygame.init()
+
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    points = []
+
+    clock = pygame.time.Clock()
+    FPS = 30
+
+    while True:
+
+        for event in pygame.event.get():
+	    if event.type == pygame.QUIT:
+		pygame.quit()
+		exit()
+
+	if event.type == pygame.MOUSEBUTTONDOWN:
+	    points.append(event.pos)
+
+	screen.fill(WHITE)
+
+	if len(points) >= 3:
+	    pygame.draw.polygon(screen, (0, 255, 0), points)
+
+	for point in points:
+            pygame.draw.circle(screen, (0, 0, 255), point, 5)
+
+
+	clock.tick(FPS)
+
+	pygame.display.update()
+
+
+
+
+pygame.draw.ellipse() - usado para desenhar uma elipse, retornando a área retângular do desenho.
+    Esse método possui 4 parâmetros:
+
+        1 - insira uma superfície.
+        2 - insira uma cor (uma tupla com três valores representando: (r, g, b) )
+        3 - uma tupla com 4 valores representando os valores de uma área retangular: (v1, v2, v3, v4) ou 
+            um objeto do tipo: pygame.Rect() com os 4 valores dentro dos parênteses do: pygame.Rect(v1, v2, v3, v4).
+        4 - PARÂMETRO OPCIONAL (width=0) define se a área retângular será preenchida.
+
+            if width == 0, (default) o retângulo será preenchido
+            if width > 0, desenhará o retângulo sem preenchimento, definindo somente a grossura da borda retângular.
+            if width < 0, nada será desenhado.
+
+        OBS: podemos pensar em uma elipse como um círculo esmagado. Se vc tomar um círculo e esticá-lo para que
+        caiba em um retângulo, ele se transformará em uma elipse. Além da superfície e da cor, o método: ellipse() aceita
+        um objeto do tipo: Rect() em que a elipse deverá se encaixar. Ela também aceita um parâmetro: (width=0), usado 
+        exatamente como no método: pygame.draw.rect() e em: pygame.draw.circle().
+
+
+    Exemplo de código usando o método: .ellipse():
+
+
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+    from random import *
+
+    BLACK = (0, 0, 0)
+    RED = (225, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (200, 200, 0)
+    WHITE = (255, 255, 255)
+
+
+    pygame.init()
+
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    clock = pygame.time.Clock()
+    FPS = 30
+
+    while True:
+
+        for event in pygame.event.get():
+	    if event.type == pygame.QUIT:
+                pygame.quit()
+		exit()
+
+
+	x, y = pygame.mouse.get_pos()
+	screen.fill(WHITE)
+
+	pygame.draw.ellipse(screen, GREEN, (0, 0, x, y))
+
+
+	clock.tick(FPS)
+
+	pygame.display.update()
+
+
+
+
+pygame.draw.arc() - usado para desenhar um arco, retornando a área retângular do desenho.
+    Esse método possui 6 parâmetros:
+
+        1 - insira uma superfície.
+        2 - insira uma cor (uma tupla com três valores representando: (r, g, b) )
+        3 - uma tupla com 4 valores representando os valores de uma área retangular: (v1, v2, v3, v4) ou 
+            um objeto do tipo: pygame.Rect() com os 4 valores dentro dos parênteses do: pygame.Rect(v1, v2, v3, v4).
+        4 - 
+        5 - 
+        6 - PARÂMETRO OPCIONAL (width=1, que diferente dos outros métodos da classe: pygame.draw, o valor padrão é: 1), que 
+        define a grossura da linha do arco.
+
+        OBS: A função .arc() desenha somente uma seção de uma elipse, porém somente a borda será desenhada; não há opção de 
+        preenchimetno para arc. Assim como a função de elipse, ela aceita um objeto de tipo: Rect() em que o arco 
+        deverá se encaixar (imagine um retângulo em volta do arco, é isso que o livro está querendo dizer, pq se vc 
+        prestar atenção, todas as formas geométricas desenhadas no computador, usa uma área retângular imaginária como 
+        base para desenhar na tela). A função: .arc() tbm aceita dois ângulos em radianos. O primeiro ângulo é o local
+        em que o desenho do arco deve iniciar na tela e o segundo ângulo define o local onde deve parar na tela.
+        O método: .arc() tbm tem um parâmetro opcional (width=1) onde o valor default é: 1, porém pode ser definido
+        com valores maiores para que a linha seja mais espessa. 
+ 
+
+    Exemplo de código usando o método: .arc():
+
+
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+    from random import *
+    from math import pi
+
+    BLACK = (0, 0, 0)
+    RED = (225, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (200, 200, 0)
+    WHITE = (255, 255, 255)
+
+
+    pygame.init()
+
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    clock = pygame.time.Clock()
+    FPS = 30
+
+    while True:
+
+        for event in pygame.event.get():
+	    if event.type == pygame.QUIT:
+	        pygame.quit()
+		exit()
+
+
+	screen.fill(WHITE)
+
+	x, y = pygame.mouse.get_pos()
+
+	angle = (x/639.)*pi*2.
+
+	pygame.draw.arc(screen, GREEN, (0, 0, 639, 479), 0, angle, width=3)
+
+
+	clock.tick(FPS)
+
+	pygame.display.update()
+
+
+
+
+pygame.draw.line() - desenha uma linha entre dois pontos na tela do Pygame, retornando a área retângular do desenho.
+    Esse método possui 5 parâmetros:
+
+        1 - insira uma superfície.
+        2 - insira uma cor (uma tupla com três valores representando: (r, g, b) )
+        3 - o ponto (x,y) Inicial na tela do Pygame.
+        4 - o ponto (x,y) Final na tela do Pygame.
+        5 - PARÂMETRO OPCIONAL (width=0) define a grossura da linha.
+
+
+    Exemplo de código usando o método: line():    
+
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+    from random import *
+
+    BLACK = (0, 0, 0)
+    RED = (225, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (200, 200, 0) 
+    WHITE = (255, 255, 255)
+
+
+    pygame.init()
+
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    clock = pygame.time.Clock()
+    FPS = 30
+
+    while True:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+
+        screen.fill(WHITE)
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        for x in range(0, 640, 20):
+            pygame.draw.line(screen, (0, 0, 0), (x, 0), mouse_pos)
+            pygame.draw.line(screen, (0, 0, 0), (x, 470), mouse_pos)
+
+        for y in range(0, 480, 20):
+            pygame.draw.line(screen, (0, 0, 0), (0, y), mouse_pos)
+            pygame.draw.line(screen, (0, 0, 0), (639, y), mouse_pos)
+
+        
+        clock.tick(FPS)
+
+        pygame.display.update()
+
+
+
+
+pygame.draw.lines() - desenha várias linhas na tela do Pygame, retornando a área retângular do desenho.
+    Esse método possui 5 parâmetros:
+    
+        1 - insira uma superfície.
+        2 - insira uma cor (uma tupla com três valores representando: (r, g, b) )
+        3 - um valor Booleano (True ou False) que indica se a linha será fechada entre o primeiro e o último ponto 
+            desenhado na tela.
+        4 - uma lista de duas ou mais posições (x,y) onde as linhas serão desenhadas na tela.        
+        5 - PARÂMETRO OPCIONAL (blend=0), se o valor de blend for diferente de zero (padrão), 
+            a linha será mesclada com os tons de pixel existentes da superfície, caso contrário, ele os sobrescreverá.
+
+
+
+    Exemplo de código usando o método: lines(): 
+
+
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+    from random import *
+
+    BLACK = (0, 0, 0)
+    RED = (225, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (200, 200, 0)
+    WHITE = (255, 255, 255)
+
+
+    pygame.init()
+
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    points = [(30, 60), (70, 90), (100, 200)]
+
+    clock = pygame.time.Clock()
+    FPS = 30
+
+    while True:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+        screen.fill(WHITE)
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        pygame.draw.lines(screen, (0, 0, 0), False, points, 2)
+
+        clock.tick(FPS)
+
+        pygame.display.update()
+
+
+
+
+pygame.draw.aaline() - usado para desenhar linhas com anti-aliasing, retornando a área retângular do desenho.
+    Esse método possui 5 parâmetros:
+
+        1 - insira uma superfície.
+        2 - insira uma cor (uma tupla com três valores representando: (r, g, b) )
+        3 - o ponto (x,y) Inicial na tela do Pygame.
+        4 - o ponto (x,y) Final na tela do Pygame.
+        5 - PARÂMETRO OPCIONAL (blend=0), se o valor de blend for diferente de zero (padrão), 
+            a linha será mesclada com os tons de pixel existentes da superfície, caso contrário, ele os sobrescreverá.
+
+    OBS: Talvez você tenha percebido, com base nas funções anteriores de desenho de linhas, 
+    que as linhas têm uma aprarência IRREGULAR. Isso ocorre porque um pixel pode ser desenhado
+    somente em uma coordenada de uma grade e poderá não estar posicionado  diretamente embaixo de uma
+    linha se ela não for horizontal ou vertical. Esse efeito é chamado de: ANTI-ALIASING - um efeito em que
+    os cientistas da área da computação investiram bastante trabalho para evitar. Qualquer técnica que
+    tente evitar ou reduzir o aliasing é chamada de: ANTI-ALIASING.
+    O Pygame pode desenhar linhas com antialiasing que parece significativamente mais suaves que as linhas
+    desenhadas por: pygame.draw.line. A função: pygame.draw.aaline() tem os mesmos 
+    parâmetros que: pygame.draw.line, porém desenha linhas mais suaves. A desvantagem das linhas com anti-aliasing
+    é que elas demoram mais para serem desenhadas do que as linhas normais, mas não muito mais. Utilize: pygame.draw.aaline() sempre
+    que a qualidade visual for importante.
+
+
+    Exemplo de código usando o método: aaline(): 
+
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+    from random import *
+
+    BLACK = (0, 0, 0)
+    RED = (225, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (200, 200, 0)
+    WHITE = (255, 255, 255)
+
+
+    pygame.init()
+
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    pos_initial = (30, 60)
+    pos_end = (70, 90)
+
+    clock = pygame.time.Clock()
+    FPS = 30
+
+    while True:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+        screen.fill(WHITE)
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        pygame.draw.aaline(screen, (0, 0, 0), pos_initial, pos_end, 20)
+
+        clock.tick(FPS)
+
+        pygame.display.update()
+
+
+
+
+pygame.draw.aalines() - desenha linhas com anti-aliasing no Pygame, retornando a área retângular do desenho.
+    Esse método possui 5 parâmetros:
+    
+        1 - insira uma superfície.
+        2 - insira uma cor (uma tupla com três valores representando: (r, g, b) )
+        3 - um valor Booleano (True ou False) que indica se a linha será fechada entre o primeiro e o último ponto 
+            desenhado na tela.
+        4 - uma lista de duas ou mais posições (x,y) onde as linhas serão desenhadas na tela.        
+        5 - PARÂMETRO OPCIONAL (blend=0), se o valor de blend for diferente de zero (padrão), 
+            a linha será mesclada com os tons de pixel existentes da superfície, caso contrário, ele os sobrescreverá.
+
+
+    Exemplo de código usando o método: aalines(): 
+
+
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+    from random import *
+
+    BLACK = (0, 0, 0)
+    RED = (225, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (200, 200, 0)
+    WHITE = (255, 255, 255)
+
+
+    pygame.init()
+
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    points = [(30, 60), (70, 90), (100, 200)]
+
+    clock = pygame.time.Clock()
+    FPS = 30
+
+    while True:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+        screen.fill(WHITE)
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        pygame.draw.aalines(screen, (0, 0, 0), False, points, 2)
+
+        clock.tick(FPS)
+
+        pygame.display.update()
+
+
+
+ 

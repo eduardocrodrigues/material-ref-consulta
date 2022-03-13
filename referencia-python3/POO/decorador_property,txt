@@ -1,0 +1,174 @@
+################################
+#
+#  Property Python POO
+#
+################################
+O decorador: @property é usado no Python para VERIFICAÇÃO DE ENTRADA DE DADO 
+EM UM ATRIBUTO. É o decorador: @property que acrescenta as funcionalidades 
+conhecidas em outras linguagens como: getter e setter. 
+
+-----------------------------------------
+ Como funciona o encapsulamento no Python
+-----------------------------------------
+  Antes de aprendermos a usar o decorador: @property, precisamos de saber como funciona
+os atributos: publicos, protegidos e privados no Python.
+
+    Atributos publicos (public) - podem ser acessados dentro e fora da classe.
+
+	    exemplo notação Python para ATRIBUTOS PUBLICOS:
+            self.atributo = valor
+
+
+    Atributos protegidos (protected) - em outras linguagens, os atributos protegidos podem
+    ser acessados APENAS DENTRO DA CLASSE PAI ou DENTRO DAS CLASSES FILHAS, mas no Python,
+    ATRIBUTOS PROTEGIDOS NÃO EXISTE, o que existe é uma CONVENÇÃO que diz que, SE VC  
+    ENCONTRAR A NOTAÇÃO ABAIXO EM UM ATRIBUTO DE UMA CLASSE, NÃO ACESSE ESSE ATRIBUTO !!!
+
+        exemplo notação Python para ATRIBUTOS PROTEGIDOS:
+            self._atributo = valor  # possui 1 underscore antes do nome do atributo
+
+
+    Atributos privados (private) - o atributo FICA DISPONÍVEL SOMENTE PARA A CLASSE ONDE O 
+    ATRIBUTO FOI CRIADO. 
+
+        exemplo notação Python para ATRIBUTOS PRIVADOS:
+            self.__atributo = valor  # possui 2 underscores antes do nome do atributo
+
+
+-----------------------------------------------
+ Entendendo como aplicar o decorador: @property
+-----------------------------------------------
+  No Python, por padrão, todos os atributos são publicos, isso significa que podemos alterar
+o valor do atributo diretamente pelo atributo da classe.
+
+    ex:
+        class Aluno:
+
+            def __init__(self, numero, nome, curso, ano, saldo):
+                self.numero = numero
+                self.nome = nome
+                self.curso = curso
+                self.ano = ano
+                self.saldo = saldo
+
+        aluno = Aluno(15000, "Joana", "Artes", 1, 100)
+        print(aluno.numero)
+        aluno.numero = 15500 # ALTERANDO O VALOR DO ATRIBUTO DIRETAMENTE PELO ATRIBUTO !!!
+        print(aluno.numero) 
+
+
+Mas vamos supor que por algum motivo, não queremos que um atributo tenha o seu valor
+alterado diretamente pelo atributo da classe, e para exemplificar isso, vamos usar 
+o atributo: self.numero como exemplo.
+
+Se vc prestar atenção no código da classe: Aluno(), NÃO FAZ SENTIDO QUE O VALOR 
+DO ATRIBUTO: self.numero (que é um NÚMERO DE RA - REGISTRO ACADEMICO) RECEBA UM VALOR NEGATIVO, 
+
+    ex:
+        aluno.numero = -100 # NÃO FAZ SENTIDO O NUMERO DO RA ser CONFIGURADO com VALOR NEGATIVO !!!
+
+pq seja lá qual for a instituição a qual esse aluno está matriculado, O VALOR DO 
+ATRIBUTO: self.numero (ou seja, o NUMERO DO REGISTRO ACADEMICO do aluno) TEM QUE SER POSITIVO. Para resolvermos 
+esse problema, podemos criar regras para fazermos com que a classe NÃO ACEITE VALORES NEGATIVOS 
+NO ATRIBUTO: self.numero. Para isso, eu vou criar uma regra que diz que SE O VALOR FOR INFERIOR A ZERO, 
+EU NÃO VOU ACEITAR O NÚMERO, PQ O NÚMERO SERÁ NEGATIVO.
+
+Na classe Aluno(), no atributo: self.numero, vamos usar a convenção: self._numero (que seria o protected em outras linguagens, como: java, C#, etc...), que diz que O ATRIBUTO NÃO DEVE SER ACESSADO DE FORA DA CLASSE:
+
+    ex:
+        class Aluno:
+
+            def __init__(self, numero, nome, curso, ano, saldo):
+                self._numero = numero  # atributo usando a convenção: protected, indicando que o atributo não deve ser acessado de fora da classe !!!
+                self.nome = nome
+                self.curso = curso
+                self.ano = ano
+                self.saldo = saldo
+
+
+Após inserir a convenção: protected (ou seja: self._atributo) em um atributo do Python, vamos entender melhor
+como funciona o decorador: @property, para podermos aplica-lo dentro da classe. 
+
+Mas o que é o: @property?, O decorador: @property é um decorador Python usado para acrescentar 
+as funcionalidades: getter (getter significa OBTER UM VALOR) e setter (setter significa ALTERAR UM VALOR) em 
+um método.
+
+
+----------------------------------------------------
+ Como configurar a funcionalidade: getter, no Python
+-----------------------------------------------------
+  Para configurar a funcionalidade: getter no Python, CRIAMOS um MÉTODO DE NOME PARECIDO COM O NOME DO
+ATRIBUTO ENCAPSULADO (ou seja, o nome do método será: numero). Dentro do método: def numero(self), RETORNAMOS O
+VALOR DO ATRIBUTO ENCAPSULADO (ou seja: return self._numero), e EM CIMA DO MÉTODO: def numero(), INSERIMOS 
+O DECORADOR: @property. A partir desse momento, ESSE MÉTODO CRIADO COM O DECORADOR: @property DENTRO DA CLASSE, 
+é INTERPRETADO PELO PYTHON COMO SE FOSSE um ATRIBUTO DA CLASSE.
+
+    ex:
+        @property  # ao usar o decorador: @property, o MÉTODO SE TRANSFORMA EM UM ATRIBUTO DA CLASSE !!!
+        def numero(self):
+            return self._numero
+
+Se criarmos agora uma instância da classe: Aluno(), e fizermos a chamada do método configurado com
+o decorador: @property, será retornado o valor do atributo encapsulado (ou seja, retornará o 
+valor de: self._numero).
+
+    ex:
+        class Aluno:
+
+		    def __init__(self, numero, nome, curso, ano, saldo):
+		        self._numero = numero  # atributo usando a convenção: protected, indicando que o atributo não deve ser acessado de fora da classe !!!
+		        self.nome = nome
+		        self.curso = curso
+		        self.ano = ano
+		        self.saldo = saldo
+
+
+        lucas = Aluno() # criando a instância...
+        print(lucas.numero) # o método: def numero(), configurado com: @property, se transforma em um atributo da classe, retornando o valor do atributo encapsulado (self._numero). 
+
+Essa é a forma como configuramos a funcionalidade: getter, no Python !!!
+
+
+
+----------------------------------------------------
+ Como configurar a funcionalidade: setter, no Python
+----------------------------------------------------
+
+Antes de tudo, para conseguirmos configurar a funcionalidade: setter, TEMOS QUE TER OBRIGATORIAMENTE 
+A FUNCIONALIDADE: getter JÁ IMPLEMENTADA NO CÓDIGO, pq a funcionalidade: setter DEPENDE DA 
+FUNCIONALIDADE: getter.
+
+Para implementar a funcionalidade setter, CRIAMOS UM NOVO MÉTODO CONTENDO O MESMO NOME DO MÉTODO getter, 
+definimos tbm um parâmetro para a função: setter (como por exemplo: valor), esse parâmetro é usado 
+pelo método setter para RECEBER O NOVO VALOR QUE SERÁ ATRIBUIDO AO ATRIBUTO ENCAPSULADO, e EM CIMA DO 
+MÉTODO SETTER, INSERIMOS O DECORADOR: @nomeDoMetodoGetter.setter, que no caso desse exemplo, 
+é: @numero.setter.
+
+  OBS: deixa eu explicar melhor o que significa esse decorador: @numero.setter:
+
+    @ - caracter usado em todo inicio de definição de decoradores no Python.
+
+    numero - é o nome do método definido do getter.
+
+    .setter - é a funcionalidade que permite que o método possa fazer a alteração do valor do 
+    atributo definido dentro do método getter.
+
+
+    ex:
+        @numero.setter
+        def numero(self, valor):
+            if numero < 0:
+                print("o número não pode ser negativo")
+
+            else:
+                self._numero = valor 
+
+
+
+
+
+
+
+
+
+

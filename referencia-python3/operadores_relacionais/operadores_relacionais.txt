@@ -1,0 +1,31 @@
+###################################
+#
+# Operadores relacionais
+#
+###################################
+
+=  operador de atribuição
+
+==  operador de comparação de igualdade
+
+!=  operador diferente de.
+
+>  operador maior que.
+
+<  operador menor que.
+
+>= operador maior igual a.
+
+<= operador menor igual a.
+
+
+####################################################################################
+# OBS: a barra invertida não é um operador relacional,eu só coloquei aqui pq quando 
+# mudamos de linha para escrever a linha de código que ainda pertence a linha anterior, 
+# isso significa que a linha de baixo ainda tem relação com a linha de cima, só por isso 
+# coloquei essa anotação aqui !!!
+
+\ A barra invertida fora de strings serve para indicar uma mudança de linha
+sem sair do contexto da linha atual (isso é, depois de uma \, você pode continuar 
+a linha atual na linha de baixo normalmente)
+

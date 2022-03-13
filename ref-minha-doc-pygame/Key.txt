@@ -1,0 +1,196 @@
+#####################################
+#
+# Modulo key Pygame
+#
+#####################################
+
+Há duas maneiras de detectar um pressionamento de tecla  no Pygame. Uma maneira consiste em
+tratar os eventos: KEYDOWN, gerados quando a telca é pressionada, e os eventos: KEYUP, gerados
+quando a tecla é solta.
+
+Toda tecla tem uma CONSTANTE DE TECLA associada, que é um valor que pode ser usado para identificar
+a tecla no código. Toda constante começa com: K_. Há constantes para letras (K_a a K_z), números (K_0 a K_9), além de
+várias outras constantes como: K_f1, K_LEFT e K_RETURN. Consulte a documentação do Pygame para obter
+uma lista completa: (http://www.pygame.org/docs/ref/key.html). Como há constantes de K_a a K_z, você poderia
+esperar que houvesse versões equivalentes para as letras maiúsculas - mas não há. O motivo para isso é que
+as letras maiúsculas resultam da combinação de teclas (Shift + tecla). Se houver necessidade
+de detectar letras maiúsculas ou outras teclas com a tecla: Shift, utilize o parâmetro: UNICODE, dos eventos de tecla,
+que contém o resultado dessas combinações de teclas.
+
+É necessário saber que diversos teclados têm regras variadas
+para a quantidade de teclas simultaneamente pressionadas que pode ser tratada. Se vc observar os teclados para jogos,
+perceberá que eles quase sempre listam a quantidade de teclas simultaneamente pressionadas permitida,
+como propaganda para venda. Muitos teclados baratos tratam poucas teclas pressionadas simultaneamente,
+por exemplo, de 3 a 5 teclas, enquanto os teclados para jogos podem tratar algo em torno de 22 teclas ou mais.
+
+Você não só deve condiserar o fato de que seus jogadores podem não ter o melhor dos teclados, mas também deverá ter em mente que,
+de qualquer modo, eles têm apenas dez dedos no total, porém, geralmente, terão apenas cinco dedos disponíveis,
+pois uma mão estará provavelmente estará ocupada com o mouse. Há muitos gamers, porém, que pressionam
+duas ou mais teclas com um só dedo.
+
+
+
+
+pygame.key.get_pressed() - retorna uma lista de valores boleanos (valores 0 ou 1, tbm conhecido
+como: True ou False).
+    Esse método NÃO POSSUI parâmetros.
+
+    OBS: Esses valores boleanos dentro dessa lista retornada representam os números SCANCODE das teclas.
+    O NÚMERO DE ÍNDICE de cada item na lista, É O NOME DA CONSTANTE da tecla pressionada. Por exemplo,
+    se vc pressionar a tecla: c, o VALOR DENTRO DA LISTA do método: get_pressed() mudará para 1, e se vc pegar
+    o NÚMERO DO INDICE (ou seja, O NÚMERO DA POSIÇÃO em QUE O NÚMERO TROCADO ESTÁ NA LISTA, que no caso da
+    letra: c, fica na posição: 6, na lista de valores boleanos), esse número de indice É O NOME DA CONSTANTE do número pressionado,
+    que no caso da letra: c, é o nome: pygame.K_c.
+
+    ex:
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+
+
+    pygame.init()
+
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    font = pygame.font.SysFont('arial', 32)
+    font_height = font.get_linesize()
+
+    while True:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+
+        screen.fill((255, 255, 255))
+
+        pressed_key_text = []
+        pressed_keys = pygame.key.get_pressed()
+
+
+        y = font_height
+
+        #####################################################
+        # o ÍNDICE DA TECLA PRESSIONADA na lista (ou seja, key_constant) é o número: scancode,
+        # da tecla pressionada.
+        #
+        # e o valor dentro da lista (ou seja, pressed), é o valor boleano.
+        for key_constant, pressed in enumerate(pressed_keys):
+            if pressed:
+                print(key_constant, pressed)
+
+                ###########################################
+                # INSERIMOS O NÚMERO DO ÍNDICE da lista: pressed_keys (ou seja, INSERIMOS
+                # O NÚMERO: scancode da tecla), NO PARÂMETRO no método: name(),
+                # RETORNANDO UMA STRING (ou seja, o nome da tecla).
+                key_name = pygame.key.name(key_constant)
+
+                text_surface = font.render(key_name + " pressed", True, (0,0,0))
+                screen.blit(text_surface, (8, y))
+                y += font_height
+
+
+        pygame.display.update()
+
+
+
+
+pygame.key.name() - aceita o número de uma tecla no parâmetro, e retorna uma string como uma descrição da tecla.
+    Esse método possui 1 parâmetro:
+
+        1 - o número da tecla, que pode ser o número SCANCODE ou o número da KEY da tecla) que é a chave identificadora da tecla.
+
+    OBS: vc insere o número que representa a tecla do teclado, e esse método retorna o nome dessa tecla.
+
+    OBS2: essa função aceita uma constante KEY_ e retorna uma string descritiva para esse valor. É conveniente
+    para debugging, pois, quando o código está executando, podemos ver somente o valor de uma constante de tecla,
+    e não o seu nome. Por exemplo, se um evento: KEYDOWN de uma tecla for obtido com um valor igual a 103, poderemos
+    usar: pygame.key.name() para exibir o nome da tecla (que, nesse caso, é: "g").
+
+    ex:
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+
+
+    pygame.init()
+
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    font = pygame.font.SysFont('arial', 32)
+    font_height = font.get_linesize()
+
+    while True:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+
+        screen.fill((255, 255, 255))
+
+        pressed_key_text = []
+        pressed_keys = pygame.key.get_pressed()
+
+
+        y = font_height
+
+        #####################################################
+        # o ÍNDICE DA TECLA PRESSIONADA na lista (ou seja, key_constant) é O NOME DA CONSTANTE DA TECLA,
+        # exemplo de nomes de constantes de teclas: (pygame.K_a, pygame.k_c, pygame.K_f, etc...)
+        #
+        for key_constant, pressed in enumerate(pressed_keys):
+            if pressed:
+                print(key_constant, pressed)
+
+                ###########################################
+                # INSERIMOS O NÚMERO DO ÍNDICE da lista: pressed_keys, no parâmetro do método: name().
+                key_name = pygame.key.name(key_constant)
+
+                text_surface = font.render(key_name + " pressed", True, (0,0,0))
+                screen.blit(text_surface, (8, y))
+                y += font_height
+
+
+        pygame.display.update()
+
+
+
+
+pygame.key.get_focused() - uma janela do Pygame recebe eventos de teclado
+somente quando a janela tiver foco, em geral quando a barra de título da janela for clicada.
+Isso vale para todas as janela de vível mais alto.
+A função: get_focused() retornará True se a janela tiver foco e puder receber eventos de teclado;
+caso contrário, ela retornará False. Quando o Pygame estiver executando em modo tela cheia, ele
+sempre terá foco, pois não será necessário compartilhar a tela com outras aplicações.
+
+
+
+
+pygame.key.get_mods() - retorna um único valor que informa quais teclas modificadoras estão pressionadas.
+As teclas modificadoras são teclas como: Shift, Alt e Ctrl, usadas em combinação com outras teclas. Para
+verificar se uma tecla modificadora está pressionada, utilize o operador AND bit a bit (&) com uma
+das constantes KMOD_. Por exemplo, para verificar se a tecla Shift esquerda  está pressionada,
+utilize: pygame.key.get_mods() & KMOD_LSHIFT.
+
+
+
+
+pygame.key.set_mods() - você também poderá definir uma das telas modificadoras
+para que simule o efeito de uma tecla sendo pressionada. Para definir uma ou mais teclas modificadoras,
+combine as constantes KMOD_ com o operador OR bit a bit (|), Por exemplo, para definir
+as teclas: Shift e Alt, podemos usar: pygame.key.set_mods(KMOD_SHIFT | KMOD_ALT).
+
+
+
+pygame.key.set_repeat() - se abri um editor de texto favorito e mantiver uma tecla de letra pressionda,
+voce verá que, após um pequeno intervalo de tempo, a tecla começará a se repetir, o que será útil
+se vc quiser digitar um caractere diversas vezes sem pressionar e soltar a tecla repetidamente.
+Você pode pedir ao Pygame que envie eventos KEYDOWN repetidos usando a função: set_repeat(),
+que aceita um intervalo de tempo inicial (em milisegundos) antes da tecla ser repetida e um valor
+para o intervalo de tempo entre as teclas repetidas posteriormente (em milisegundos). A repetição
+de teclas pode ser desabilitada se chamarmos: pygame.key.set_repeat() sem nenhum parâmetro.

@@ -1,0 +1,14 @@
+######################################
+#
+# mòdulo transform Pygame
+#
+######################################
+
+pygame.transform.rotate() - rotaciona uma superfície, retornando a superfície rotacionada.
+    Esse método possui 2 parâmetros:
+
+        1 - insira a superfície que vc quer rotacionar.
+        2 - insira o valor do angulo que vc quer rotacionar a superfície. A rotação
+            será no sentido anti-horário se o valor inserido for positivo. (o argumento angulo
+            representa graus e pode ser qualquer valor de ponto flutuante. Valores negativos
+            irão rotacionar no sentido horário).

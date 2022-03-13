@@ -1,0 +1,84 @@
+############################################
+#
+#    pyenv - gerenciador de versões do python
+#
+############################################
+
+ O pyenv é um ambiente de gerenciamento de versões do Python. Ele permite que 
+se instale e gerencie várias versões do Python na home do usuário logado na
+máquina, isolando as versões instaladas no pyenv,das versões do sistema operacional.
+
+
+===========================
+    como instalar o pyenv
+===========================
+
+ primeiro, precisamos instalar as dependências do pyenv:
+
+   sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm 
+   gettext libncurses5-dev tk-dev tcl-dev blt-dev libgdbm-dev git python-dev python3-dev aria2
+
+
+ depois, instalamos o pyenv com o comando:
+
+    curl https://pyenv.run | bash
+
+
+ após terminar a instalação, será criado a pasta oculta .pyenv na home do usuário e 
+ devemos copiar as ultimas três linhas que  aparece no terminal para 
+ colar no final do arquivo .bashrc
+
+    export PATH="/home/nomeUsuarioLogado/.pyenv/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+
+
+ e pronto, o pyenv está instalado !!!
+
+
+
+=============================
+    Comandos pyenv
+=============================
+ 
+ pyenv versions - exibe as versões python instaladas no ambiente pyenv e tbm 
+ mostra a versão padrão instalada no sistema operacional. A versão padrão 
+ instalada no sistema operacional é exibida no pyenv com o nome system.
+
+ pyenv install -list - exibe uma lista das versões python disponiveis para serem 
+ instaladas no pyenv.
+
+ pyenv install numeroDaVersão - usado para baixar a versão disponivel no pyenv.
+    OBS: no terceiro parâmetro, inserimos somente o número da versão do 
+     python que queremos, ex:
+
+	pyenv install 3.7.3
+
+    OBS2: todas as versões baixadas serão inseridas na pasta oculta .pyenv, dentro 
+    da pasta home do usuário logado.
+
+    OBS3: o comando:
+
+	ls .pyenv/versions/numeroDaVersãoDoPythonInstaladaNoPyenv/bin
+
+    exibe os arquivos de configuração da versão do python, como: pip, pip3, etc...
+
+
+ pyenv global numeroVersãoDoPython - faz a troca para usar outra versão do python.
+   OBS: quando vc troca de versão do python, é necessário abrir uma nova aba do 
+    terminal e usar essa nova aba para que o efeito da troca seja aplicado. 
+  
+   OBS2: se vc digitar o comando linux:
+       
+       which python
+  
+   vc verá que o caminho exibido na tela do terminal se refere ao python instalado 
+   na pasta oculta do pyenv, ex:
+
+       /home/nomeDoUsuarioLogado/.pyenv/shims/python
+
+
+ 
+
+
+ 

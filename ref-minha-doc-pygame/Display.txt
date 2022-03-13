@@ -1,0 +1,124 @@
+#######################################
+#
+#	Classe Display do Pygame 
+#
+#######################################
+
+===========================================================
+ Trechos IMPORTANTES tirado do livro: Introdução ao Pygame
+===========================================================
+O Pygame possui uma variedade de opções de displays. O tipo do display criado depende do jogo. Geralmente,
+será mais fácil usar uma resolução fixa (um tamanho fixo para a tela do jogo), pois isso simplificará o 
+seu código. Sua decisão também dependerá do nível de ação que o jogo terá - quanto mais itens em 
+movimento você tiver na tela ao mesmo tempo, mais lenta será a execução do jogo. Talvez você 
+precise compensar isso ao selecionar uma resolução (tamanho da tela) mais baixa (o que deixará o jogo mais
+rápido novamente). 
+
+A melhor solução normalmente é deixar os jogadores decidirem a resolução com a qual eles querem executar,
+de modo que eles possam ajustar o display até terem um bom compromisso entre a qualidade visual e a suavidade com
+que o jogo será executado.
+
+O modo de tela cheia (Full-screen) geralmente é mais rápido porque o seu script Pygame não precisa trabalhar em 
+conjunto com outras janelas em seu desktop. Para definir o modo de tela cheia, utilize a flag: FULLSCREEN como o
+segundo paràmetro do método: set_mode():
+
+  screen = pygame.display.set_mode((640, 480), FULLSCREEN, 32)
+
+  OBS: Se algo der errado com seu script em modo de tela cheia, talvez seja dificil retornar ao seu desktop. Sendo assim,
+  será melhor testá-lo antes em uma janela. Você também poderá oferecer uma maneira alternativa de sair do script (criando 
+  um código que ativa e desativa o modo fullscreen), pois o botão de fechamento não estará visivel em modo de tela cheia.
+
+============================================================
+ Flags para usuários avançados no pygame
+============================================================
+Há algumas flags que podem ser chamadas ao usar pygame.display.set_mode(). Eu as considero avançadas, pois elas podem
+comprometer o desenpenho se forem usadas incorretamente ou podem causar problemas de compatibilidade em algumas 
+plataformas (Linux, Mac). Geralmente, é melhor usar o valor 0 para displays com janelas e FULLSCREEN para displays de
+tela cheia para garantir que seu jogo funcionará bem em todas as plataformas. Apesar do que foi dito, se 
+souber o que está fazendo, você poderá definir algumas flasgs avançadas para obter um desempenho melhor. Também não há 
+problema algum em experimentar (não causará danos em seu computador).
+
+Se vc definir a flag HWSURFACE, ela criará o que chamamos de: (superfície de hardware). Esse é um tipo especial de 
+superfície de display que é armazenado na memória de sua placa de vídeo. Ele poderá ser usado somente em combinação com 
+a flag FULLSCREEN, da seguinte maneira:
+
+  screen = pygame.display.set_mode(SCREEN_SIZE, HWSURFACE | FULLSCREEN, 32)
+
+as superfícies de hardware podem ser mais rápidas que as superfícies criadas na memória do sistema (superfícies normais), pois
+elas podem tirar proveito de mais recursos de sua placa de vídeo para agilizar o blitting. A desvantagem das 
+superfícies de hardware está no fato de elas não serem tão bem suportadas em todas as plataformas. Elas tendem a funcionar melhor
+nas plataformas Windows, mas não tão bem em outras plataformas. As superfícies de hardware também se beneficiam 
+com a flag DOUBLEBUF. Com essa flag, duas superfícies de hardware são criadas, mas somente uma 
+será visível em determinado instante. A linha a seguir cria uma superfície de hardware com buffer duplo (double-buffered):
+
+  screen = pygame.display.set_mode(SCREEN_SIZE, DOUBLEBUF | HWSURFACE | FULLSCREEN, 32)      
+
+Normalmente, ao chamar pygame.display.update(), uma tela completa é copiada da memória para o display - o que pode demorar
+um pouco. As superfícies com buffer duplo permitem alternar instantaneamente para a nova tela e, desse modo, deixam o seu
+jogo um pouco mais rápido.
+
+A última flag de display que podemos usar é OPENGL. A OpenGL (www.opengl.org) é uma biblioteca gráfica que usa a 
+aceleração gráfica 3D, encontrada praticamente em todas as placas de vídeo. A desvantagem de usar essa flag é que
+você não poderá mais usar as funções gráficas 2D do pygame. Discutiremos o uso da OpenGL para criar imagens 3D no cap.09. 
+
+  NOTA: Se vc estiver usando um display com buffer duplo, chame pygame.display.flip() em vez de pygame.display.update(). Isso fará
+  uma mudança instantanea do display em vez de efetuar uma cópia dos dados da tela.
+  
+
+
+
+=============================
+ métodos da classe display 
+=============================
+
+pygame.display.list_modes() - retorna uma lista de tuplas contendo as resoluções (tamanhos de tela) que a tela do computador suporta.
+    Esse método não possui parâmetro.
+
+        ex: pygame.init()
+	    pygame.display.list_modes() # retorna a lista de resoluções (tamanhos de tela) suportados
+
+
+
+pygame.display.set_mode() - usado para criar a tela do pygame.
+    Esse método possui 3 parâmetros:
+	
+	1 - uma tupla que define a LARGURA e ALTURA da tela.
+	2 - (opcional) usamos flags para a janela do pygame. Vamos aprender algumas delas:
+
+		FULLSCREEN - Cria um display que preenche a tela inteira.
+		DOUBLEBUF - Cria um display "double-buffered" (com buffer duplo). Recomendado para HWSURFACE ou para OPENGL.
+		HWSURFACE - Cria um display acelerado por hardware (hardware-accelerated; deve ser combinada com a flag: FUULSCREEN)
+		OPENGL - Cria um display renderizavel com Opengl.
+		RESIZABLE - Cria um display que pode ser redimensionado.
+		NOFRAME - Remove a barra de título do display.
+	
+	3 - valor de profundidade de bits (número de cores) para a tela. Vamos aprender alguns deles:
+
+		8 - representa (8 bits), usa até 256 cores, selecionadas a partir de uma PALETA maior de cores.
+		15 - representa (15 bits), usa 32.768 cores, com um bit extra.
+		16 - representa (16 bits), usa 65.536 cores.
+		24 - representa (24 bits), usa 16.7 milhões de cores.
+		32 - representa (32 bits), usa 16.7 milhões de cores, com 8 bits extras.
+
+	OBS: é possível ter outras profundidades de bits, porém esses são os valores mais comuns.
+
+		 
+
+
+pygame.display.set_caption() - usado para inserir texto na janela do pygame.
+    Esse método possui 1 parâmetro:
+
+	1 - insira uma string dentro dos parênteses do método: set_caption()
+
+
+pygame.display.update() - método usado para atualizar a tela do pygame.
+
+    OBS: esse método não possui parametros e não retorna nada !!!
+
+
+
+		
+
+
+
+    

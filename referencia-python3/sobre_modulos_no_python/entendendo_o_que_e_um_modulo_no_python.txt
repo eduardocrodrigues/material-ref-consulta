@@ -1,0 +1,369 @@
+##########################################
+#
+# Entendendo o que é um módulo no Python
+#
+##########################################
+
+--------------------------
+Então, o que é um módulo? 
+--------------------------
+
+O Tutorial Python define-o como um arquivo contendo definições e declarações Python, 
+que pode ser posteriormente importado e utilizado quando necessário.
+
+A manipulação de módulos consiste em duas questões diferentes:
+
+  O conceito Utilizador vs. Supplier
+
+    o primeiro (o conceito do: Utilizador, que é provavelmente o mais comum) acontece quando 
+    se pretende utilizar um módulo já existente, escrito por outra pessoa, ou criado por si próprio durante 
+    o seu trabalho em algum projeto complexo - neste caso você é o utilizador do módulo;
+
+    o segundo (que é o conceito do: Forneceddor (Supplier)) ocorre quando se pretende criar um novo módulo, 
+    quer para uso próprio, quer para facilitar a vida a outros programadores - você é o fornecedor do módulo.
+
+Vamos discuti-los separadamente.
+
+Em primeiro lugar, um módulo é identificado pelo seu nome (que é o: NOME DO ARQUIVO). Se quiser utilizar qualquer módulo, 
+precisa de saber o nome. Um número (bastante grande) de módulos é entregue juntamente com o próprio Python. Pode 
+pensar neles como uma espécie de “equipamento extra de Python”.
+
+Todos estes módulos, juntamente com as funções integradas, formam a Python standard library - um tipo especial de biblioteca 
+onde os módulos (que são os arquivos dentro das pastas) desempenham o papel de livros (podemos mesmo dizer que as pastas 
+desempenham o papel de prateleiras). Se quiser ver a lista completa de todos os “volumes” recolhidos nessa biblioteca, 
+pode encontrá-la aqui: https://docs.python.org/3/library/index.html.
+
+
+Cada módulo (ou seja, cada arquivo), consiste em entidades (como um livro consiste em capítulos). Estas entidades 
+podem ser funções, variáveis, constantes, classes e objetos. Se souber como aceder (acrescentar conteúdo) a um determinado módulo, 
+pode fazer uso de qualquer uma das entidades que ele armazena.
+
+
+
+---------------------
+Importar um módulo
+---------------------
+
+Para tornar um módulo utilizável, deve importá-lo (pense nisto como tirar um livro da prateleira). Importar um módulo é feito 
+por uma instrução chamada import. 
+
+  Nota: import é também uma keyword (com todas as consequências deste facto).
+
+
+Vamos supor que deseja utilizar duas entidades fornecidas pelo módulo math :
+
+    um símbolo (constante) representando um valor preciso (o mais preciso possível usando aritmética de 
+    duplo floating-point) de π (embora a utilização de uma letra grega para nomear uma variável seja totalmente 
+    possível em Python, o símbolo é nomeado pi - é uma solução mais conveniente, especialmente para aquela parte do mundo que 
+    não tem nem vai usar um teclado grego) uma função chamada: sin() (o equivalente informático da função seno matemática)
+
+Ambas as entidades estão disponíveis através do módulo math, mas a forma como pode utilizá-los depende fortemente de como a importação foi feita.
+
+
+A maneira mais simples de importar um módulo específico é utilizar a instrução de importação da seguinte forma:
+
+  import math
+
+  A cláusula contém:
+
+    a keyword import ;
+    o nome do módulo que está sujeito a importação.
+
+
+A instrução pode estar localizada em qualquer parte do seu código, mas DEVE SER COLOCADA ANTES DA PRIMEIRA UTILIZAÇÃO DE
+QUALQUER UMA DAS ENTIDADES DO MÓDULO.
+
+Se quiser (ou tiver de) importar mais do que um módulo, pode fazê-lo repetindo a cláusula import (de preferência):
+
+  import math
+  import sys
+
+
+ou listando os módulos após a keyword import , como aqui:
+
+  import math, sys
+
+
+A instrução importa dois módulos, primeiro o chamado: math e, em seguida, o segundo chamado: sys.
+
+A lista dos módulos pode ser arbitrariamente longa.
+
+
+
+---------------------------------
+Importar um módulo: continuação
+---------------------------------
+
+Para continuar, é preciso familiarizar-se com um termo importante: namespace. Não se preocupe, 
+não entraremos em grandes detalhes - esta explicação será tão curta quanto possível.
+
+Um namespace é um espaço (entendido num contexto não físico) no qual alguns nomes existem, 
+e os nomes não entram em conflito entre si (ou seja, não existem dois objetos diferentes com o mesmo nome). Podemos dizer que 
+cada grupo social é um namespace - o grupo tende a nomear cada um dos seus membros de uma forma única (por exemplo, 
+os pais não dão aos seus filhos os mesmos nomes próprios).
+
+  
+  O conceito de namespace é o conceito de um nome (por exemplo, a lib: math) atribuído 
+  a um grupo de entidades (por exemplo, o método: sin(), ou a propriedade: pi, da lib math)
+
+
+Esta singularidade pode ser conseguida de várias maneiras, por exemplo, utilizando alcunhas juntamente com os nomes próprios (funcionará 
+dentro de um pequeno grupo como uma turma numa escola) ou atribuindo identificadores especiais a todos os membros do grupo (o Número 
+de Segurança Social é um bom exemplo de tal prática).
+
+Dentro de um determinado namespace, cada nome deve permanecer exclusivo. Isto pode significar que alguns nomes podem desaparecer, 
+quando qualquer outra entidade de um nome já conhecido entra no namespace. Vamos mostrar-lhe como funciona e como controlá-lo, 
+mas primeiro, vamos voltar às importações.
+
+Se o módulo de um nome especificado existir e for acessível (um módulo é, na verdade, um source file de Python), 
+o Python importa o seu conteúdo, ou seja, todos os nomes definidos no módulo tornam-se conhecidos, 
+mas não entram no namespace do seu código.
+
+Isto significa que pode ter as suas próprias entidades nomeadas: sin() ou pi, e não serão de forma alguma afetadas pela importação.
+
+  
+  O conceito de namespace: math e pi
+
+
+A este ponto, poderá estar a perguntar-se como pode aceder à pi vinda do módulo math.
+
+Para fazer isso, tem de qualificar o pi com o nome do seu módulo original.
+
+
+
+Olhe para o snippet em baixo. Esta é a forma como se qualifica os nomes de pi e sin com o nome do seu módulo de origem:
+
+  math.pi
+  math.sin
+
+
+É simples, coloca:
+
+    o nome do módulo (por exemplo, math)
+    seguido de um ponto (i.e., .)
+    seguido do nome da entidade (por exemplo, pi)
+
+
+Tal forma indica claramente o namespace em que o nome existe (ou seja, o nome: math).
+
+  Nota: a utilização desta qualificação é obrigatória se um módulo tiver sido importado pela instrução do módulo import. Não importa 
+  se algum dos nomes do seu código e do namespace do módulo está ou não em conflito.
+
+
+Este primeiro exemplo não será muito avançado - queremos apenas imprimir o valor de sen(½π).
+
+Veja o código no editor. É assim que o testamos.
+
+O código faz output do valor esperado: 1.0.
+
+  Nota: a remoção de qualquer uma das duas qualificações tornará o código errado. Não há outra maneira de 
+  introduzir mathdo namespace se fez o seguinte:
+    
+    import math
+
+
+Agora vamos mostrar-lhe como os dois namespaces (o seu e o do módulo) podem coexistir.
+
+Dê uma vista de olhos no exemplo abaixo:
+
+  import math
+
+
+  def sin(x):
+      if 2 * x == pi:
+          return 0.99999999
+      else:
+          return None
+
+
+  pi = 3.14
+
+  print(sin(pi/2))
+  print(math.sin(math.pi/2))
+
+
+Nós definimos o nosso pi e sin aqui.
+
+Execute o programa. O código deve produzir o seguinte output:
+
+  0.99999999  # print(sin(pi/2))
+  1.0  # print(math.sin(math.pi/2))
+
+
+Como pode ver, as entidades não se afetam umas às outras.
+
+
+No segundo método, a sintaxe de importindica precisamente qual a entidade (ou entidades) do módulo que é aceitável no código:
+
+  from math import pi
+
+
+A instrução consiste nos seguintes elementos:
+
+    a keyword: from 
+    O NOME DO MODULO a importar (seletivamente);
+    a keyword: import 
+    o nome ou lista de nomes da entidade/entidades que estão a ser importadas para o namespace.
+
+
+A instrução tem este efeito:
+
+    As entidades listadas (e apenas essas) são importadas do módulo indicado;
+    Os nomes das entidades importadas são acessíveis sem qualificação.
+
+  Nota: nenhuma outra entidade é importada. Além disso, não se pode importar entidades adicionais 
+  utilizando uma qualificação - uma linha como esta:
+
+    print(math.e)
+
+
+causará um erro (e é o número de Euler: 2.71828...)
+
+Vamos reescrever o script anterior para incorporar a nova técnica.
+
+Aqui está:
+
+  from math import sin, pi
+
+  print(sin(pi/2))
+
+
+O output deve ser o mesmo que anteriormente, pois de facto já utilizámos as mesmas entidades de antes: 1.0. Copie o código, 
+cole-o no editor e execute o programa.
+
+O código parece mais simples? Talvez, mas o aspeto não é o único efeito deste tipo de importação. Vamos mostrar-lho.
+
+Veja o código abaixo. Analise-o com cuidado:
+
+  from math import sin, pi  # linha 1
+
+  print(sin(pi / 2))  # linha 3
+
+  pi = 3.14  # linha 5
+
+
+  def sin(x):  
+      if 2 * x == pi:
+          return 0.99999999
+      else:
+          return None
+
+
+  print(sin(pi / 2))  # linha 15
+
+
+Veja que:
+
+    linha 1: efetuar a importação seletiva;
+    linha 3: fazer uso das entidades importadas e obter o resultado esperado (1.0)
+    linhas 5 a 12: redefinir o significado de pi e sin - com efeito, 
+    substituem as definições originais (importadas) dentro do namespace do código;
+    linha 15: obter 0.99999999, que confirma as nossas conclusões.
+
+Vamos fazer outro teste. Veja o código em baixo:
+
+  pi = 3.14  # linha 1
+
+
+  def sin(x):
+      if 2 * x == pi:
+          return 0.99999999
+      else:
+          return None  # linha 8
+
+
+  print(sin(pi / 2))  # linha 11
+
+  from math import sin, pi  # linha 13
+
+  print(sin(pi / 2))  # linha 15
+
+
+Aqui, revertemos a sequência das operações do código:
+
+    linhas 1 a 8: definir o nosso próprio pi e sin;
+    linha 11: fazer uso deles (0.99999999 aparece no ecrã)
+    linha 13: realizar a importação - os símbolos importados SUBSTIYUEM AS SUAS DEFINIÇÕES ANTERIORES DENTRO DO NAMESPACE;
+    linha 15: obter 1.0 como resultado.
+
+
+
+-----------------------------
+Importar um módulo com: *
+-----------------------------
+
+No terceiro método, a sintaxe de importé uma forma mais agressiva da apresentada anteriormente:
+
+  from module import *
+
+
+Como pode ver, o nome de uma entidade (ou a lista de nomes das entidades) é substituído por um único asterisco (*).
+
+Tal instrução IMPORTA TODAS AS ENTIDADES DO MÓDULO INDICADO.
+
+Isto é conveniente? Sim, é, pois liberta-o do dever de enumerar todos os nomes de que necessita.
+
+É inseguro? Sim, é - a menos que saiba todos os nomes fornecidos pelo módulo, talvez NÃO CONSIGA 
+EVITAR CONFLITO DE NOMES. Trate isto como uma solução temporária, e tente não a utilizar em código normal.
+
+
+
+----------------------------------------
+Importação de um módulo: a keyword as .
+----------------------------------------
+
+
+
+Se utilizar a variante do módulo de importação e não gostar do nome de um determinado módulo (por exemplo, 
+é o mesmo que uma das suas entidades já definidas, pelo que a qualificação se torna problemática) pode dar-lhe 
+o nome que quiser - a isto chama-se: aliasing.
+
+Aliasing faz com que o módulo seja identificado com um nome diferente do original. Isto também pode encurtar os nomes qualificados.
+
+A criação de um alias é feita em conjunto com a importação do módulo, e exige a seguinte forma da instrução de importação:
+
+  import module as alias
+
+
+O “módulo” identifica o nome do módulo original enquanto o “alias” é o nome que deseja utilizar em vez do original.
+
+  Nota: as é uma keyword.
+
+
+Se precisar de mudar a palavra math, pode introduzir o seu próprio nome, tal como no exemplo:
+
+  import math as m
+
+  print(m.sin(m.pi/2))
+
+
+    Nota: após a execução bem sucedida de uma importação de um alias (pseudónimo), 
+    o NOME ORIGINAL DO MÓDULO TORNA-SE INACESSÍVEL e não deve ser utilizado.
+
+
+Por sua vez, quando utiliza a variante from module import name e precisa de mudar o nome da entidade, 
+faz um alias para a entidade. Isto fará com que o nome seja substituído pelo alias que escolher.
+
+É assim que pode ser feito:
+
+  from module import name as alias
+
+
+Como anteriormente, o nome original (unaliased) torna-se inacessível.
+
+A frase name as alias pode ser repetida - use vírgulas para separar as frases multiplicadas, como esta:
+
+  from module import n as a, m as b, o as c
+
+
+O exemplo pode parecer um pouco estranho, mas funciona:
+
+  from math import pi as PI, sin as sine
+
+  print(sine(PI/2))
+
+
+Agora está familiarizado com as noções básicas de utilização de módulos. Deixe-nos mostrar-lhe 
+alguns módulos e algumas das suas entidades úteis.
+
+

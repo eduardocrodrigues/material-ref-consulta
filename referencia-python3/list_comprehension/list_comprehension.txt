@@ -1,0 +1,31 @@
+##########################################
+#
+#  List Comprehension em Python
+#
+##########################################
+
+A compreensão de lista permite-lhe criar novas listas a partir de listas existentes de uma forma 
+concisa e elegante. A sintaxe de uma compreensão de lista é a seguinte:
+
+    ex:
+      [expression for element in list if conditional]
+
+
+que na verdade é equivalente ao seguinte código:
+
+    ex:
+      for element in list:
+         if conditional:
+             expression
+
+
+Eis um exemplo de compreensão de uma lista - o código cria uma lista de cinco elementos 
+preenchida com os primeiros cinco números naturais elevados à potência de 3:
+
+    ex:
+      cubed = [num ** 3 for num in range(5)]
+      print(cubed)  # outputs: [0, 1, 8, 27, 64]
+
+
+
+

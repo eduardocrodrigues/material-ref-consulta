@@ -1,0 +1,125 @@
+###########################
+#
+# Operadores de comparação de strings
+#
+###########################
+
+------------------
+Comparar strings
+------------------
+
+As strings de Python podem ser comparadas utilizando o mesmo conjunto de operadores que os utilizados em relação aos números.
+
+Dê uma vista de olhos a estes operadores - todos eles também podem comparar strings:
+
+    ==  (operador de igual)
+    !=  (operador de diferente)
+    >   (operador maior que)
+    >=  (operador maior igual)
+    <   (operador menor que)
+    <=  (operador menor igual)
+
+Existe um "mas" - os resultados de tais comparações podem por vezes ser um pouco surpreendentes. Não se esqueça 
+que Python não está ciente (não pode de forma alguma) de questões linguísticas subtis - apenas compara valores de code point, 
+caratere por caratere.
+
+Os resultados que se obtêm com tal operação são por vezes surpreendentes. Vamos começar com os casos mais simples.
+
+Duas strings são iguais quando consistem nos mesmos carateres, na mesma ordem. Pela mesma forma, duas strings 
+não são iguais quando não consistem nos mesmos carateres, na mesma ordem.
+
+Ambas as comparações dão True como resultado:
+
+  'alpha' == 'alpha'
+  'alpha' != 'Alpha'
+
+
+A relação final entre strings é determinada pela comparação do primeiro caratere diferente em ambas 
+as strings (ter sempre em mente os code points ASCII/UNICODE).
+
+Quando se comparam duas strings de comprimentos diferentes, e a mais curta é idêntica à mais longa, 
+a string mais longa é considerada maior.
+
+Tal como aqui:
+
+  'alpha' < 'alphabet'
+
+A relação é True.
+
+
+A comparação de strings é sempre sensível às maiúsculas e minúsculas (letras MAIÚSCULAS são tomadas como MENORES do que as MAIÚSCULAS).
+
+A expressão é True:
+
+  'beta' > 'Beta'
+
+
+outra forma de comparação de strings, é comparando string com números no formato string:
+
+  OBS: a comparação dos dados abaixo vai ser feita comparando o tamanho da primeira string com o tamanho da segunda string. 
+
+  ex:
+
+    'Smith' > '1000'
+
+A expressão retorna: True
+
+
+
+
+-------------------------------
+Comparar strings: continuação
+-------------------------------
+
+Mesmo que uma string contenha apenas dígitos, ainda assim não é um número. É interpretada como qualquer outra string regular, 
+e o seu (potencial) aspeto numérico não é tomado em consideração de forma alguma.
+
+Veja os exemplos:
+
+  OBS: a verificação de string no python é feita caractera a caractere, ou seja, se o PRIMEIRO CARACTERE
+  da PRIMEIRA STRING for IGUAL ao PRIMEIRO CARACTERE da segunda string,
+
+  ex:
+
+    '10' == '010' ( o primeiro caractere da primeira string é diferente do caractere da segunda string, por isso retrona: False.
+    '10' > '010' ( seguindo a tabela ASCII, o caractere '1' tem a numeração unicode maior que o caractere '0', por isso retorna: True.
+    '10' > '8'  ( seguindo a tabela ASCII, o caractere '8' tem a numeração unicode maior que o caractere '1', por isso retorna: False.
+    '20' < '8'
+    '20' < '80'
+
+
+Eles produzem os seguintes resultados:
+
+  False
+  True
+  False
+  True
+  True
+
+
+COMPARAR STRINGS COM NÚMEROS É GERALMENTE UMA MÁ IDÉIA !!!
+
+As únicas comparações que pode efetuar com impunidade são estas simbolizadas pelos == e != . O primeiro dá sempre False, 
+enquanto o último produz sempre True.
+
+A utilização de qualquer um dos restantes operadores de comparação irá levantar uma TypeError exceção.
+
+Verifiquemos:
+
+  ex:
+
+    '10' == 10
+    '10' != 10
+    '10' == 1
+    '10' != 1
+    '10' > 10
+
+Os resultados neste caso são:
+
+  False
+  True
+  False
+  True
+  TypeError exception
+
+Execute todos os exemplos, e realize mais experiências.

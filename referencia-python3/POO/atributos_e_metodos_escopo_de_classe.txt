@@ -1,0 +1,293 @@
+###########################################
+#
+#  Atributos e métodos do ESCOPO DE CLASSE
+#
+###########################################
+
+---------------------------------
+ Atributos do escopo de classe
+---------------------------------
+
+Diferente dos atributos de escopo de instância, os ATRIBUTOS do ESCOPO DE CLASSE SÃO CONFIGURADOS FORA DA 
+FUNÇÃO: def __init__() E NÃO POSSUEM A NOMENCLATURA: cls ANTES DO NOME DO ATRIBUTO.
+
+	Exemplo de ATRIBUTO DE ESCOPO DE CLASSE:
+
+		class Impressora:
+
+	        tinta = 'Azul' # ATRIBUTOS DE ESCOPO DE CLASSE são configurados FORA DO MÉTODO: def __init__()
+
+	        def __init__(self):
+	            pass
+
+
+	Exemplo de ATRIBUTO de ESCOPO DE INSTÂNCIA: 
+
+        class Impressora:
+
+	        def __init__(self):
+	            self.tinta = 'Azul' # ATRIBUTOS DE INSTÂNCIA são configurados DENTRO DO MÉTODO: def __init__()
+
+
+
+---------------------------------
+ ATRIBUTO DE ESCOPO DE CLASSE sendo ACESSADO 
+ PELO ESCOPO DE INSTÂNCIA de uma classe 
+---------------------------------
+  Outra coisa que vc tem que saber a respeito de atributos de escopo de classe é que OS ATRIBUTOS DO 
+  ESCOPO DE CLASSE também são ACESSÍVEIS PELA INSTÂNCIA DA CLASSE:
+
+    ex:
+		class Impressora:
+
+	        tinta = 'Azul' # ATRIBUTO DE ESCOPO DE CLASSE são configurados FORA DO MÉTODO: def __init__()
+
+	        def __init__(self):
+	            pass
+
+        
+        print(Impressora.tinta) # o atributo do escopo de classe sendo acessado pelo escopo da classe
+
+	    epson = Impressora()
+	    print(epson.tinta) # o ATRIBUTO DO ESCOPO DE CLASSE sendo ACESSADO PELA INSTÂNCIA da classe!!!
+
+
+
+
+----------------------------------------
+ Métodos de escopo de classe
+----------------------------------------
+
+MÉTODOS DE ESCOPO DE CLASSE são criados dentro da classe de forma muito semelhante 
+aos métodos de instância. A diferença é que NO LUGAR DO PARÂMETRO: self, INSERIMOS 
+O PARÂMETRO: cls, e EM CIMA DO NOME DO MÉTODO, INSERIMOS O DECORADOR: @classmethod. 
+
+Veja como declarar um método de escopo de classe no exemplo abaixo:
+
+    ex:    
+	    @classmethod   # quando usamos o decorador: @classmethod, significa que é um MÉTODO DE ESCOPO DE CLASSE!
+	    def imprimir_folha(cls):   # o PRIMEIRO PARÂMETRO do método TEM QUE SER: cls
+	        print("folha impressa")
+
+
+Métodos de escopo de classe são métodos que PERTENCEM SOMENTE AO ESCOPO DA CLASSE. Isso significa 
+que VC SÓ PODE TRABALHAR DENTRO DO MÉTODO DE ESCOPO DE CLASSE, com ATRIBUTOS e MÉTODOS também DE ESCOPO DE CLASSE.
+
+    ex:
+        class Impressora:
+
+		    tinta1 = 'azul' # ATRIBUTO do ESCOPO DE CLASSE
+
+		    @classmethod # quando usamos o decorador: @classmethod, significa que é um MÉTODO DE ESCOPO DE CLASSE!
+		    def imprimir_folha(cls): 
+		        #########################################################################
+		        # SEMPRE QUE USARMOS um ATRIBUTO DE ESCOPO DE CLASSE DENTRO DE UM MÉTODO,
+		        # DEVEMOS USAR A NOMENCLATURA: cls ANTES DO NOME DO ATRIBUTO !!!
+		        print('folha impressa, a tinta escrina na folha é:', cls.tinta1) # ATRIBUTO do ESCOPO DE CLASSE
+
+		    @classmethod 
+		    def imprimir_livro(cls, paginas):
+		        for i in range(paginas):
+      		        #########################################################################
+    		        # SEMPRE QUE USARMOS um MÉTODO DE ESCOPO DE CLASSE DENTRO de OUTRO MÉTODO de ESCOPO DE CLASSE,
+			        # DEVEMOS USAR A NOMENCLATURA: cls ANTES DO NOME DO MÉTODO !!!
+		            cls.imprimir_folha() # MÉTODO DE ESCOPO DE CLASSE DENTRO DE OUTRO MÉTODO de ESCOPO DE CLASSE
+
+
+		Impressora.imprimir_livro(5) # método chamado pelo do ESCOPO DA CLASSE (usando O NOME DA CLASSE) 
+
+
+
+-------------------------------------------
+ Como funciona o ACESSO AOS MÉTODOS de 
+ Escopo de classe e de Escopo de Instância
+-------------------------------------------
+  Na minha opinião, o ponto principal entre MÉTODOS DE ESCOPO DE CLASSE e METODOS DE ESCOPO DE INSTÀNCIA é que 
+  os MÉTODOS DE ESCOPO DE INSTÂNCIA PODEM ACESSAR ATRIBUTOS e MÉTODOS DE ESCOPO DE CLASSE (ex1), mas, MÉTODOS 
+  DE ESCOPO DE CLASSE NÃO PODEM ACESSAR ATRIBUTOS e MÉTODOS DE ESCOPO DE INSTÂNCIA (ex2).
+
+    --------------------------------------------------
+    ex1: ESCOPO DE INSTÂNCIA acessando MÉTODOS DE ESCOPO DE CLASSE
+    --------------------------------------------------
+        
+        class Impressora:
+
+            @classmethod  # quando usamos o decorador: @classmethod, significa que é um MÉTODO DE ESCOPO DE CLASSE!
+            def imprimir_folha(cls):
+                print('folha impressa')
+
+
+        epson = Impressora() # criada a instância...
+        epson.imprimir_folha() # ESCOPO DE INSTÂNCIA chamando MÉTODO DE ESCOPO DA CLASSE !!! 
+
+
+    --------------------------------------------------
+    ex2: ESCOPO DE CLASSE acessando MÉTODOS DE ESCOPO DE INSTÂNCIA (GERARÁ ERRO, 
+    PQ ISSO NÃO PODE SER FEITO NO PYTHON !!!)
+    --------------------------------------------------
+
+        class Impressora:
+
+            def trocarTinta(self, tinta): # MÉTODO DE INSTÂNCIA !!!
+               print('a tinta foi trocada para a cor:', tinta)
+
+
+        Impressora.trocarTinta('Verde') # NÃO FUNCIONA, pq MÉTODO DE ESCOPO DE CLASSE não pode acessar MÉTODO DE ESCOPO DE INSTÂNCIA.
+
+
+
+-------------------------------------------------
+ Entendendo o que acontece se CASO ESQUECERMOS
+ DE INSERIR O DECORADOR: @classmethod, em um MÉTODO DE ESCOPO DE CLASSE
+-------------------------------------------------
+Se vc CRIAR UM MÉTODO DE ESCOPO DE CLASSE, e ESQUECER DE INSERIR O DECORADOR: @classmethod EM 
+CIMA DO MÉTODO, o método FUNCIONARÁ SOMENTE COMO MÉTODO DE INSTÂNCIA.
+
+    ex:
+        class Impressora:
+
+            def imprimir_folha(cls):  # método NÃO POSSUI o DECORADOR: @classmethod EM CIMA DO MÉTODO.
+		        print("folha impressa")
+
+
+		e = Impressora() # criando a instância...
+		e.imprimir_folha() # método FUNCIONANDO PELA INSTÂNCIA...
+
+		Impressora.imprimir_folha() # método NÃO FUNCIONA PELO ESCOPO DA CLASSE, PQ O MÉTODO NÃO POSSUI 
+		O DECORADOR: @classmethod, portanto, o método acaba sendo método de instância. 
+
+
+
+Agora, se CRIARMOS UM MÉTODO DE CLASSE e INSERIRMOS O DECORADOR: @classmethod, o método FUNCIONARÁ 
+TANTO NO ESCOPO DA CLASSE, QUANTO NO ESCOPO DA INSTÂNCIA DA CLASSE.
+
+    ex:
+        class Impressora:
+
+            @classmethod   # método AGORA POSSUI o DECORADOR: @classmethod EM CIMA DO MÉTODO.
+            def imprimir_folha(cls):  
+		        print("folha impressa")
+
+
+		e = Impressora() # criando a instância...
+		e.imprimir_folha() # método FUNCIONA PELA INSTÂNCIA...
+
+		Impressora.imprimir_folha() # método AGORA FUNCIONA PELO ESCOPO DA CLASSE, PQ O MÉTODO POSSUI 
+		O DECORADOR: @classmethod, no método de mesmo nome dentro da classe. 
+
+
+
+---------------------------------
+ Trabalhando com MÉTODOS DE CLASSE,
+ DENTRO de MÉTODOS DE CLASSE
+---------------------------------
+  Como métodos de classe PERTENCEM SOMENTE AO ESCOPO DA CLASSE, podemos trabalhar com 
+MÉTODOS DE CLASSE DENTRO DE OUTROS MÉTODOS DE CLASSE.
+
+    ex:
+        class Impressora:
+
+            @classmethod  # se TEM O DECORADOR: @classmethod, É UM MÉTODO DE CLASSE !!!
+            def imprimir_folha(cls): 
+                print('folha impressa')
+
+            @classmethod  # se TEM O DECORADOR: @classmethod, É UM MÉTODO DE CLASSE !!!
+            def imprimir_livro(cls, paginas):
+                for i in range(paginas):
+                    cls.imprimir_folha() # chamando um MÉTODO DE CLASSE, DENTRO DE OUTRO MÉTODO DE CLASSE.
+
+
+        Impressora.imprimir_livro(5) # faz a chamada dos métodos de classe, normalmente !!!
+
+
+
+----------------------------------------------
+ Entendendo o porque que MÉTODOS 
+ DE CLASSE NÃO ACESSAM ATRIBUTOS DE INSTÂNCIA
+----------------------------------------------
+  Outra coisa que precisamos de saber é que OS MÉTODOS DE CLASSE NÃO PODEM/NÃO CONSEGUEM ACESSAR OS ATRIBUTOS 
+DE INSTÂNCIA.
+
+    OBS: TUDO que pertence AO ESCOPO DE CLASSE NÃO PODE ACESSAR NADA que pertença AO ESCOPO DE INSTÂNCIA.
+
+Veja um exemplo no código abaixo:
+
+    ex:
+		class Impressora:
+
+		    def __init__(self):
+		        self.tinta1 = 'azul' # atributo de instância
+		    
+		    @classmethod
+		    def imprimir_folha(cls):
+		        ########################################################################
+		        # qualquer uma das duas linhas abaixo, se for executada, gerará erro !!!
+		        #print('cor da tinta:',self.tinta1) 
+		        print('cor da tinta:', cls.tinta1) # mesmo se vc trocar o: self do atributo, por: cls, gerará erro, pq o atributo pertence ao escopo de instância da classe !!! 
+		        print("folha impressa")
+ 
+
+		Impressora.imprimir_folha() # gerará um erro !!! 
+
+
+	OBS: Se vc prestar atenção no código acima, quando criamos o método: def __init__(), a gente INSERIU
+	O ATRIBUTO: (self.tinta1) no ESCOPO DA INSTÂNCIA (ou seja, dentro da função: def __init__(), POR ISSO 
+	O CÓDIGO GERARÁ ERRO, pq ATRIBUTOS DE ESCOPO DE INSTÂNCIA NÃO PODEM SER ACESSADOS POR MÉTODOS 
+	DE ESCOPO DE CLASSE.
+
+
+
+------------------------------------------------
+ Entendendo de vez a diferença entre: self e cls.
+------------------------------------------------
+
+  --------------------------
+   Nomenclatura: cls
+  --------------------------
+  A nomenclatura: cls, representa O NOME DA CLASSE definido na CRIAÇÃO DE UMA CLASSE.
+
+    ex:
+        Carro.acelerar()
+
+    quando criamos uma classe, DENTRO DA ESTRUTURA DA CLASSE onde tiver métodos 
+    com a nomenclatura: cls (CASO CRIEMOS UMA CLASSE com MÉTODOS DE ESCOPO DE CLASSE, É CLARO !!!), 
+    quando chamamos: Carro.acelerar(), a nomenclatura: cls dentro dos métodos da classe, 
+    internamente no Python, SE TORNA O NOME DA CLASSE, ou seja, a nomenclatura: cls, SE TORNA: Carro.
+    
+	Diferente dos atributos de instância, os ATRIBUTOS DE ESCOPO DE CLASSE NÃO SÃO CONFIGURADOS NA
+	CLASSE COM O NOME: cls ANTES DO NOME DO ATRIBUTO, eles são configurados SEM A 
+	NOMENCLATURA: cls, e FORA DO MÉTODO: def __init__(). Se vc CONFIGURAR NA CLASSE 
+	UM ATRIBUTO DE CLASSE ASSIM: cls.atributo, GERARÁ ERRO !!!.
+
+	Em ATRIBUTOS DE CLASSE, só usamos a nomenclatura: cls QUANDO VAMOS USAR O ATRIBUTO DE CLASSE 
+	DENTRO DE UM MÉTODO DE CLASSE.
+
+	ex:
+	    class Carro:
+
+	        volante = 'preto' # é um ATRIBUTO DE CLASSE, NÃO POSSUI: cls ANTES DO NOME !!!
+	        banco = 'couro' # é um ATRIBUTO DE CLASSE, NÃO POSSUI: cls ANTES DO NOME !!!
+
+	        def corDoVolante(cls):
+	            print(cls.volante) # veja que, a nomenclatura: cls SÓ É USADA NO ATRIBUTO DE CLASSE, QUANDO CHAMAMOS O ATRIBUTO DENTRO DE UM MÉTODO DE CLASSE !!!
+
+	        def corDoCarro(self):
+	            print('A cor do carro é azul !!!')
+
+	    Carro.corDoVolante()
+
+
+
+  --------------------------
+   Nomenclatura: self
+  --------------------------
+  A nomenclatura: self, representa O NOME DADO A INSTÂNCIA DA CLASSE.
+
+    ex:
+        umaInstancia = NomeDaClasse.nomeDoMetodo()
+
+    OBS: quando criamos uma instância da classe, internamente no Python, o nome da
+    instância (nesse exemplo, é a palavra: umaInstancia) SE TORNA A NOMENCLATURA: self, DEFINIDA 
+    EM CADA ATRIBUTO E MÉTODO DENTRO DE UMA CLASSE. É por isso que os atributos e métodos definidos 
+    com: self são chamados de ATRIBUTOS E MÉTODOS DE INSTÂNCIA, PQ O NOME: self, INTERNAMENTE NO PYTHON, 
+    RECEBE O NOME DA INSTÂNCIA (que, nesse exemplo, é a palavra: umaInstancia). 

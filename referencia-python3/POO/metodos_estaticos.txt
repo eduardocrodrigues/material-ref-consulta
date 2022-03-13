@@ -1,0 +1,68 @@
+###############################
+#
+# Métodos Estáticos Python POO
+#
+###############################
+  O método estático nada mais é do que UM MÉTODO QUE DECLARAMOS DENTRO DE UMA CLASSE, 
+  que POSSUI ESCOPO PRÓPRIO, ou seja, NÃO PERTENCE AO escopo de classe E NEM AO ecopo de instância.
+
+  Para declararmos um método estático dentro de uma classe, basta inserirmos 
+  o decorador: @staticmethod EM CIMA DO MÉTODO, DENTRO DA CLASSE.
+
+  Para chamarmos um método estático dentro de uma classe, CHAMAMOS DA MESMA FORMA QUE CHAMAMOS MÉTODOS DE CLASSE. 
+
+    ex:
+        class Impressora:
+
+            @staticmethod  # se tem o decorador: @staticmethod, é um método estático, ou seja, POSSUI ESCOPO PRÓPRIO.
+            def ligar_para_suporte():
+                print('Liguei para o suporte')
+
+
+        Impressora.ligar_para_suporte() # os MÉTODOS ESTÁTICOS SÃO CHAMADOS DA MESMA FORMA que MÉTODOS DE CLASSE.
+
+
+
+  A principal caracteristica dos métodos estáticos é que OS MÉTODOS ESTÁTICOS PODEM SER CHAMADOS A PARTIR de 
+  MÉTODOS DE CLASSE e também A PARTIR de DENTRO DE MÉTODOS DE INSTÂNCIA.
+
+    --------------------------------------------------------------
+     MÉTODO ESTÁTICO sendo chamado de DENTRO DE UM MÉTODO DE CLASSE 
+    --------------------------------------------------------------
+    ex:
+        class Impressora:
+
+            @staticmethod  # se tem o decorador: @staticmethod, é um método estático, ou seja, POSSUI ESCOPO PRÓPRIO.
+            def ligar_para_suporte():
+                print('Liguei para o suporte')
+
+            @classmethod  # quando usamos o decorador: @classmethod, significa que é um MÉTODO DE ESCOPO DE CLASSE.
+            def deu_problema_na_impressora(cls):
+                print('analizando o problema')
+                cls.ligar_para_suporte() # MÉTODO ESTÁTICO sendo CHAMADO DENTRO DO MÉTODO de ESCOPO DE CLASSE !!!
+
+
+        Impressora.deu_problema_na_impressora() # CHAMANDO MÉTODO DE ESCOPO DE CLASSE que POSSUI um MÉTODO ESTÁTICO INTERNAMENTE !!!
+
+
+
+    --------------------------------------------------------------
+     MÉTODO ESTÁTICO sendo chamado de DENTRO DE UM MÉTODO DE INSTÂNCIA
+    --------------------------------------------------------------
+    ex:
+        class Impressora:
+
+            @staticmethod  # se tem o decorador: @staticmethod, é um método estático, ou seja, POSSUI ESCOPO PRÓPRIO.
+            def ligar_para_suporte():
+                print('Liguei para o suporte')
+
+
+            def imprimir(self): # MÉTODO DE INSTÃNCIA
+                print('imprimindo pagina 1')
+                self.ligar_para_suporte() # MÉTODO ESTÁTICO sendo CHAMADO DENTRO DO MÉTODO de ESCOPO DE INSTÃNCIA. 
+
+
+        impressora = Impressora() # criando uma instância
+
+        impressora.imprimir() # CHAMANDO MÉTODO DE ESCOPO DE INSTÂNCIA que POSSUI um MÉTODO ESTÁTICO INTERNAMENTE !!!
+

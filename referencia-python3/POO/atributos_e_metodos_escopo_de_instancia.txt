@@ -1,0 +1,176 @@
+############################################
+#
+#  Atributos e Métodos do ESCOPO DE INSTÂNCIA
+#
+#############################################
+
+---------------------------------
+ Atributos do escopo de instância
+---------------------------------
+  Diferente dos atributos de escopo de classe, os ATRIBUTOS DE ESCOPO DE INSTÂNCIA são CONFIGURADOS DENTRO DA 
+FUNÇÃO: def __init__() E POSSUEM A NOMENCLATURA: self, ANTES DO NOME DO ATRIBUTO. 
+
+    Exemplo de ATRIBUTO ESCOPO DE INSTÂNCIA: 
+
+        class Impressora:
+	        def __init__(self):
+	            self.tinta = 'Azul' # ATRIBUTOS DE INSTÂNCIA são configurados DENTRO DO MÉTODO: def __init__()
+
+
+	Exemplo de ATRIBUTO DE ESCOPO DE CLASSE:
+
+		class Impressora:
+
+	        tinta = 'Azul' # ATRIBUTOS DE CLASSE são configurados FORA DO MÉTODO __init__
+
+	        def __init__(self):
+	            pass
+
+
+
+---------------------------------
+ Escopo de INSTÂNCIA ACESSANDO 
+ ATRIBUTO de ESCOPO DE CLASSE 
+---------------------------------
+  Outra coisa que vc tem que saber a respeito do escopo de instância, é que O ESCOPO DE INSTÂNCIA TEM PERMISSÃO DE ACESSO AO ESCOPO DE CLASSE (ou seja, O ESCOPO DE INSTÂNCIA TEM ACESSO aos ATRIBUTOS e MÉTODOS DO ESCOPO DE CLASSE).
+
+    ex:
+        class Impressora:
+
+            modelo = 'epson' # ATRIBUTO DE CLASSE !!!
+
+            def __init__(self, numero_folhas):
+                self.numero_folhas = numero_folhas
+
+            def imprimir_folha(self):
+                print('folha impressa')
+
+            def imprimir_livro(self, paginas):
+                if paginas <= self.numero_folhas:
+                    for i in range(paginas):
+                        self.imprimir_folha()
+                        self.numero_folhas -= 1
+
+        
+        impressora = Impressora(15) # criando uma instância
+
+        print(impressora.modelo) # ACESSANDO ATRIBUTO DE ESCOPO DE CLASSE a partir DA INSTÂNCIA.
+
+
+
+-----------------------------------
+ Métodos do escopo de instância
+-----------------------------------
+  Os MÉTODOS DE ESCOPO DE INSTÃNCIA são os mais comumente usados dentro das classes. PARA CONFIGURAR 
+  UM MÉTODO DE ESCOPO DE INSTÂNCIA dentro de uma classe, DEVEMOS USAR A NOMENCLATURA: self, COMO 
+  PRIMEIRO PARÂMETRO em CADA MÉTODO DECLARADO DENTRO DA CLASSE.
+
+    ex:
+        class Impressora:
+
+            def __init__(self, numero_folhas):  # MÉTODO DE INSTÂNCIA, pq POSSUI: self, NO PRIMEIRO PARÂMETRO !!!
+                self.numero_folhas = numero_folhas
+
+
+            def imprimir_folha(self):  # MÉTODO DE INSTÂNCIA, pq POSSUI: self, NO PRIMEIRO PARÂMETRO !!!
+                print('folha impressa')
+
+
+            def imprimir_livro(self, paginas): # MÉTODO DE INSTÂNCIA, pq POSSUI: self, NO PRIMEIRO PARÂMETRO !!!
+                if paginas <= self.numero_folhas:
+                    for i in range(paginas):
+                        self.imprimir_folha()
+                        self.numero_folhas -= 1
+
+
+        impressora = Impressora(15) # criando uma instância da classe: Impressora()
+
+        impressora.imprimir_folha() # somente mostrando que o MÉTODO DE ESCOPO DE INSTÂNCIA: imprimir_folha() funciona !!!
+
+        impressora.imprimir_livro(10) # chamando o MÉTODO DE ESCOPO DE INSTÂNCIA !!!
+
+
+
+---------------------------------
+ Escopo de INSTÂNCIA ACESSANDO 
+ MÉTODO de ESCOPO DE CLASSE 
+---------------------------------
+  Outra coisa que vc tem que saber a respeito do escopo de instância, é que O ESCOPO DE INSTÂNCIA TEM PERMISSÃO DE ACESSO AO ESCOPO DE CLASSE (ou seja, O ESCOPO DE INSTÂNCIA TEM ACESSO aos ATRIBUTOS e MÉTODOS DO ESCOPO DE CLASSE).
+
+    ex:
+        class Impressora:
+
+            modelo = 'epson' # ATRIBUTO DE CLASSE !!!
+
+            def __init__(self, numero_folhas):
+                self.numero_folhas = numero_folhas
+
+            def imprimir_folha(self):
+                print('folha impressa')
+
+            def imprimir_livro(self, paginas):
+                if paginas <= self.numero_folhas:
+                    for i in range(paginas):
+                        self.imprimir_folha()
+                        self.numero_folhas -= 1
+
+            @classmethod  # se TEM O DECORADOR: @classmethod, É UM MÉTODO DE CLASSE !!!
+            def print_modelo(cls):
+                print(cls.modelo) # IMPRIMINDO O VALOR do ATRIBUTO DE CLASSE !!!
+
+        
+        impressora = Impressora(15)
+
+        impressora.imprimir_folha()
+
+        impressora.imprimir_livro(10) # MÉTODO DE ESCOPO DE INSTÃNCIA sendo CHAMADO PELO ESCOPO DE INSTÃNCIA
+
+        Impressora.print_modelo() # MÉTODO DE ESCOPO DE CLASSE sendo CHAMADO PELO ESCOPO DA CLASSE
+
+
+
+-----------------------------------------
+ MÉTODO de ESCOPO DE INSTÂNCIA UTILIZANDO 
+ ATRIBUTO de ESCOPO DE CLASSE 
+ DENTRO de MÉTODO DE ESCOPO DE INSTÂNCIA 
+-----------------------------------------
+
+    OBS1: Agora preste muita atenção no detalhe da explicação dessa sessão, pq PODE PARECER CONFUSO como 
+    o Python TRABALHA COM ATRIBUTOS de ESCOPO DE CLASSE DENTRO de MÉTODOS DE INSTÂNCIA !!!
+
+  Quando queremos utilizar ATRIBUTOS de ESCOPO DE CLASSE DENTRO de MÉTODOS de ESCOPO DE INSTÂNCIA, 
+  utilizamos a notação: self ANTES DO NOME DO ATRIBUTO do ESCOPO DE CLASSE !!!
+
+    OBS2: eu sei, isso é confuso. É estranho mesmo O PYTHON PEGAR UM ATRIBUTO DE ESCOPO DE CLASSE e 
+    INSERIR ESSE ATRIBUTO DENTRO DE UM MÉTODO DE ESCOPO DE INSTÂNCIA, USANDO A NOTAÇÃO: self. Mas, fazer o que !!!, essa é a forma como o Python armazena atributos de escopo de classe DENTRO DE MÉTODOS DE ESCOPO DE INSTÂNCIA.
+
+
+    ex:
+        class Impressora:
+
+            modelo = 'epson' # ATRIBUTO DE CLASSE !!!
+
+            def __init__(self, numero_folhas):
+                self.numero_folhas = numero_folhas
+
+            def imprimir_folha(self):
+                print('folha impressa')
+
+            def imprimir_livro(self, paginas):
+                if paginas <= self.numero_folhas:
+                    for i in range(paginas):
+                        self.imprimir_folha()
+                        self.numero_folhas -= 1
+
+            @classmethod  
+            def print_modelo(cls):
+                print(cls.modelo) 
+
+            def print_modelo_instancia(self): # MÉTODO DE INSTÂNCIA, pq POSSUI: self, NO PRIMEIRO PARÂMETRO !!!
+                print(self.modelo) # usando ATRIBUTO DE ESCOPO DE CLASSE, UTILIZANDO a NOTAÇÃO: self, DENTRO DO MÉTODO DE ESCOPO DE INSTÂNCIA.
+
+
+        impressora = Impressora(10) # criada uma instância
+
+        impressora.print_modelo_instancia() # exibe o valor do ATRIBUTO DO ESCOPO DE CLASSE inserido DENTRO 
+        do MÉTODO DE INSTÂNCIA !!!

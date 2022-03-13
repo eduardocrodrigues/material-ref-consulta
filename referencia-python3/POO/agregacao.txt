@@ -1,0 +1,33 @@
+####################################
+#
+#  Agregação de classe POO Python
+#
+####################################
+
+Agregação ocorre QUANDO TEMOS UMA OU MAIS CLASSES como ATRIBUTO DE OUTRA CLASSE.
+
+
+
+class Acelerador:
+
+    def acelerar(self):
+        print('O carro acelerou !!!')
+
+
+class Freio:
+
+    def freiar(self):
+        print('O carro freiou !!!')
+
+
+
+class Carro:
+
+    def __init__(self):
+        self.acelerador = Acelerador() # classe: Acelerador() como atributo da classe: Carro
+        self.freio = Freio() # classe: Freio() como atributo da classe: Carro
+
+
+corsa = Carro()
+corsa.acelerador.acelerar()
+corsa.freio.freiar()

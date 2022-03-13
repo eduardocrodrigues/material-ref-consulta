@@ -1,0 +1,511 @@
+#################################
+#
+# Funções Python
+#
+#################################
+
+------------------------------------------------------
+Mistura de argumentos posicionais e de keywords
+------------------------------------------------------
+
+Pode misturar ambos os tipos se quiser - há apenas uma regra inquebrável: tem de colocar 
+argumentos posicionais antes de argumentos de keyword.
+
+Se pensar por um momento, certamente adivinhará porquê.
+
+Para lhe mostrar como funciona, utilizaremos a seguinte função simples de três parâmetros:
+
+    def adding(a, b, c):
+        print(a, "+", b, "+", c, "=", a + b + c)
+
+
+O seu objetivo é avaliar e apresentar a soma de todos os seus argumentos.
+
+A função, quando invocada da seguinte maneira:
+
+    adding(1, 2, 3)
+
+
+terá como output:
+
+    1 + 2 + 3 = 6
+
+
+Foi - como se pode suspeitar - um puro exemplo de passagem de argumento posicional.
+
+
+É claro que se pode substituir tal invocação por uma variante de keyword pura, como esta:
+
+    adding(c = 1, a = 2, b = 3)
+
+
+O nosso programa fará output de uma linha como esta:
+
+    2 + 3 + 1 = 6
+
+
+Observe a ordem dos valores.
+
+
+Vamos tentar misturar ambos os estilos agora.
+
+Veja a invocação da função abaixo:
+
+    adding(3, c = 1, b = 2)
+
+
+    Vamos analisá-la:
+ 
+        o argumento (3) para o parâmetro: a, é passado usando a MANEIRA POSICIONAL;
+        os argumentos para: c e b, são especificados USANDO KEYWORDS.
+
+Isto é o que verá na consola:
+
+    3 + 2 + 1 = 6
+
+
+Tenha cuidado, e atenção aos erros. Se tentar passar mais do que um valor para um argumento, tudo o que 
+obterá será um erro de runtime.
+
+    Olhe para a invocação em baixo - parece que tentámos fixar a duas vezes:
+    
+        OBS: o que está acontecendo nessa função abaixo, é que ESTAMOS ATRIBUINDO O VALOR 3 NO
+        PARÂMETRO: a, E EM SEGUIDA ESTAMOS ATRIBUINDO O VALOR 1 AO PARÂMETRO: a NOVAMENTE, USANDO 
+        O MODO DE KEYWORD, POR ISSO O CÓDIGO GERARÁ ERRO.
+
+        adding(3, a = 1, b = 2)
+
+
+    A resposta do Python:
+
+        TypeError: adding() got multiple values for argument 'a'
+
+
+Olhe para o snippet abaixo. Um código como este está totalmente correto.
+
+    adding(4, 3, c = 2)
+
+
+Tudo está correto, mas deixar apenas uma keyword é tbm uma opção.
+
+    def adding(a, b, c):
+        print(a, "+", b, "+", c, "=", a + b + c)
+
+
+
+############################################
+#
+#  Funções Parametrizadas - mais detalhes
+#
+############################################
+
+
+Acontece por vezes que os valores de um determinado parâmetro são utilizados 
+com mais frequência do que outros. Tais argumentos podem ter os seus valores padrão (predefinidos) tomados 
+em consideração quando os seus argumentos correspondentes tiverem sido omitidos.
+
+Dizem que o apelido inglês mais popular é Smith. Vamos tentar ter isto em conta.
+
+O valor padrão do parâmetro é definido usando uma sintaxe clara e pictórica:
+
+    def introduction(first_name, last_name="Smith"):
+        print("Hello, my name is", first_name, last_name)
+
+
+Só tem de estender o nome do parâmetro com o sinal = , seguido pelo valor padrão.
+
+Vamos invocar a função como de costume:
+
+    introduction("James", "Doe")
+
+
+Consegue adivinhar o output do programa? Execute-o e verifique se estava certo.
+
+Então? Tudo parece igual, mas quando se invoca a função de uma forma que à primeira vista parece um pouco suspeita, como esta:
+
+    introduction("Henry")
+
+
+ou esta:
+
+    introduction(first_name="William")
+
+
+não haverá nenhum erro, ambas as invocações serão bem sucedidas, e a consola mostrará o seguinte output:
+
+  Hello, my name is Henry Smith
+  Hello, my name is William Smith
+
+
+Teste-o.
+
+Pode ir mais além se for útil. Ambos os parâmetros têm agora os seus valores padrão, veja o código em baixo:
+def introduction(first_name="John", last_name="Smith"):
+    
+    print("Hello, my name is", first_name, last_name)
+
+
+Isto faz com que a seguinte invocação seja absolutamente válida:
+
+    introduction()
+
+
+E este é o output esperado:
+
+  Hello, my name is John Smith
+
+
+Se utilizar um argumento de keyword, o restante tomará o valor padrão:
+
+    introduction(last_name="Hopkins")
+
+
+O output é:
+
+  Hello, my name is John Hopkins
+
+
+Teste-o.
+
+Parabéns - acabou de aprender as formas básicas de comunicar com funções.
+
+    def introduction(first_name, last_name="Smith"):
+        print("Hello, my name is", first_name, last_name)
+
+será mostrada a saída:
+
+  Hello, my name is James Doe
+
+
+#############################################
+#
+# Funções com return
+#
+#############################################
+
+Para fazer com que as funções devolvam um valor (mas não apenas para este fim) usa-se 
+a instrução: return. A instrução return tem duas variantes diferentes - vamos considerá-las separadamente.
+
+------------------------------
+return sem uma expressão
+------------------------------
+
+A primeira consiste na própria keyword, sem nada a seguir.
+
+Quando utilizada dentro de uma função, provoca a terminação imediata da execução da função, 
+e uma devolução (em inglês, return) imediata (daí o nome) ao ponto de invocação.
+
+  Nota: se uma função não se destina a produzir um resultado, utilizar a instrução return não é obrigatório - será executada implicitamente no final da função.
+
+De qualquer modo, pode utilizá-la para terminar as atividades de uma função a pedido, 
+antes de o controlo chegar à última linha da função.
+
+  Consideremos a seguinte função:
+
+    def happy_new_year(wishes = True):
+        print("Three...")
+        print("Two...")
+        print("One...")
+    
+        # se not True, é: False
+        # se not False, é: True
+        if not wishes: 
+            return
+    
+        print("Happy New Year!")
+
+
+Quando invocada sem argumentos:
+
+    happy_new_year()
+
+
+A função causa um pequeno ruído - o output terá este aspeto:
+    
+    Three...
+    Two...
+    One...
+    Happy New Year!
+
+
+Fornecer False como um argumento no parâmetro da função:
+
+    happy_new_year(False)
+
+
+irá modificar o comportamento da função - a instrução return causará a sua terminação imediatamente 
+antes do: print("happy New Year!") - este é o resultado atualizado:
+
+    Three...
+    Two...
+    One...
+
+
+----------------------------
+return com uma expressão
+----------------------------
+
+A segunda variante return é estendida com uma expressão, essa é a sintaxe:
+
+    def function():
+        return expression
+
+
+Há duas consequências da sua utilização:
+
+    provoca a terminação imediata da execução da função (nada de novo em comparação com a primeira variante)
+    além disso, a função avaliará o valor da expressão e devolvê-la-á (daí o nome, mais uma vez) como resultado da função.
+
+Sim, nós já sabemos - este exemplo não é realmente sofisticado:
+
+    def boring_function():
+        return 123
+
+    x = boring_function()
+
+    print("The boring_function has returned its result. It's:", x)
+
+
+O trecho grava o seguinte texto na consola:
+
+    The boring_function has returned its result. It's: 123
+
+
+Vamos investigá-lo durante algum tempo.
+
+    Analise a figura abaixo: Atribuir o valor devolvido pela função a uma variável
+
+                  ------------------
+                  |                 |
+      def boring_function():        |
+          return 13 ------          |
+                          |         |
+                          |         |
+ -------------------------          |
+|                                   |
+ ---> x = boring_function()  <------
+
+
+A instrução return , enriquecida com a expressão (a expressão é muito simples aqui), "transporta" o valor 
+da expressão para o local onde a função foi invocada. O resultado pode ser livremente utilizado aqui, 
+por exemplo, para ser atribuído a uma variável.
+
+Também pode ser completamente ignorado e perdido sem deixar rasto.
+
+Note, não estamos a ser muito educados aqui - a função devolve um valor,
+e ignoramo-lo (não o utilizamos de forma alguma):
+
+    def boring_function():
+        print("'Boredom Mode' ON.")
+        return 123
+
+    print("This lesson is interesting!")
+    boring_function()
+    print("This lesson is boring...")
+
+
+O programa produz a seguinte saída:
+
+    This lesson is interesting!
+    'Boredom Mode' ON.
+    This lesson is boring...
+
+
+É punível? De modo algum. A única desvantagem é que o resultado foi irremediavelmente perdido.
+
+Não se esqueça:
+
+    é-lhe sempre permitido ignorar o resultado da função, e ficar satisfeito com o efeito da função (se a função tiver algum)
+    se uma função se destina a devolver um resultado útil, deve conter a segunda variante da instrução return .
+
+Espere um minuto - isto significa que também há resultados inúteis? Sim - de certa forma.
+
+
+##################################
+#
+#  Funções e scopos
+#
+##################################
+
+Vamos começar com uma definição: O scope de um nome (por exemplo, um nome de variável) é a parte de um código 
+onde o nome é devidamente reconhecido.
+Por exemplo, o scope do parâmetro de uma função é a própria função. O parâmetro é inacessível fora da função.
+Vamos verificar. Veja o código abaixo, o que acontecerá quando o executar?
+
+    def scope_test():
+        x = 123
+
+    scope_test()
+    print(x)
+
+
+O programa falhará quando executado. A mensagem de erro será:
+
+  NameError: name 'x' is not defined
+
+
+Isto é de se esperar.
+
+----------------------------------
+  Funções e scopos: continuação
+----------------------------------
+
+Vamos começar por verificar se uma variável criada fora de qualquer função é ou não visível dentro 
+das funções. Por outras palavras, o nome de uma variável propaga-se no corpo de uma função?
+
+Veja o código abaixo, A nossa cobaia está lá:
+
+    def my_function():
+        print("Do I know that variable?", var) # variável de escopo GLOBAL pode ser acessada no escopo da função !!!
+
+
+    var = 1 # variável de escopo GLOBAL
+    my_function() # imprime o resultado: Do I know that variable? 1
+    print(var) # imprime o resultado: 1
+
+
+O resultado do teste é positivo - o código faz os outputs:
+
+  Do I know that variable? 1
+  1
+
+A resposta é: uma variável existente fora de uma função tem um scope dentro dos corpos das funções. Esta regra tem 
+uma exceção muito importante. Vamos tentar encontrá-la. Vamos fazer uma pequena alteração no código:
+
+    def my_function():
+        var = 2
+        print("Do I know that variable?", var)
+
+
+    var = 1
+    my_function() # imprime o resultado: Do I know that variable? 2
+    print(var) # imprime o resultado: 1
+
+O resultado também mudou - o código produz um output ligeiramente diferente agora:
+
+  Do I know that variable? 2
+  1
+
+
+O que aconteceu?
+
+    a variável: var, criada dentro da função não é a mesma que quando definida fora dela - parece que 
+    existem duas variáveis diferentes com o mesmo nome;
+    além disso, a variável da função sombreia a variável proveniente do mundo exterior.
+
+Podemos tornar a regra anterior mais precisa e adequada:
+
+Uma variável existente fora de uma função tem um scope dentro dos corpos das funções, 
+excluindo aqueles que definem uma variável com o mesmo nome. Isto também significa que o scope 
+de uma variável existente fora de uma função só é suportado quando se obtém o seu valor (reading). Atribuir 
+um valor força a criação da própria variável da função.
+
+outro exemplo de variável global (que nesse caso é uma: lista), usada em escopo de função:
+
+    def my_function(my_list_1):
+        print("Print #1:", my_list_1) # my_list_1 é o mesmo que: my_list_2
+        print("Print #2:", my_list_2) # aqui a variável: my_list_2 está sendo usada diretamente do escopo global !!!
+        my_list_1 = [0, 1]
+        print("Print #3:", my_list_1) # my_list_1 é o mesmo que: my_list_2
+        print("Print #4:", my_list_2) # aqui a variável: my_list_2 está sendo usada diretamente do escopo global !!!
+
+
+    my_list_2 = [2, 3]
+    my_function(my_list_2)
+    print("Print #5:", my_list_2)
+
+
+a saida da função acima é:
+
+  Print #1: [2, 3]
+  Print #2: [2, 3]
+  Print #3: [3]
+  Print #4: [3]
+  Print #5: [3]
+
+
+Resumindo, uma variável que existe fora de uma função tem um scope dentro do corpo da função (Exemplo 1), a menos que 
+a função defina uma variável com o mesmo nome (Exemplo 2, e Exemplo 3), por exemplo:
+
+  exemplo1:
+    var = 2
+    def mult_by_var(x):
+        return x * var
+
+
+    print(mult_by_var(7))    # outputs: 14
+
+-------------------------------------------------------
+
+  exemplo2:
+    def mult(x):
+        var = 5
+        return x * var
+
+
+    print(mult(7))    # outputs: 35
+
+-------------------------------------------------------
+
+  exemplo3:
+    def mult(x):
+        var = 7
+        return x * var
+
+
+    var = 3
+    print(mult(7))    # outputs: 49
+
+
+-------------------------------------------------------
+
+
+------------------------------------
+Funções e scopes: a keyword global
+------------------------------------
+
+Esperamos que agora tenha chegado à seguinte pergunta: isto significa que uma função não é capaz de 
+modificar uma variável definida fora dela? Isso criaria muito desconforto.
+
+Felizmente, a resposta é não.
+
+Existe um método especial Python que pode alargar o scope de uma variável 
+de forma a incluir os corpos das funções (mesmo que se pretenda não só ler os valores, mas também modificá-los).
+
+Tal efeito é causado por uma keyword chamada: global
+
+  global name
+  global name1, name2, ...
+
+
+Utilizar esta keyword dentro de uma função com o nome (ou nomes separados por vírgulas) de uma variável, 
+força o Python a abster-se de criar uma nova variável dentro da função - a que é acessível 
+a partir do exterior será utilizada em vez disso.
+
+Por outras palavras, este nome torna-se global (tem um scope global, e não importa se é o assunto de leitura ou atribuição).
+
+
+
+Veja o código abaixo:
+
+    def my_function():
+        global var
+        var = 2
+        print("Do I know that variable?", var) 
+
+
+    var = 1
+    my_function() # imprime o resultado: Do I know that variable? 2
+    print(var) # imprime o resultado: 2
+
+
+Adicionámos: global à função.
+
+O código agora faz o output:
+
+  Do I know that variable? 2
+  2
+
+Isto deve ser prova suficiente para mostrar que a keyword global faz o que promete.
+
+

@@ -1,0 +1,87 @@
+########################################
+#
+#    Classe image do Pygame
+#
+########################################
+
+===========================================================
+ Trechos IMPORTANTES tirado do livro: Introdução ao Pygame
+===========================================================
+
+Ao longo dos anos, vários formatos de arquivos de imagens foram desenvolvidos, cada um com seus 
+prós e contras. Felizmente, um pequeno número se destacou como os formatos mais úteis - dois deles
+em particular são: JPEG e PNG. Ambos são bem suportados por softwares de edição de imagnens e, provavelmente, 
+não será necessário usar outros formatos para armazenar imagens em um jogo.
+
+  JPEG (Join Photografic Expert Group) - Arquivos de imagem JPEG normalmente têm a extensão .jpg ou .jpeg. Se vc
+  usa uma câmera degital, os arquivos que ela gera provavelmente serão  JPEGs, pois eles foram projetados
+  especificamente para armazenar fotografias. Eles usam um processo conhecido como compressão com perdas (LOSSY COMPRESSION),
+  que é muito bomm para reduzir o tamanho do arquivo. A desvantagem da compressão com perdas é que ela pode reduzir a 
+  qualidade da imagem, porém, normalmente, será tão sutil que vc não perceberá a diferença. O nível de compressão também pode
+  ser ajustado para haver um compromisso entre a qualidade visual e compressão. Os JPEGs podem ser ótimos para fotos, porém são
+  ruins para qualquer imagem com bordas acentuadas, como fontes ou diagramas, pois a compressão com perdas tende a distorcer 
+  esses tipos de imagem. Se vc tiver algum alguns desses tipos de imagem, o PNG provavelmente será uma opção mais adequada.
+
+  PNG (Portable Network Graphics) - Os arquivos PNG provavelmente são os formatos mais versãteis para imagens, pois podem armazenar 
+  uma ampla variedade de tipos de imagens e continuar fazendo uma boa compressão. Esse formato também suporta nanais alpha, 
+  que são muito úteis aos desenvolvedores de jogos. A compressão usada pelos PNGs não tem perdas, o que significa que as imagens
+  armazenadas em arquivos PNG serão exatamente  iguais ás originais. A desvantagem é que, mesmo com uma boa compressão, provavelmente
+  eles serão maiores que os JPEGs.
+
+
+Além do JPEG e do PNG, o Pygame suporta a leitura dos seguintes formatos:
+
+  - GIF (não animado)
+  - BMP
+  - PCX
+  - TGA
+  - TIF
+  - LBM (e PBM)
+  - PBM (e PGM, PPM)
+  - XPM   
+
+Como regra geral, utilize JPEG somente para imagens grandes, com muita variação de cores, do contrário, uitilize PNGs.
+
+
+
+
+=============================
+ métodos da classe image 
+=============================
+
+pygame.image.load() - carrega imagens armazenadas no computador.
+    Esse método possui 1 parâmetro:
+
+	1 - insira o caminho até a imagem escolhida no seu computador, dentro dos parênteses do método: load()
+
+	OBS: em projetos reais, usamos o modulo: OS.path do python para pegarmos 
+	o caminho até a imagem no computador, fica como dica !!!
+
+
+
+
+
+pygame.image.save() - esse método salva uma surface em um formato de imagem: BMP, TGA, PNG, ou JPEG. Se a extenção do 
+arquivo não for reconhecida, por padrão a surface será salva no formato: TGA.
+    Esse método possui 2 parâmetros:
+
+      1 - insere uma superficie.
+      2 - define o nome do arquivo (insira o nomeDoArquivo.extensão no formato string)
+
+      Veja um exemplo na linha abaixo:
+
+      my_name = "Harryson Kinsley"
+      
+      pygame.init()
+      my_font = pygame.font.SysFont("arial", 64)
+      name_surface = my_font.render(my_name, , True, (0, 0, 0), (255, 255, 255))
+      pygame.image.save(name_surface, "name.png")
+
+
+
+pygame.
+
+
+
+
+

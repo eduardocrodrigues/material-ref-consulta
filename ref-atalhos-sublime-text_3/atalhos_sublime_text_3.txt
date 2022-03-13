@@ -1,0 +1,260 @@
+================================================
+	instalando o Package Control
+================================================
+
+	O Package Control é o gerenciador de pacotes do Sublime, é com ele que podemos instalar os pacotes no Sublime.
+
+	Para fazer a instalação do Package Control, vá até o link: 
+
+		https://packagecontrol.io/installation
+
+
+	em seguida, clique em: 
+
+		Preferences, depois em Package Control
+
+	
+	abrirá uma janela no meio do editor, clique em:
+
+		Package Control: Install Package
+
+
+	e digite o nome do pacote que vc deseja. 
+
+
+============================================
+	lista de alguns pacotes do Sublime Text
+============================================
+
+	- BracketHighlighter - sinaliza onde começa e onde termina trechos de código, como por exemplo, onde começa e onde termina uma tag html, onde abre e onde fecha as chaves em javascript, etc....
+
+	-  emmet - usado para criar estrutura html mais rápido. Ele possui um monte de atalho para criar estruturas mais rápido em html, como por exemplo: 
+
+		html:5 #digite isso e aperte a tecla TAB e a estrutura html5 será criada
+
+		ul>li*4>a
+
+		div+div+div
+
+		div.nomeDaClasse
+
+		div#nomeDoId
+
+
+	- sidebarenhancements - adiciona mais opções na barra lateral do sublime para manipulação dos arquivos.
+
+	- AutoFileName - usado para autocompletar nomes de arquivos, como por exemplo, autocompletar o nome de uma imagem que estamos inserindo em uma tag <img> no documento html. Muito útil para desenvolvedores front-end.
+
+	- ViewInBrowser - utilizado para abrir rapidamente no navegador o arquivo que estamos trabalhando no sublime.
+
+		os atalhos são:
+
+			CTRL + F - para abrir no Firefox.
+
+			CTRL + C - para abrir no Chrome.
+
+			CTRL + I - para abrir no Internet Explorer
+
+			CTRL + S - para abrir no Safari.
+
+
+	- ColorPicker - usado para escolher cores.
+
+		o atalho para abrir o ColorPicker é: CTRL + C
+
+
+	- A file Icon - usado para inserir o icone do respectivo tipo de arquivo. Por exemplo, se o arquivo é do tipo python, insere o icone do python, se o arquivo é do tipo html, insere o ícone do html, e assim por diante...
+
+
+
+
+
+
+========================================================
+	Hotkeys (atalhos do Sublime Text) 
+========================================================
+
+CTRL + Clique em várias linhas - altera o conteúdo de mais de uma linha ao mesmo tempo.
+
+
+Selecionar um conteúdo no arquivo + CTRL + D - procura dentro do arquivo outra ocorrência do mesmo nome que foi selecionado (esse comando é usado para selecionar tudo no arquivo que contêm o mesmo nome, e caso queira, alterar esse conteúdo de nome igual, ao mesmo tempo ).
+
+	OBS: se caso ao utilizar o comando (selecionar um conteúdo no arquivo + (CTRL + D)) mais de uma vez e o conteúdo selecionado tiver um nome parecido, mas não for o mesmo, por exemplo:
+
+		<div class="box-status">
+			<span class="status-qtd"> 250 </span>
+			<p class="box-status"> Empresas Participantes</p> 
+		</div>
+
+	Selecionamos o texto "box-status", que está dentro da tag <div>. 
+	
+	Se mantermos o botão CTRL pressionado e apertarmos a tecla D, o sublime text procurará pela próxima ocorrência de texto que contenha uma das duas palavras: "box" ou "status", que nesse caso é o texto "status-qtd", que está armazenado na tag <span>.
+	
+	Mas o fato é que só queremos selecionar os textos "box-status". 
+
+	Para pularmos o texto "status-qtd", que está na tag <span>, mantemos a tecla CTRL pressionada e apertamos a tecla K, com isso a gente anula o texto atual apontado pelo sublime e iremos para a próxima ocorrência de texto "box-status", dentro do arquivo.
+
+
+CTRL + SHIFT + N - abre novamente o sublime Text.
+
+
+CTRL + N - abre uma nova aba dentro do sublime Text.
+
+
+CTRL + SHIFT + Seta_pra_cima - muda de lugar o conteúdo da linha onde está o cursor.
+
+
+CTRL + L - seleciona todo o conteúdo da linha onde está o cursor, no nosso código.
+
+
+CTRL + SHIFT + V - cola um trecho ou linha de código já com identação.
+
+
+CTRL + ] - usado para identar todo um trecho de código selecionado para a direita.
+
+	OBS: vc pode selecinar todo o código desejado e usar a tecla TAB para identar o código para a direita tbm.
+
+
+CTRL + [ - usado para identar todo um trecho de código selecionado para a esquerda.
+
+	OBS: vc pode selecinar todo o código desejado e usar as teclas SHIFT + TAB para identar o código para a esquerda tbm.
+
+
+CTRL + SHIFT + M - seleciona todo o conteúdo dentro de parentese (), ou dentro de chaves {}, ou dentro de couchetes [].
+
+	OBS: clique dentro do array, chaves ou colchetes e utilize o comando CTRL + SHIFT + M
+
+
+CTRL + K + B - usado para esconder a barra lateral que exibe a arvore de pastas do nosso projeto (é a barra lateral que fica no lado esquerdo do sublime text).
+
+	OBS: tem que manter a tecla CTRL pressionada e apertar ao mesmo tempo a tecla K e B.
+
+
+CTRL + BACKSPACE - deleta uma palavra se o cursor do mouse estiver no final da palavra.
+
+
+CTRL + DELETE - deleta uma palavra se o cursor do mouse estiver no começo da palavra.
+
+
+CTRL + Fn + setaParaEsquerda - usado para ir diretamente ao final do arquivo.
+
+	OBS: em teclado de computador Desktop, a mesma funcionalidade se faz com as teclas CTRL + HOME.
+
+
+CTRL + Fn + setaParaDireita - usado para ir diretamente o começo do arquivo.
+
+	OBS: em teclado de computador Desktop, a mesma funcionalidade se faz com as teclas CTRL + END.
+
+
+Fn + setaParaEsquerda - usado para ir ao começo da linha.
+
+	OBS: em teclado de computador Desktop, a mesma funcionalidade se faz com a tecla HOME. 
+
+
+Fn + setaParaDireita - usado para ir ao final da linha.
+
+    OBS: em teclado de computador Desktop, a mesma funcionalidade se faz com as teclas END.
+
+
+CTRL + / - usado para comentar uma linha onde o cursor está apontado no arquivo ou um bloco de código selecionado.
+
+
+
+
+
+
+========================================
+	Atalho para busca de arquivo
+========================================
+CTRL + P - usado para procurar por qualquer tipo de arquivo que estamos trabalhando no nosso projeto.
+
+	OBS: ao digitar o comando CTRL + P, será exibido na parte superior da tela do sublime um campo de entrada de dados. É nele que digitamos o nome do arquivo que estamos procurando no nosso projeto. Conforme vc vai digitando um nome de um arquivo, o sublime vai dando sujestões sobre arquivos do projeto que contêm os caracteres digitados. Ao ser exibido o nome do arquivo desejado, é só clicar no nome do arquivo e o arquivo será aberto.
+
+
+==============================================
+    Atalhos para buscas dentro de um arquivo
+==============================================
+
+CTRL + G - usado para ir direto á uma linha específica do arquivo.
+
+	OBS: ao digitar o comando CTRL + G, será exibido na parte superior da tela do sublime um campo de entrada de dados. É nele que digitamos o número da linha de código que queremos ir.
+
+
+CTRL + R - usado para fazer buscas por block-level.
+
+	OBS1: block-level são blocos de código. A busca dos block-levels é feita pelo nome do bloco. 
+
+		Por exemplo:
+
+			Se o código é html, o nome do block-level é os id das Tags.
+
+			Se o código é CSS, o nome do block-level é o nome do Seletor.
+
+			Se o código é Javascript, o nome do block-level é o Nome da Função.
+
+
+	OBS2: ao digitar o comando CTRL + R, será exibido na parte superior da tela do sublime um campo de entrada de dados. É nele que digitamos o nome do block-level que queremos.
+
+	OBS3: vc pode utilizar o comando CTRL + D para percorrer para as outras possíveis ocorrências de block-levels dentro do arquivo.
+
+
+    CTRL + Ç - usado para pesquisar por palavras dentro do arquivo.
+
+    	OBS: o comando CTRL + Ç é parecido com o comando CTRL + F, a diferença é que a medida que vc insere caracteres da palavra desejada, aparece sujestões outras palavras relacionado ao que vc está digitando.
+
+
+	CTRL + F - usado para procurar por palavras dentro do arquivo.
+
+
+	CTRL + SHIFT + F - usado para procurar por uma palavra em todos os arquivos abertos no sublime.
+
+		OBS: ao digitar o comando CTRL + SHIFT + F, será exibido na parte inferior da tela do sublime um campo de entrada de dados, é nele que digitamos a palavra que queremos procurar.
+
+		OBS2: se vc procurar por uma palavra, e essa palavra existir em um arquivo ou em mais de um dos arquivos abertos no sublime, então abrirá uma aba chamada results, mostrando em qual linha do(s) arquivo(s) está a palavra que foi digitada para ser procurada. Se vc der dois cliques no trecho de código exibido na página results, vc será enviado para o arquivo que contêm esse código.
+
+
+=================================================
+    Criando as nossas próprias teclas de atalho
+=================================================
+
+	OBS: Hotkeys tbm são chamadas de KeyBindings (que são um conjunto de teclas criadas para fazer alguma coisa no sublime).
+
+	Para criarmos as nossas próprias teclas de atalho, no menu superior do sublime clicamos em: Preferences, depois em Key bindings. 
+
+	Abrirá uma janela com duas abas. Do lado esquerdo, é mostrando todos os atalhos padrão do sublime text, do lado direito há uma aba vazia, é nessa aba vazia que vamos configurar os nossos atalhos personalizados.
+
+		OBS: Ao configurar um atalho personalizado, vc tem que tomar o cuidado de não sobreescrever um atalho já existente, por isso é bom se certificar de que o atalho que vc deseja criar não exista nos atalhos já configurados no sublime text.
+
+	Um exemplo de a configuração do atalho personalizado é assim:
+
+		[
+			{"keys": ["ctrl+shift+c"], "command": "insert_snippet", 
+			"args":{"contents": "console.log()"}
+			}
+		] 
+
+		    OBS: A sintaxe de configuração de atalho segue o tipo de arquivos json. Dê uma estudada sobre json.
+
+
+	Dê CTRL + S para salvar o arquivo, e pronto, atalho personalizado configurado com sucesso!!! 
+
+
+==================================
+    deletando conteúdo no arquivo
+==================================
+
+CTRL + X - deleta todo o conteúdo da linha onde está o cursor no sublime, independente de onde o cursor estiver na linha.
+
+	OBS: a cada vez que vc clicar novamente, vai deletando mais linhas subsequentes. Para voltar o conteúdo da linha deletada, basta usar o CTRL + Z
+
+
+===========================
+    Word wrap
+===========================
+
+ o word wrap é uma funcionalidade do sublime text que comprime todo o código para que fique na sua área de visão no documento, ou seja, se essa funcionalidade não estiver ativada, vc terá que ficar usando a barra de rolagem para ver o conteúdo que ultrapassa o canto direito da janela do sublime text.
+
+ Para ativar essa funcionalidade: 
+
+ 	clique em View, em seguida clique na opção word wrap. 
+

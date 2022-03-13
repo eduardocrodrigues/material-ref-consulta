@@ -1,0 +1,271 @@
+#########################################
+#
+#    Classe event do Pygame
+#
+#########################################
+
+pygame.event.set_blocked() - bloqueia o TIPO DO EVENTO da lista de eventos de pygame.event.get().
+  vamos supor que o seu jogo reproduza uma pequena cena de um filme entre os níveis do jogo, é provável
+  que vc vá querer IGNORAR OS TIPOS DE EVENTOS até que A CENA TENHA TERMINADO. O método set_blocked() pode
+  te ajudar nisso.
+
+    Esse método possui 1 parâmetro:
+
+	1 - insira o nome do tipo de evento (KEYUP, MOUSEMOTION, KEYDOWN, etc...) dentro dos
+        parênteses do método: set_blocked(). Por exemplo, a linha abaixo DESABILITARÁ o movimento do mouse:
+
+	    pygame.event.set_blocked(MOUSEMOTION)
+
+	OBS: vc pode inserir uma LISTA DE EVENTOS dentro dos parênteses do método: set_blocked(), todos
+        esses eventos SERÃO BLOQUEADOS. Por exemplo, a linha a seguir desabilitará todas as entradas
+        de teclado ao bloquear os eventos KEYUP e KEYDOWN:
+
+	    pygame.event.set_blocked([KEYUP, KEYDOWN])
+
+	OBS2: se quiser desbloquear todos os eventos, passe o valor None para o método: set_blocked(). Essa
+	linha abaixo permitirá que todos os eventos ocorram na fila de eventos:
+
+	    pygame.event.set_blocked(None)
+
+
+pygame.event.set_allowed() - recebe os eventos de devem ser permitidos (desbloquados). Essa função
+também aceita um ÚNICO TIPO DE EVENTO ou UMA LISTA DE TIPOS DE EVENTO dentro dos parênteses do método: set_allowed().
+No entanto, se o valor None for passado, todos os eventos serão BLOQUEADOS.
+
+
+pygame.event.get_block() - usado para saber se um evento está bloqueado. O tipo do evento deve ser inserido
+dentro dos parênteses do método: get_block(). Esse método ACEITA SOMENTE UM ÚNICO TIPO DE EVENTO para verificação.
+
+
+pygame.event.Event() - utilizado para criar eventos personalizados no pygame. O construtor Event recebe
+o tipo do evento, como por exemplo, um dos eventos da tabela de eventos, seguido dos valores
+que o evento deve conter. Como estamos simulando o evento KEYDOWN, devemos fornecer todos os valores
+que o evento manipulador (event handler) espera que estejam presentes. A linha abaixo mostra um exemplo de
+como criar um evento personalizado:
+
+	my_event = pygame.event.Event(KEYDOWN, key='K_SPACE', mod=0, unicode=u' ')
+	pygame.event.post(my_event)
+
+	OBS: se preferir, você poderá fornecer esses valores na forma de um dicionário (que é a estrutura igual
+        a mostrada nos eventos de: pygame.event.get() ). A linha abaixo cria o mesmo objeto de evento:
+
+		my_event = pygame.event.Event(KEYDOWN, {"key":K_SPACE, "mod":0, "unicode":u' '})
+		pygame.event.post(my_event)
+
+
+	OBS2: Alem de simular os eventos gerados pelo Pygame, podemos criar eventos totalmente novos. Tudo que devemos
+        fazer é usar um valor de ID para o evento que seja maior que pygame.USEREVENT.
+
+	        OBS: todo evento do Pygame, possui um número de ID que representa um evento. O pygame.USEREVENT é a constante que
+		representa O VALOR MÁXIMO de ID usado pelo Pygame em seus próprios ID's de evento.
+
+		OBS2: O tratamento de eventos de usuário é feito da mesma maneira que o tratamento dos eventos normais
+		gerados pelo Pygame (basta verificar o tipo do evento para ver se ele corresponde
+                ao seu evento personalizado). Aqui está o modo como você poderá tratar um evento personalizado CATONKEYBOARD:
+
+
+			###########################################################
+			#  Esses trechos de código DEVE SER CHAMADO DENTRO DO LOOP
+			#  ANTES DA VERIFICAÇÃO de: pygame.event.get().
+			#
+			CATONKEYBOARD = pygame.USEREVENT + 1
+			my_event = pygame.event.Event(CATONKEYBOARD, message="BAD CAT !!!")
+    			pygame.event.post(my_event)
+
+			CATONKEYBOARD2 = pygame.USEREVENT + 2
+			my_event = pygame.event.Event(CATONKEYBOARD, message="GOOD CAT !!!")
+    			pygame.event.post(my_event)
+
+			for event in pygame.event.get():
+		    	    if event.type == pygame.QUIT:
+			        pygame.quit()
+			        exit()
+
+		            if event.type == CATONKEYBOARD:
+			        print(event.message)
+
+			    if event.type == CATONKEYBOARD2:
+			        print(event.message)
+
+
+
+
+pygame.event.post() - usado para inserir um EVENTO PERSONALIZADO FEITO PELO USUÁRIO, na LISTA DE EVENTOS DE: pygame.event.get().
+  o evento personalizado deve ser inserido dentro dos parênteses do método: post().
+
+
+
+
+  pygame.event.set_grab() - faz a captura o mouse fazendo com que o mouse fique limitado somente á parte interna da tela do Pygame,
+  tendo controle total sobre o mouse. O efeito colateral de usar esse método é que você NÃO PODERÁ USAR O MOUSE PARA FECHAR A JANELA DO PYGAME,
+  com isso será necessário oferecer uma maneira alternativa de encerrar o script.
+      Esse método possui 1 parâmetro:
+
+          1 - insira um valor boleano (True ou False)
+
+        OBS: se vc usar o método: pygame.mouse.set_grab() com o valor True, o mouse ficará limitado ao tamanho interno da tela do Pygame.
+
+
+
+
+pygame.event.wait() - Retorna um único evento da fila de eventos. Se a fila de eventos estiver vazia esta função irá
+esperar até que um evento seja criado. A partir do Pygame 2.0.0, se o argumento: timeout é dado, a função irá retornar
+um evento do tipo: pygame.NOEVENT se nenhum evento entrar na fila de eventos no tempo (em milisegundos) determinado
+no parâmetro timeout. O evento é removido da fila uma vez que tiver sido retornado. Enquanto o programa estiver esperando,
+o programa entrará no modo de espera.
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------
+  Lista de Eventos-Padrão                                                 |    atrinutos de cada tipo de evento
+--------------------------------------------------------------------------------------------------------
+
+    QUIT - o usuário clicou no botão de fechamento.                       | none
+    ACTIVEEVENT - o pygame foi ativado ou oculto.                         | gain, state
+    KEYDOWN - uma tecla foi pressionada.                                  | unicode, key, mod
+    KEYUP - uma tecla foi solta.                                          | key, mod
+    MOUSEMOTION - o mouse foi movido.                                     | pos, rel, buttons
+    MOUSEBUTTONUP - um botão do mouse foi solto.                          | pos, button
+    JOYAXISMOTION - o joystick ou pad foi movido.                         | joy, axis, value
+    JOYBALLMOTION - o trackball do joystick foi movido.                   | joy, ball, rel
+    JOYHATMOTION - o joystick hat (hat é o d-pad do controle) foi movido. | joy, hat, value
+    JOYBUTTOMDOWN - o botão do joystick ou do pad foi pressionado.        | joy, buttom
+    JOYBUTTOMUP - o botão do joystick ou pad foi solto.                   | joy, buttom
+    VIDEORESIZE - a janela do pygame foi redimensionada.                  | size, w, h
+    VIDEOEXPOSE - toda a janela do pygame ou parte dela foi exposta.      | none
+    USEREVENT - um evento de PERSONALIZADO PELO USUÀRIO ocorreu.          |
+
+
+    OBS: trackball é uma bolinha que os jogadores colocam em seus controles
+    para melhor movimentação de camera ou do personagem em um jogo. alguns controles
+    no mercado já vêm com essa bolinha trackball por padrão. Procure por
+    trackball no youtube e vc saberá o que é.
+
+
+----------------------------------------------------------------------------------------------------------------
+significado dos parâmetros de cada evento
+----------------------------------------------------------------------------------------------------------------
+
+    buttons - uma tupla com três números que corresponde aos botões do mouse.
+    Desse modo, buttons[0] é o BOTÃO ESQUERDO do mouse, button[1] é o BOTÃO DO MEIO
+    do mouse (ou seja, a roda do mouse) e button[2] é o BOTÃO DIREITO do mouse. Se o botão
+    estiver pressionado, seu valor estará definido com: 1, se não estiver pressionado,
+    seu valor será: 0. vários botões poderão estar pressionados ao mesmo tempo.
+
+
+    pos - uma tupla que contêm a posição do mouse quando o evento foi gerado.
+
+
+    rel - uma tupla que contêm a distância que o mouse percorreu desde o último evento de
+    movimento do mouse (as vezes é chamado de mickies do mouse).
+
+
+    buttom - o número do botão pressionado. Um valor igual a 1 indica que o botão esquerdo do mouse
+    foi pressionado, 2 indica que o botão do meio foi pressionado e 3 indica que o botão direito foi pressionado.
+
+
+    key - é um número que representa a tecla pressionada ou liberada. Cada tecla fisica do teclado tem uma
+    constante associada que começa com K_. As teclas para as letras do alfabeto vão de K_a a K_z, porém há
+    também constantes para todas as demais teclas, por exemplo, K_SPACE e K_RETURN. Para ver uma lista completa
+    das constantes de teclas que podem ser usadas, acesse: www.pygame.org/docs/ref/key.html
+
+
+    mod - esse valor representa as teclas usadas em combinação com outras teclas,
+    por exemplo, Shift, Alt e Ctrl. Cada umas dessas teclas modificadoras é representada
+    por uma constante que começa com KMOD_, por exemplo, KMOD_SHIFT, KMOD_ALT e KMOD_CTRL.
+    Teste esses valores usando o operador bitwise ( & ). Por exemplo, mod & KMOD_CTRL será
+    avaliado como True se a tecla Ctrl estiver pressionada.
+    www.pygame.org/docs/ref/keys.html disponibiliza uma lista completa das teclas modificadoras.
+
+
+    unicode - é o valor unicode da tecla pressionada. Ela é gerada pela
+    combinação da tecla pressionada com qualquer uma das teclas modificadoras
+    pressionada. Há um valor de unicode para cada simbolo do alfabeto inglês e de outros
+    idiomas. Você não usará esse valor com frequência em um jogo, pois as teclas tendem a
+    ser usadas mais como chaves (switches) do que para entrada de texto. Uma excessão será
+    a inserção em uma tabela das maiores pontuações, em que vc vai querer que o jogador possa
+    digitar letras que não pertençam ao alfabeto inglês, bem como misturar letras maiúsculas e minúsculas.
+
+
+----------------------------------------------------------------------------------------------------------------
+significado dos parâmetros do evento: JOYHATMOTION
+----------------------------------------------------------------------------------------------------------------
+
+    joy - é o índice do joystick em que o evento foi gerado.
+
+
+    hat - é o indice do hat pressionado (hat é o d-pad do controle de video-game).
+
+
+    value - é a direção do pressionamento (é uma tupla com as alterações
+    nos eixos x e y - um número negativo para o eixo (-1) indica para a esquerda ou para baixo, enquanto que
+    numero positivo (1) indica para direita ou para cima.)
+
+        NOTA: não há nenhum evento up e down para os d-pads, pois, quando ele é solto, ele retorna para o meio e outro
+        evento JOYHATMOTION é enviado.
+
+
+
+-------------------------------------------------
+significado dos parâmetros do evento: VIDEORESIZE
+-------------------------------------------------
+
+    size - é a tupla do evento VIDEORESIZE, que contêm as novas dimensões da janela: size[0] é a largura da janela e size[1] é a altura da janela.
+
+    w - esse valor do evento VIDEORESIZE contêm a largura da janela. É o mesmo valor que está em size[0], porém poderá ser mais conveniente usar assim.
+
+    y - esse valor do evento VIDEORESIZE contêm a altura da janela. É o mesmo valor que está em size[1], porém poderá ser mais conveniente usar assim.
+
+
+############################################
+#
+# Exemplo de código do evento: VIDEORESIZE
+#
+############################################
+
+--------------------------------------------
+ usando janela que pode ser redimensionada
+--------------------------------------------
+
+import pygame
+from pygame.locals import *
+from sys import exit
+
+background_image_filename = 'sushiplate.jpeg'
+
+SCREEN_SIZE = (640, 480)
+
+pygame.init()
+screen = pygame.display.set_mode(SCREEN_SIZE, RESIZABLE, 32) # devemos usar o RESIZABLE no segundo parâmetro do método: set_mode().
+
+background = pygame.image.load(background_image_filename).convert()
+
+while True:
+
+    for event in pygame.event.get():
+	if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+
+        if event.type == pygame.VIDEORESIZE: # evento que ATIVA O REDIMENSIONAMENTO DA JANELA do pygame.
+            ############################################################################################################
+            # aqui é configurado o que acontece com a janela do pygame quando o evento: pygame.VIDEORESIZE é ativado (ou seja,
+            # é ativado quando o usuário redimensiona a janela do pygame)
+            #
+            SCREEN_SIZE = event.size # tupla que contêm a largura e a altura do evento: pygame.VIDEORESIZE
+            screen = pygame.display.set_mode(SCREEN_SIZE, RESIZABLE, 32)
+            pygame.display.set_caption("Window resized to " + str(event.size)) # aplicamos a largura e altura do evento: pygame.VIDEORESIZE, na borda superior da janela.
+
+        screen_width, screen_height = SCREEN_SIZE # desempacotamos a tupla para as variáveis: screen_width e screen_height...
+        for y in range(0, screen_height, background.get_height()):
+            for x in range(0, screen_width, background.get_width()):
+                screen.blit(background, (x, y))
+
+        pygame.display.update()
+
+
+
+==============================================================================================

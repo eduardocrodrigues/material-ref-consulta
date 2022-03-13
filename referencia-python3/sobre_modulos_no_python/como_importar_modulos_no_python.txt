@@ -1,0 +1,62 @@
+###############################################
+#
+#  Entendendo como importar módulos do python
+#
+###############################################
+
+Os módulos podem ser importados com a palavra-chave: import, seguida do nome de um módulo. Por exemplo,
+a linha a seguir importa um módulo chamado: mymodule:
+
+  import mymodule
+
+
+importar um módulo dessa maneira cria um novo namespace, o que significa que será necessário digitar
+o nome do módulo e um ponto antes de qualquer classe ou função que vc utilizar. Por exemplo, se
+houver uma função chamada: myfunciton em mymodule, ela será chamada desta maneira:
+
+  mymodule.myfunction()
+
+
+Essa é a maneira usual de importar módulos da biblioteca-padrão, pois mantém os itens 
+de cada módulo separados. Se vc tiver outra função chamada myfunction em um módulo diferente,
+não haverá nenhuma confusão no que diz respeito á função chamada.
+
+Também é possível importar classes ou funções específicas de um módulo usando a instrução: from. A linha
+a seguir importa: myclass de: mymodule, para o namespace atual:
+
+  from mymodule import myclass
+
+
+Utilize esse método se quiser alguns recursos do módulo e souber que seus nomes não entrarão em conflito com
+tudo o mais que estiver em seu script. Você poderá importar diversas classes, funções e outros recursos ao 
+adicionar uma vírgula entre eles. Desse modo:
+
+ from mymodule import myclass, myfunction 
+
+
+importa dois itens da classe mymodule. Um simbolo * pode ser usado para indicar que você quer importar tudo que
+estiver em um módulo para o namespace atual. Por exemplo, a linha a seguir importa tudo de: mymodule para o namespace atual:
+
+  from mymodule import *
+
+
+Esse método de importação economiza digitalização, pois não é necessário especificar o nome do módulo para referencia-lo, porém
+utilize esse método somente se o módulo contiver poucos recursos e se vc souber que os nomes não entrarão em conflito 
+com outras classes ou funções de seu script. O módulo math é um bom candidato para esse tipo de importação.
+
+Por fim, podemos também importar módulos ou funções de módulos usando a palavra (as) para mudar o nome associado. Por exemplo:
+
+  import mymodule as mm
+
+
+Agora, em vez de digitar mymodule para referênciar o módulo, você poderá simplesmente digitar: mm. Isso pode ser feito também
+com funções importadas de módulos, assim:
+
+  from mymodule import function as func 
+
+
+assim, a função importada será usada com o nome: func
+
+
+
+

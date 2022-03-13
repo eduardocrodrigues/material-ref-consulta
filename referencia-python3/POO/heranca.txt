@@ -1,0 +1,195 @@
+#########################################
+#
+#  Herança Simples em POO Python
+#
+#########################################
+
+Utilizamos Herança QUANDO QUEREMOS QUE CARACTERISTICAS DE UMA CLASSE seja IMPLEMENTADA EM OUTRA CLASSE.
+
+
+veja no exemplo de código abaixo como funciona a herança no seu modo mais simples:
+
+# A classe Pessoa (que é usada como classe base para as classes: Aluno e Diretor), é chamada de super()
+class Pessoa:
+	def __init__(self, nome, idade, altura):
+		self.nome = nome
+		self.idade = idade
+		self.altura = altura
+		# usamos: self.__class__.__name__ como VALOR DESSE ATRIBUTO ABAIXO somente PARA PODERMOS  
+		# VISUALIZAR O NOME DA INSTÂNCIA QUE ESTÁ UTILIZANDO  
+		# A ESTRUTURA DA CLASSE Pessoa quando chamamos o método: falar()
+		self.nomeDaClasse = self.__class__.__name__
+
+
+	def falar(self):
+		print('a classe ' + self.nomeDaClasse + ' está falando...')
+
+
+class Diretor(Pessoa): # criada a classe Diretor, que herda HERDA TODA A ESTRUTURA DEFINIDA NA CLASSE Pessoa.
+    pass # quando herdamos a classe pai (Pessoa) para a classe filha (Aluno), e NÃO DEFINIMOS NADA ALÉM 
+    # DO QUE FOI HERDADO, DEVEMOS USAR A PALAVRA: pass. Caso contrário, o Python gerará um erro.
+
+class Aluno(Pessoa): # criada a classe Aluno, que tbm herda HERDA TODA A ESTRUTURA DEFINIDA NA CLASSE Pessoa.
+    pass # quando herdamos a classe pai (Pessoa) para a classe filha (Aluno), e NÃO DEFINIMOS NADA ALÉM 
+    # DO QUE FOI HERDADO, DEVEMOS USAR A PALAVRA: pass. Caso contrário, o Python gerará um erro. 
+
+
+
+print()
+# A classe Diretor está usando toda a estrutura da classe Pessoa...
+daniel = Diretor('Daniel', 32, 1.77) # criando uma instância da classe Diretor
+print(daniel.nome)
+print(daniel.idade)
+print(daniel.altura)
+daniel.falar()
+
+
+print()
+# A classe Aluno está usando toda a estrutura da classe Pessoa...
+eduardo = Aluno('Eduardo', 32, 1.77) # criando uma instância da classe Aluno
+print(eduardo.nome)
+print(eduardo.idade)
+print(eduardo.altura)
+eduardo.falar()
+
+
+------------------------------------------------------------------------------------------------
+
+Vamos aprender agora COMO HERDAR PARÂMETROS DO MÉTODO __init__ da classe pai: (Pessoa) (tbm 
+chamada de: super()), para o método __init__ da classe filha: Aluno, e CRIAR MAIS PARÂMETROS 
+QUE PERTENCEM SOMENTE A CLASSE FILHA.
+
+A CLASSE QUE É PASSADA COMO HERANÇA PARA OUTRA(S) CLASSE(S) É CHAMADA DE: CLASSE PAI (no Python, 
+a classe pai é chamada de classe: super(). O MÉTODO super() no código do Python REPRESENTA O NOME DA CLASSE PAI,
+NO PYTHON. As CLASSES QUE RECEBEM UMA CLASSE COMO HERANÇA, são chamadas por 
+programadores Python de: classe filha ou subclasse.
+
+  OBS: DIFERENTE DA CLASSE PAI que possui um método: super() para representar o nome da classe pai, A(S) 
+  CLASSE(S) FILHA(S) NÃO POSSUEM UM MÉTODO PYTHON QUE REPRESENTE O NOME DAS(S) CLASSE(S) FILHA(S).
+
+Para HERDARMOS OS PARÂMETROS DO MÉTODO __init__ DA CLASSE PAI (a classe pai no nosso caso, é 
+a classe: Pessoa) PARA A CLASSE FILHA (a classe filha no nosso caso, é a classe: Aluno), DEVEMOS CHAMAR
+O MÉTODO __init__ DA CLASSE PAI (Pessoa) DENTRO DO MÉTODO __init__ da classe filha (Aluno).
+
+  Existem duas maneiras de fazermos isso:
+
+    ex1:
+      Pessoa.__init__(self, nome, idade, altura)
+
+      se vc inserir a linha do ex1 dentro do método __init__ da classe filha, VC DEVE SEMPRE 
+      INSERIR A PALAVRA: self NO PRIMEIRO PARÂMETRO DO MÉTODO: __init__().
+
+
+    ex2:
+      super().__init__(nome, idade, altura)
+
+      se vc inserir a linha do ex2 dentro do método __init__ da classe filha, 
+      lembre-se que o método: super() representa o nome da classe pai (Pessoa),
+      e NÃO INSERIMOS A PALAVRA self NO PRIMEIRO PARÂMETRO DO MÉTODO __init__(). 
+
+
+Vamos agora ao exemplo de código que mostra o que aprendemos nessa sessão:
+
+
+# A classe Pessoa (que é usada como classe base para a classe: Aluno)
+class Pessoa:
+	def __init__(self, nome, idade, altura):
+		self.nome = nome
+		self.idade = idade
+		self.altura = altura
+		# usamos: self.__class__.__name__ como VALOR DESSE ATRIBUTO ABAIXO somente PARA PODERMOS  
+		# VISUALIZAR O NOME DA INSTÂNCIA QUE ESTÁ UTILIZANDO  
+		# A ESTRUTURA DA CLASSE Pessoa quando chamamos o método: falar()
+		self.nomeDaClasse = self.__class__.__name__
+
+
+	def falar(self):
+		print('a classe ' + self.nomeDaClasse + ' está falando...')
+
+
+
+class Aluno(Pessoa): # criada a classe Aluno, que HERDA TODA A ESTRUTURA DEFINIDA NA CLASSE Pessoa.
+    
+    def __init__(self, nome, idade, altura, peso, numRegistroAcademico):
+        #############################################################################
+        # as duas linhas abaixo mostra as duas formas que podemos chamar
+        # o método __init__ da classe pai dentro do método __init__ da classe filha.
+        #############################################################################
+        super().__init__(nome, idade, altura) # sem atribuir o parâmetro: self no método __init__()
+        #Pessoa.__init__(self, nome, idade, altura) # TEM QUE ATRIBUIR O PARÂMETRO: self no método __init__()
+
+        self.peso = peso
+        self.numRegistroAcademico = numRegistroAcademico
+
+
+eduardo = Aluno('Eduardo', 32, 1.77, 70, 45776) # criando uma instância da classe Aluno
+print(eduardo.nome)  # propriedade HERDADA da classe: Pessoa
+print(eduardo.idade)  # propriedade HERDADA da classe: Pessoa
+print(eduardo.altura) # propriedade HERDADA da classe: Pessoa
+print(eduardo.peso) # propriedade CRIADA na classe: Pessoa
+print(eduardo.numRegistroAcademico) # propriedade CRIADA na classe: Pessoa
+eduardo.falar()
+
+
+
+
+-------------------------------------------------------------------------------------------------
+
+Agora eu vou mostrar pra vc COMO HERDAR OS MÉTODOS DA CLASSE PAI PARA A CLASSE FILHA, e 
+ADICIONAR MÉTODOs Á CLASSE FILHA que vão pertencer SOMENTE A CLASSE FILHA.
+
+
+# A classe Pessoa (que é usada como classe base para a classe: Aluno)
+class Pessoa:
+	def __init__(self, nome, idade, altura):
+		self.nome = nome
+		self.idade = idade
+		self.altura = altura
+		# usamos: self.__class__.__name__ como VALOR DESSE ATRIBUTO ABAIXO somente PARA PODERMOS  
+		# VISUALIZAR O NOME DA INSTÂNCIA QUE ESTÁ UTILIZANDO  
+		# A ESTRUTURA DA CLASSE Pessoa quando chamamos o método: falar()
+		self.nomeDaClasse = self.__class__.__name__
+
+
+	def falar(self):
+		print('a classe ' + self.nomeDaClasse + ' está falando...')
+
+
+
+class Aluno(Pessoa): # criada a classe Aluno, que HERDA TODA A ESTRUTURA DEFINIDA NA CLASSE Pessoa.
+    
+    def __init__(self, nome, idade, altura, peso, numRegistroAcademico):
+        #############################################################################
+        # as duas linhas abaixo mostra as duas formas que podemos chamar
+        # o método __init__ da classe pai dentro do método __init__ da classe filha.
+        #############################################################################
+        super().__init__(nome, idade, altura) # sem atribuir o parâmetro: self no método __init__()
+        #Pessoa.__init__(self, nome, idade, altura) # TEM QUE ATRIBUIR O PARÂMETRO: self no método __init__()
+
+        self.peso = peso
+        self.numRegistroAcademico = numRegistroAcademico
+
+
+    ###############################################
+    # método que pertence somente a classe Aluno
+    def andar(self):
+        print('o aluno está andando !!!!')
+
+
+    ###############################################
+    # método que pertence somente a classe Aluno
+    def correr(self):
+        print('o aluno está correndo !!!!')
+
+
+eduardo = Aluno('Eduardo', 32, 1.77, 70, 45776) # criando uma instância da classe Aluno
+print(eduardo.nome)  # propriedade HERDADA da classe: Pessoa
+print(eduardo.idade)  # propriedade HERDADA da classe: Pessoa
+print(eduardo.altura) # propriedade HERDADA da classe: Pessoa
+print(eduardo.peso) # propriedade CRIADA na classe: Pessoa
+print(eduardo.numRegistroAcademico) # propriedade CRIADA na classe: Pessoa
+eduardo.falar() # método HERDADO da classe: Pessoa
+eduardo.andar() # método CRIADO na classe: Aluno
+eduardo.correr() # método CRIADO na classe: Aluno
+
+

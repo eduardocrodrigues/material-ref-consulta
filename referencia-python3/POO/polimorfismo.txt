@@ -1,0 +1,118 @@
+#######################################
+#
+#  Polimosfismo Python POO
+#
+#######################################
+
+O polimosfismo acontece em herança de classe QUANDO UM MÉTODO DEFINIDO EM UMA CLASSE FILHA (subclasse) 
+SOBREPÕE UM MÉTODO DE MESMO NOME DEFINIDO NA CLASSE PAI (super classe).
+
+O método da classe filha que sobrepõe o método da classe pai pode ser configurado
+de duas maneiras:
+
+    - vc pode INSERIR UM CONTEÚDO (código) TOTALMENTE DIFERENTE DO CONTEÚDO 
+    INSERIDO NO MÉTODO DA CLASSE PAI (super classe), como mostra o: Exemplo de código número 1. 
+
+
+    - vc pode INSERIR TODO O CONTEÚDO DO MÉTODO DA CLASSE PAI, DENTRO DO 
+    MÉTODO DE MESMO NOME DA CLASSE FILHA, E ADICIONAR MAIS CÓDIGO NESSE
+    MÉTODO DA CLASSE FILHA, como mostra o: Exemplo de código número 2.
+
+
+
+----------------------------
+Exemplo de código numero 1:
+----------------------------
+
+	############################
+	# classe Pai
+	class Pessoa:
+
+	    def __init__(self, nome, idade, pais, idioma):
+	        self.nome = nome
+	        self.idade = idade
+	        self.pais = pais 
+	        self.idioma = idioma
+
+
+        #-------------------------------
+        # método falar() da classe Pai
+        #-------------------------------
+	    def falar(self):
+	        print('A ' + self.nome + ' sabe falar ' + self.idioma + '.')
+
+	    def andar(self):
+	        print('A ' + self.nome + ' sabe ' + self.andar + '.')
+
+
+	##########################
+	# classe filha (pq herda todo o código da classe Pai: Pessoa)
+	class Americano(Pessoa):
+
+	    # Esse método SOBREESCREVE O MÉTODO DE MESMO NOME, HERDADO DA CLASSE PAI ( Pessoa )
+	    def falar(self):
+	        print('' + self.nome + ' é Professor de ' + self.idioma + '.')
+	        print('Ele é formado na Universidade do MIT')
+	        print('E tem profundo conhecimento em programação Python')
+
+
+
+	Brian = Americano('Brian', 25, 'Estados Unidos', 'Inglês')
+	Brian.falar() # chamando o MÉTODO QUE SOBREESCREVEU O MÉTODO DE MESMO NOME DEFINIDO NA CLASSE PAI ( Pessoa )
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+----------------------------
+Exemplo de código numero 2:
+----------------------------
+
+	############################
+	# classe Pai
+	class Pessoa:
+
+	    def __init__(self, nome, idade, pais, idioma):
+	        self.nome = nome
+	        self.idade = idade
+	        self.pais = pais 
+	        self.idioma = idioma
+
+
+	    def falar(self):
+	        print('A ' + self.nome + ' sabe falar ' + self.idioma + '.')
+
+	    def andar(self):
+	        print('A ' + self.nome + ' sabe ' + self.andar + '.')
+
+
+	##########################
+	# classe filha (pq herda todo o código da classe Pai: Pessoa)
+	class Americano(Pessoa):
+
+	    # Esse método SOBREESCREVE O MÉTODO DE MESMO NOME, HERDADO DA CLASSE PAI ( Pessoa )
+	    def falar(self):
+
+	        # há duas formas de chamarmos o método de uma classe Pai, dentro do 
+	        # método de uma classe filha:
+	        #
+	        #  a primeira forma é:
+	        #    super().falar() # super() é um método em Python que REPRESENTA O NOME DA CLASSE PAI.
+	        #
+	        #  a segunda forma é:
+	        #    NomeDaClassePai.falar(self) # que, nesse exemplo, seria: Pessoa.falar(self)
+	        # 
+	        #      OBS: Quando chamamos o método da classe pai, dentro de um método da classe filha,
+	        #      USANDO A NOTAÇÃO: NomeDaClassePai.falar(self), temos que LEMBRAR SEMPRE DE INSERIR
+	        #      O PARÂMETRO: self DENTRO DOS PARÊNTESES DO MÉTODO.
+	        #
+	        Pessoa.falar(self) # chama TODO O CONTEÚDO DO MÉTODO da classe pai ( Pessoa )
+	        print('' + self.nome + ' é Professor de ' + self.idioma + '.')
+	        print('Ele é formado na Universidade do MIT')
+	        print('E tem profundo conhecimento em programação Python')
+
+
+
+	Brian = Americano('Brian', 25, 'Estados Unidos', 'Inglês')
+	Brian.falar()

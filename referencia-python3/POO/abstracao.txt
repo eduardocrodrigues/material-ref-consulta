@@ -1,0 +1,78 @@
+########################################
+#
+#  Abstraçao em POO Python
+#
+########################################
+
+ABSTRAÇÃO em programação significa CRIAR UMA CLASSE COM CARACTERÍSTICAS GENÉRICAS DE 
+UM DETERMINADO OBJETO.
+
+Criamos classes abstratas (genéricas) em programação para REUNÍRMOS AS CARACTERÍSTICAS
+MAIS COMUNS DE UM DETERMINADO OBJETO.
+
+Por exemplo, se criarmos uma classe: Animal, seria UMA CLASSE GERÉRICA DEMAIS porque
+a classe Animal ENGLOBA EXATAMENTE TODOS OS ANIMAIS DO MUNDO, e TODOS OS ANIMAIS 
+NÃO POSSUEM exatamente AS MESMAS CARACTERÍSTICAS. Por exemplo, NEM TODOS OS ANIMAIS 
+POSSUEM PATAS (como por exemplo, um PEIXE), NEM TODOS OS ANIMAIS POSSUEM ASAS (como por exemplo, um CACHORRO).
+
+Repare no exemplo_1 que, apesar de a classe: Passaro ser um animal, a classe: Passaro é MENOS ABSTRATA DO QUE 
+A CLASSE: Animal, pq a classe: Passaro ENGLOBA SOMENTE AS CARACTERÍSTICAS MAIS COMUNS PERTENCENTES 
+A TODO E QUALQUER TIPO DE PASSARO, mas ainda sim, A CLASSE Passaro É UMA CLASSE ABSTRATA. 
+
+
+Veja nos códigos abaixo, dois exemplos de como criar classe abstrata:
+
+-----------------------
+exemplo_1:
+-----------------------
+
+	class Passaro:
+
+	    def __init__(self, nome, tamanho, corDaPena):
+	        self.nome = nome
+	        self.tamanho = tamanho
+	        self.corDaPena = corDaPena
+
+
+	    def voar(self):
+	        print('o ' + self.nome + ' está voando....')
+
+	pardal = Passaro('pardal', 14, 'preto e marrom')
+	pardal.voar()
+
+
+---------------------------------------------------------------------------------
+
+
+  OBS:Repare que, apesar de a classe: Peixe ser um animal, a classe: Peixe é MENOS ABSTRATA DO QUE 
+  A CLASSE: Animal, pq a classe: Peixe ENGLOBA SOMENTE AS CARACTERÍSTICAS MAIS COMUNS PERTENCENTES 
+  A TODO E QUALQUER TIPO DE PEIXE, mas ainda sim, A CLASSE Peixe É UMA CLASSE ABSTRATA. 
+
+-----------------------
+Exemplo_2:
+-----------------------
+
+	class Peixe:
+
+	    def __init__(self, nome, tamanho, peso):
+	        self.nome = nome
+	        self.tamanho = tamanho
+	        self.peso = peso
+
+
+	    def nadar(self):
+	        print('O ' + self.nome + ' está nadando...')
+
+	tubarao = Peixe('tubarão-martelo', 4.2, 84)
+	tubarao.nadar()
+
+
+----------------------------------------------------------------------------
+
+REUNIR as CARACTERÍSTICAS MAIS COMUNS DE UM DETERMINADO OBJETO EM UMA CLASSE é EXCELENTE 
+para a UTILIZAÇÃO DE: HERANÇA, pq PODEMOS PEGAR AS CARACTERÍSTICAS EM COMUM DE UM OBJETO, 
+PASSAR PARA UMA OUTRA CLASSE (chamada de: classe filha) USANDO A HERANÇA, e ainda ATRIBUIR 
+CARACTERÍSTICAS QUE SÃO ESPECÍFICAS SOMENTE DA CLASSE FILHA.
+
+
+

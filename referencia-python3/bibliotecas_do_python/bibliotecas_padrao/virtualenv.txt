@@ -1,0 +1,118 @@
+###############################################
+#
+#  Virtualenv
+#
+###############################################
+
+Vamos aprender a usá-lo agora. 
+
+Supondo que você já tenha o Python e o PIP3 devidamente funcionando na sua máquina, temos que instalar a biblioteca:
+
+	sudo pip3 install virtualenv
+
+       
+        OBS: para desinstalar um pacote python, use:
+	
+	    pip3 uninstall nomeDoPacote
+
+
+Crie uma pasta onde será inserido o seu projeto:
+
+    mkdir nomeDaPastaDoProjeto
+
+
+em seguida, entre na pasta do projeto:
+
+    cd nomeDaPastaDoProjeto
+
+
+Assim podemos iniciar um ambiente virtual dentro da pasta do seu projeto usando o comando virtualenv seguido 
+do nome_do_ambiente (nesse caso, o nome escolhido para o nosso ambiente é: venv, mas pode ser qualquer nome):
+
+	virtualenv venv
+
+
+	OBS: se vc usar o comando acima, o virtualenv utilizará o Python padrão da sua máquina, se você desejar selecionar a versão Python 
+         que será utilizada dentro do ambiente virtual também é possível, basta acrescentar o parâmetro: -p pythonX.X nome_da_pasta_do_projeto.
+
+		virtualenv -p python3.6 venv
+
+
+Nesse momento será criado uma pasta venv (nome que escolhi), lá será guardado as bibliotecas que você irá utilizar no projeto.
+
+Agora basta ativarmos o nosso ambiente virtual e começar a trabalhar sem preocupações com as mudanças das bibliotecas:
+
+	No Windows: 
+
+			source venv\Scripts\activate
+
+
+	Linux e MAC:
+
+			source venv/bin/activate
+
+
+Ao executar esse comando, você verá que o caminho dentro do Prompt ou Cmd ficará com “(nome_do_ambiente)” antes do caminho do seu projeto:
+
+	(venv) caminho/do/projeto
+
+
+Enquanto o ambiente virtual estiver ativo, todas as bibliotecas instaladas serão instaladas somente ao seu ambiente virtual atual ao invés de 
+instalar globalmente na sua máquina, assim, você pode incluir em seu projeto tudo o que deseja e nada será alterado em seus outros 
+projetos globais ou demais ambientes virtuais.
+
+Caso queira usar o idle do python no ambiente virtual, ao ativar o ambiente virtual, basta digitar:
+
+    python3 -m idlelib.idle
+
+
+Usando o comando freeze do PIP você pode extrair para um arquivo de texto todas as bibliotecas com as versões de cada ambiente virtual. Com o 
+ambiente ativo basta rodar o comando abaixo:
+
+	pip3 freeze --local >> requirements.txt
+
+
+	OBS: se vc quiser utilizar as mesmas bibliotecas inseridas no arquivo requeriments.txt em outro ambiente virtual, crie 
+         esse novo ambiente virtual, ative-o com o comando: source nomeDaPasta/bin/activate, e em seguida, digite o comando: 
+
+		pip3 install -r requeriments.txt 
+
+
+O último comando importante é para sair do ambiente virtual, caso queira voltar e rodar um comando globalmente:
+
+	deactivate
+
+
+Para listar todos os pacotes instalados dentro do seu ambiente virtual, digite no terminal:
+
+	pip3 list
+	
+
+
+####################################
+#
+#	comandos pip3
+#
+####################################
+
+    Como usar o Pip
+	Eu vou usar como exemplo o pip3 que usar o Python 3, caso você queira usar o Python 2 use o pip no lugar do pip3.
+
+
+    Instalar de pacotes:
+	sudo pip3 install nome-do-pacote
+
+    Desinstalação de um pacote:
+	sudo uninstall nome-do-pacote
+
+    Procurar um pacote:
+	pip3 search nome-do-pacote
+
+    Listar os pacotes instalados:
+	pip3 list
+
+    Mostrar informações sobre um pacote:
+	pip3 show nome-do-pacote
+
+    Para ver a lista completa de comandos:
+	pip3 help

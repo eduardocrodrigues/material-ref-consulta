@@ -1,0 +1,792 @@
+####################################
+#
+# Explicação sobre o funcionamento 
+# de cada método de string
+#
+####################################
+
+
+-----------------------
+Os loops capitalize()
+-----------------------
+
+Vamos passar por alguns métodos padrão de string Python. Vamos atravessá-los por ordem alfabética - para ser honesto, 
+qualquer ordem tem tantas desvantagens como vantagens, pelo que a escolha pode também ser aleatória.
+
+O método capitalize() faz exatamente o que diz - cria uma nova string cheia de carateres retirados da source string, 
+mas tenta modificá-los da seguinte forma:
+
+    se o primeiro caratere dentro da string for uma letra (nota: o primeiro caratere é 
+    um elemento com um index igual a 0, não apenas o primeiro caratere visível), será convertido para maiúsculas;
+    
+    todas as letras restantes da string serão convertidas em minúsculas.
+
+Não se esqueça:
+
+    a string original (da qual o método é invocado) não é alterada de forma alguma (a imutabilidade de uma string deve ser obedecida sem reservas)
+    a string modificada (capitalizada neste caso) é devolvida como resultado - se não a utilizar de qualquer forma (atribuí-la a uma variável, 
+    ou passá-la a uma função/método) ela desaparecerá sem deixar rasto.
+
+Nota: os métodos não têm de ser invocados apenas de dentro das variáveis. Podem ser invocados diretamente 
+de dentro de literais de string. Vamos utilizar regularmente essa convenção - simplificará os exemplos, uma vez que os aspetos mais importantes não desaparecerão entre as tarefas desnecessárias.
+
+Veja o exemplo abaixo e execute-o.
+
+    # Demonstrating the capitalize() method:
+    print('aBcD'.capitalize())
+
+
+Isto é o que ele imprime:
+
+  Abcd
+
+
+Experimente alguns exemplos mais avançados e teste o seu output:
+
+    print("Alpha".capitalize())
+    print('ALPHA'.capitalize())
+    print(' Alpha'.capitalize())
+    print('123'.capitalize())
+    print("αβγδ".capitalize())
+
+
+
+------------------------------
+Os loops center()
+------------------------------
+
+
+A variante de um parâmetro do método center() faz uma cópia da string original, 
+tentando centralizá-la dentro de um campo de uma largura especificada.
+
+A centralização é realmente feita adicionando alguns espaços antes e depois da string.
+
+Não espere que este método demonstre quaisquer competências sofisticadas. É bastante simples.
+
+O exemplo no editor usa parêntesis retos para mostrar claramente onde começa e termina a string centrada.
+
+  ex:
+    
+    # Demonstrating the center() method:
+    print('[' + 'alpha'.center(10) + ']')
+
+
+O seu output é o seguinte:
+
+  [  alpha   ]
+
+
+
+Se o comprimento do campo alvo for demasiado pequeno para caber na string, a string original é devolvida.
+
+Pode ver o método center() em mais exemplos aqui:
+
+  ex:
+
+    print('[' + 'Beta'.center(2) + ']')
+    print('[' + 'Beta'.center(4) + ']')
+    print('[' + 'Beta'.center(6) + ']')
+
+
+Execute os snippets acima e verifique qual o output que eles produzem.
+
+A variante de dois parâmetros de center() faz uso do caratere do segundo argumento, em vez de um espaço. Analise o exemplo abaixo:
+
+  ex:
+
+    print('[' + 'gamma'.center(20, '*') + ']')
+
+
+É por isso que o output agora se assemelha a este:
+
+  [*******gamma********]
+
+
+Realize mais experiências.
+
+
+
+-------------------------------
+o método de string: endswith()
+-------------------------------
+
+A classe endswith() verifica se a string dada termina com o argumento especificado e devolve True ou False, 
+dependendo do resultado da verificação.
+
+  Nota: a substring deve aderir ao último caratere da string - não pode estar localizada apenas algures perto do final da string.
+
+Veja o nosso exemplo no editor, analise-o, e execute-o. 
+
+  ex:
+
+    # Demonstrating the endswith() method:
+    if "epsilon".endswith("on"):
+        print("yes")
+    else:
+        print("no")
+
+
+O seu output é:
+
+  yes
+
+
+Deverá agora ser capaz de prever o output do snippet abaixo:
+
+  t = "zeta"
+  print(t.endswith("a"))
+  print(t.endswith("A"))
+  print(t.endswith("et"))
+  print(t.endswith("eta"))
+
+
+Execute o código para verificar as suas previsões.
+
+
+
+-------------------------------
+o método de string: find()
+-------------------------------
+
+A classe find() é semelhante a index(), que já conhece - procura uma substring e devolve o index de primeira ocorrência desta substring, mas:
+
+    é mais seguro - não gera um erro para um argumento que contém uma substring inexistente (devolve -1 então)
+    funciona apenas com strings - não tente aplicá-lo a qualquer outra sequência.
+
+Veja o código no editor. É assim que pode utilizá-lo.
+
+  ex:
+    
+    # Demonstrating the find() method:
+    print("Eta".find("ta"))
+    print("Eta".find("mma"))
+
+
+O exemplo imprime:
+
+  1
+  -1
+
+
+  Nota: não use find() se quiser apenas verificar se um único caratere ocorre dentro de uma string - o operador in será significativamente mais rápido.
+
+Aqui está outro exemplo:
+
+  ex:
+ 
+    t = 'theta'
+    print(t.find('eta'))
+    print(t.find('et'))
+    print(t.find('the'))
+    print(t.find('ha'))
+
+
+Consegue prever o output? Execute-o e verifique as suas previsões.
+
+Se quiser realizar a procura, não desde o início da string, mas a partir de qualquer posição, 
+pode usar uma variante de dois parâmetros do find() método. Veja o exemplo:
+
+  ex:
+
+    print('kappa'.find('a', 2))
+
+
+O segundo argumento especifica o index em que a pesquisa será iniciada (não tem de caber dentro da string).
+
+Entre as duas letras a, apenas a segunda será encontrada. Execute o snippet e verifique.
+
+Pode utilizar o método find() para procurar todas as ocorrências da substring, como aqui:
+
+  ex:
+
+    the_text = """A variation of the ordinary lorem ipsum
+    text has been used in typesetting since the 1960s 
+    or earlier, when it was popularized by advertisements 
+    for Letraset transfer sheets. It was introduced to 
+    the Information Age in the mid-1980s by the Aldus Corporation, 
+    which employed it in graphics and word-processing templates
+    for its desktop publishing program PageMaker (from Wikipedia)"""
+
+    fnd = the_text.find('the')
+    while fnd != -1:
+        print(fnd)
+        fnd = the_text.find('the', fnd + 1)
+
+
+O código imprime os índices de todas as ocorrências do artigo the, e o seu output é semelhante a este:
+
+  15
+  80
+  198
+  221
+  238
+
+
+Há também uma mutação de três parâmetros do método find() - o terceiro argumento aponta para o primeiro index que não será 
+tomado em consideração durante a pesquisa (na realidade é o limite superior da pesquisa).
+
+Veja o nosso exemplo abaixo:
+
+  ex:
+
+    print('kappa'.find('a', 1, 4))
+    print('kappa'.find('a', 2, 4)) # a letra: a, não pode ser encontrada, pq o indice do terceiro parâmetro não conta !!!, é sempre
+    um caractere antes do indice especificado no terceiro parâmetro !!!
+
+
+O segundo argumento especifica o index em que a pesquisa será iniciada (não tem de caber dentro da string).
+
+Portanto, o exemplo modificado tem como output:
+
+  1
+  -1
+
+
+(a não pode ser encontrado dentro dos limites de pesquisa indicados no segundo print().
+
+
+
+-------------------------------
+o método de string: isalnum()
+-------------------------------
+
+O método sem parâmetros chamado isalnum() verifica se a string contém apenas 
+dígitos ou carateres alfabéticos (letras) e devolve True ou False de acordo com o resultado.
+
+Veja o exemplo abaixo e execute-o.
+
+  ex:
+ 
+    # Demonstrating the isalnum() method:
+    print('lambda30'.isalnum())
+    print('lambda'.isalnum())
+    print('30'.isalnum())
+    print('@'.isalnum())
+    print('lambda_30'.isalnum()) # retorna False pq não é somente letras e números, tbm tem o caracetere de underline !!!, por isso retorna False.
+    print(''.isalnum())
+
+
+  Nota: qualquer elemento de string que não seja um dígito ou uma letra faz com que o método devolva False. Uma string vazia também o faz.
+
+
+O output do exemplo é:
+
+  True
+  True
+  True
+  False
+  False
+  False
+
+
+Três exemplos mais intrigantes estão aqui:
+
+  ex:
+
+    t = 'Six lambdas'
+    print(t.isalnum()) # retorna: False, por causa do caractere de espaço !!! 
+
+    t = 'ΑβΓδ'
+    print(t.isalnum())
+
+    t = '20E1'
+    print(t.isalnum())
+
+
+Execute-os e verifique o seu output.
+
+  Dica: a causa do primeiro resultado é um espaço - não é nem um dígito nem uma letra.
+
+
+
+-------------------------------
+o método de string: isalpha()
+-------------------------------
+
+A classe isalpha() é mais especializado - está interessado apenas em letras.
+
+Veja o Exemplo 1:
+
+  ex:
+
+    # Example 1: Demonstrating the isapha() method:
+    print("Moooo".isalpha()) # retorna: True
+    print('Mu40'.isalpha())  # retorna: False
+
+
+o seu output é:
+
+  True
+  False
+
+
+-------------------------------
+o método de string: isdigit()
+-------------------------------
+
+ Por sua vez, o método isdigit() olha apenas para os dígitos - qualquer outra coisa produz False como o resultado.
+
+Veja o Exemplo:
+
+  ex:
+ 
+    # Example 2: Demonstrating the isdigit() method:
+    print('2018'.isdigit()) # Retorna: True, pq a string não tem letras !!!
+    print("Year2019".isdigit()) # retorna: False, pq a string possui letras e números !!!
+
+o seu output é:
+
+  True
+  False
+
+
+Realize mais experiências.
+
+
+
+-------------------------------
+o método de string: islower()
+-------------------------------
+
+A classe islower() é uma variante picuinhas do isalpha() - aceita apenas letras minúsculas.
+
+Veja o Exemplo abaixo:
+
+  ex:
+ 
+    # Example 1: Demonstrating the islower() method:
+    print("Moooo".islower())
+    print('moooo'.islower())
+
+o seu output é:
+
+  False
+  True
+
+
+
+-------------------------------
+o método de string: isspace()
+-------------------------------
+
+A classe isspace() identifica apenas os espaços em branco - ignora qualquer outro caratere (o resultado é False então).
+
+Veja o Exemplo abaixo:
+
+  ex:
+   
+    # Example 2: Demonstrating the isspace() method:
+    print(' \n '.isspace()) # exibe o resultado: True
+    print(" ".isspace())  # exibe o resultado: True
+    print("mooo mooo mooo".isspace()) # exibe o resultado: False
+
+o seu output é:
+
+  True
+  True
+  False
+
+
+
+-------------------------------
+o método de string: isupper()
+-------------------------------
+
+A classe isupper() é a versão maiúscula do islower() - concentra-se apenas em letras maiúsculas.
+
+Novamente, veja o Exemplo abaixo:
+
+  ex:
+
+    # Example 3: Demonstrating the isupper() method:
+    print("Moooo".isupper())
+    print('moooo'.isupper())
+    print('MOOOO'.isupper())
+
+o seu output é:
+
+  False
+  False
+  True
+
+
+
+-------------------------------
+o método de string: join()
+-------------------------------
+
+A classe join() é bastante complicado, por isso deixe-nos guiá-lo passo a passo:
+
+    como o seu nome sugere, o método realiza uma junção (em inglês, join) - espera um argumento como uma lista; deve ter a certeza de que 
+    todos os elementos da lista são strings - o método irá levantar uma exceção TypeError de outra forma;
+    
+    todos os elementos da lista serão unidos numa string, mas...
+    ... a string a partir da qual o método foi invocado é usada como um separador, colocado entre as strings;
+    a string recém-criada é devolvida como um resultado.
+
+
+Dê uma vista de olhos no exemplo abaixo:
+
+  ex:
+
+    # Demonstrating the join() method:
+    print(",".join(["omicron", "pi", "rho"]))
+
+
+  Vamos analisá-lo:
+
+    o método: join() é invocado de dentro de uma string contendo uma vírgula (a string pode ser arbitrariamente longa, ou pode estar vazia)
+    o argumento joiné uma lista contendo três strings;
+    o método devolve uma nova string.
+
+Aqui está:
+
+  omicron,pi,rh # o método do exemplo acima retorna essas palavras, separadas por vírgulas !!!
+
+
+
+-------------------------------
+o método de string: lower()
+-------------------------------
+
+A classe lower() faz uma cópia de uma source string, substitui todas as letras maiúsculas por minúsculas, 
+e devolve a string como resultado. Novamente, a source string permanece intocada.
+
+Se a string não contiver carateres maiúsculos, o método devolve a string original.
+
+  Nota: O método lower() não toma nenhum parâmetro.
+
+O exemplo abaixo... 
+
+  ex:
+
+    # Demonstrating the lower() method:
+    print("SiGmA=60".lower())
+
+
+tem como output:
+    
+  sigma=60 # repare que todas as letras ficaram minúsculas !!!
+
+
+Como de costume, realize as suas próprias experiências.
+
+
+
+-------------------------------
+o método de string: lstrip()
+-------------------------------
+
+O parâmetro sem lstrip() método devolve uma cadeia recém-criada formada a partir da original, 
+removendo todos os principais espaços em branco.
+
+Analise o código de exemplo abaixo:
+
+  ex:
+
+    # Demonstrating the lstrip() method:
+    print("[" + " tau ".lstrip() + "]")
+
+
+Os parêntesis não fazem parte do resultado - apenas mostram os limites do resultado.
+
+O output do exemplo:
+
+  [tau ] # resultado mostrando que os espaços do lado esquerdo da string/palavra foi removido !!!
+
+
+
+
+O parâmetro único lstrip() faz o mesmo que a sua versão sem parâmetros, 
+mas remove todos os caracteres alistados no seu argumento (uma cadeia), e não apenas espaços em branco:
+
+  ex:
+
+    print("www.cisco.com".lstrip("w."))
+
+
+Não são necessários parêntesis aqui, pois o output é o seguinte:
+
+  cisco.com # todos os caracteres inserido no parâmetro do método: lstrip(), foram removidos da string  !!!
+
+
+Consegue adivinhar a saída do trecho abaixo? Pense bem. Execute o código e verifique as suas previsões.
+
+  ex:
+
+    print("pythoninstitute.org".lstrip(".org"))
+
+
+Surpreendido? Carateres principais , espaços em branco principais. Mais uma vez, experimente com os seus próprios exemplos.
+
+
+
+-------------------------------
+o método de string: replace()
+-------------------------------
+
+O método de dois parâmetros replace() devolve uma cópia da string original na qual 
+todas as ocorrências do primeiro argumento foram substituídas pelo segundo argumento.
+
+Veja o código de exemplo abaixo e Execute-o.
+
+  ex:
+
+    # Demonstrating the replace() method:
+    print("www.netacad.com".replace("netacad.com", "pythoninstitute.org"))
+    print("This is it!".replace("is", "are"))
+    print("Apple juice".replace("juice", ""))
+
+
+O output do exemplo:
+
+  www.pythoninstitute.org
+  Thare are it!
+  Apple
+
+
+Se o segundo argumento for uma string vazia, a substituição está na realidade a remover 
+a string do primeiro argumento. Que tipo de magia acontece se o primeiro argumento for uma string vazia?
+
+A variante de três parâmetros replace() utiliza o terceiro argumento (um número) para limitar o número de substituições.
+
+Veja o código de exemplo modificado abaixo:
+
+  ex:
+
+    print("This is it!".replace("is", "are", 1))
+    print("This is it!".replace("is", "are", 2))
+
+
+o output é:
+
+  Thare is it!
+  Thare are it!
+
+
+
+-------------------------------
+o método de string: rfind()
+-------------------------------
+
+Os métodos de um, dois e três parâmetros chamados rfind() fazem quase as mesmas coisas que 
+os seus homólogos (os desprovidos do prefixo r), mas começam as suas buscas 
+a partir do fim da string, não do início (daí o prefixo r, para right).
+
+Veja o exemplo do código abaixo e tente prever o seu output. Execute o código para verificar se estava certo.
+
+  ex:
+
+    # Demonstrating the rfind() method:
+    print("tau tau tau".rfind("ta")) # retorna o índice do primeiro caractere encontrado (da esquerda para a direita).
+    print("tau tau tau".rfind("ta", 9)) # retorna o índice do primeiro caractere encontrado (da esquerda para a direita), a partir do indice: 9 na string, caso não encontre, retorna: -1
+    print("tau tau tau".rfind("ta", 3, 9)) # 
+
+
+o output é:
+
+  8
+  -1
+  4
+
+
+
+-------------------------------
+o método de string: rstrip()
+-------------------------------
+
+Duas variantes do método rstrip() fazem quase o mesmo que lstrip, mas afetam o lado oposto da string.
+
+Veja o exemplo de código abaixo:
+
+  ex:
+
+    # Demonstrating the rstrip() method:
+    print("[" + " upsilon ".rstrip() + "]") # remove os espaços em branco do lado direito da string.
+    print("cisco.com".rstrip(".com"))  # remove todos os caracteres da string, que foram passados no parametro do método: rstrip()
+
+
+o output é:
+
+  [ upsilon] 
+  cis
+
+
+Como habitualmente, encorajamo-lo a experimentar os seus próprios exemplos.
+
+
+
+-------------------------------
+o método de string: split()
+-------------------------------
+
+A classe split() faz o que diz - divide a string e constrói uma lista de todas as substrings detetadas.
+
+O método assume que as substrings são delimitadas por espaços em branco - os espaços não participam na operação, 
+e não são copiados para a lista resultante.
+
+Se a string estiver vazia, a lista resultante também estará vazia.
+
+Veja o código abaixo:
+
+  ex:
+
+    # Demonstrating the split() method:
+    print("phi       chi\npsi".split())
+
+
+O exemplo produz o seguinte output:
+
+  ['phi', 'chi', 'psi']
+
+
+  Nota: a operação inversa pode ser realizada pelo método join().
+
+
+
+-------------------------------
+o método de string: startswith()
+-------------------------------
+
+A classe startswith() é um reflexo espelhado de endswith() - verifica se uma determinada string começa com a substring especificada.
+
+Veja o exemplo abaixo:
+
+  ex:
+
+    # Demonstrating the startswith() method:
+    print("omega".startswith("meg"))
+    print("omega".startswith("om"))
+
+
+Este é o resultado:
+
+  False
+  True
+
+
+
+-------------------------------
+o método de string: strip()
+-------------------------------
+
+A classe strip() combina os efeitos causados por rstrip() e lstrip() - faz 
+uma nova string com falta de todos os espaços em branco à esquerda e à direita.
+
+Veja o exemplo abaixo:
+
+  ex:
+
+    # Demonstrating the strip() method:
+    print("[" + "   aleph   ".strip() + "]")
+
+
+Este é o resultado que ele devolve:
+
+  [aleph]
+
+
+Agora, realize as suas próprias experiências com os dois métodos.
+
+
+
+-------------------------------
+o método de string: swapcase()
+-------------------------------
+
+A classe swapcase() faz uma nova string, trocando a maiúscula/minúscula de todas as letras 
+dentro da source string: carateres minúsculos tornam-se maiúsculas e vice-versa.
+
+Todos os outros carateres permanecem intocados.
+
+Veja o exemplo abaixo:
+
+  ex:
+
+    # Demonstrating the swapcase() method:
+    print("I know that I know nothing.".swapcase())
+
+
+Este é o resultado:
+
+  i KNOW THAT i KNOW NOTHING.
+
+
+
+-------------------------------
+o método de string: title()
+-------------------------------
+
+A classe title() desempenha uma função algo semelhante - muda a primeira letra de cada palavra para maiúscula, 
+transformando todas as outras em minúsculas.
+
+Veja o exemplo abaixo:
+
+  ex:
+
+    # Demonstrating the title() method:
+    print("I know that I know nothing. Part 1.".title())
+
+
+Este é o resultado:
+
+  I Know That I Know Nothing. Part 1.
+
+
+
+-------------------------------
+o método de string: upper()
+-------------------------------
+
+Por último, mas não menos importante, o método upper() faz uma cópia da source string, 
+substitui todas as letras minúsculas pelas suas contrapartes maiúsculas, e devolve a string como resultado.
+
+Veja o exemplo abaixo:
+
+  ex:
+
+    # Demonstrating the upper() method:
+    print("I know that I know nothing. Part 2.".upper())
+
+O seu output é:
+
+  I KNOW THAT I KNOW NOTHING. PART 2.
+
+
+Viva! Chegámos ao fim desta secção. Está surpreendido com algum dos métodos 
+de string que discutimos até agora? Tire uns minutos para os rever, e passemos à próxima parte 
+do curso onde lhe mostraremos as grandes coisas que podemos fazer com strings.
+
+
+=======================================
+ Listagem de alguns métodos de string
+=======================================
+
+1. Alguns dos métodos oferecidos por strings são:
+
+    capitalize() — alterar todas as letras da string para maiúsculas;
+    center() — centrar a string dentro do campo de um comprimento conhecido;
+    count() — contar as ocorrências de um determinado caratere;
+    join() — juntar todos os itens de uma tuple/lista numa string;
+    lower() — converter todas as letras da string em letras minúsculas;
+    lstrip() — remover os carateres brancos desde o início da string;
+    replace() — substituir uma determinada substring por outra;
+    rfind() — encontrar uma substring a partir do final da string;
+    rstrip() — remover os espaços em branco à direita do final da string;
+    split() — dividir a string numa substring usando um determinado delimitador;
+    strip() — remover os espaços em branco à esquerda e à direita;
+    swapcase() — trocar letras maiúsculas e minúsculas (minúsculas para maiúsculas e vice-versa)
+    title() — tornar a primeira letra de cada palavra uma maiúscula;
+    upper() — converter todas as letras da string em letras maiúsculas.
+
+
+2. O conteúdo das strings pode ser determinado utilizando os seguintes métodos (todos eles devolvem valores Booleanos):
+
+    endswith() — a string termina com uma determinada substring?
+    isalnum() — a string consiste apenas em letras e dígitos?
+    isalpha() — a string consiste apenas em letras?
+    islower() — a string consiste apenas em letras minúsculas?
+    isspace() — a string consiste apenas em espaços em branco?
+    isupper() — a string consiste apenas em letras maiúsculas?
+    startswith() — a string começa com uma determinada substring?
+

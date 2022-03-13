@@ -1,0 +1,18 @@
+################################################
+#
+#    Tipos de dados em programação
+#
+################################################
+
+8, 7, 16, 54 - dado do tipo: int
+
+1.0, 5.4, 89.5 - dado do tipo: float
+
+'um nome qualquer' - dado do tipo: str
+
+True - dado do tipo: boolean
+
+False - dado do tipo boolean
+
+
+

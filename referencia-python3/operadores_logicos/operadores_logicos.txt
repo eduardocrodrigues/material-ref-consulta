@@ -1,0 +1,16 @@
+#############################
+#
+# Operadores Lógicos
+#
+#############################
+
+and - Operador usado quando UMA CONDIÇÃO e OUTRA CONDIÇÃO seja verdadeira.
+
+or - Operador usado quando vc quer que UMA CONDIÇÃO ou OUTRA CONDIÇÃO seja verdadeira.
+
+not - Operador de negação. usado quando vc quer que uma codição seja contrária, ou seja, se a condição é verdadeira, ela será falsa, e vice-versa.
+
+in - Operador usado para saber se algo está dentro de outra coisa, como por exemplo, se um nome está dentro de um array.
+
+
+    

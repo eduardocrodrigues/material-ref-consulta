@@ -1,0 +1,198 @@
+###########################
+#
+#
+#
+###########################
+
+-----------------------------------------------------
+Como os computadores entendem carateres individuais
+-----------------------------------------------------
+
+Escreveu alguns programas interessantes desde que iniciou este curso, mas todos eles processaram apenas 
+um tipo de dados - números. Como sabe (pode ver isto em todo o lado à sua volta) muitos dados informáticos não 
+são números: nomes próprios, apelidos, moradas, títulos, poemas, artigos científicos, e-mails, sentenças judiciais, 
+confissões de amor, e muito, muito mais.
+
+
+-----------------------------------
+O conceito de carateres e strings
+-----------------------------------
+
+
+Todos estes dados devem ser armazenados, introduzidos, enviados, pesquisados e transformados por computadores contemporâneos como 
+qualquer outro dado, independentemente de serem carateres únicos ou enciclopédias multi-volume.
+
+Como é isso possível?
+
+Como pode fazer isto em Python? É o que vamos discutir agora. Comecemos pela forma como os computadores entendem os carateres individuais.
+
+Os computadores armazenam carateres como números. Cada caratere utilizado por um computador corresponde a um número único, 
+e vice-versa. Esta atribuição deve incluir mais carateres do que se poderia esperar. Muitos deles são invisíveis para os humanos, 
+mas essenciais para os computadores.
+
+Alguns destes carateres são chamados whitespaces (espaços em branco), enquanto outros são denominados carateres de controlo, 
+porque o seu objetivo é controlar dispositivos de input/output.
+
+Um exemplo de um whitespace que é completamente invisível a olho nu é um código especial, ou um par de códigos (sistemas operativos 
+diferentes podem tratar esta questão de forma diferente), que são utilizados para marcar 
+as extremidades das linhas dentro dos ficheiros de texto.
+
+As pessoas não vêem este sinal (ou estes sinais), mas são capazes de observar o efeito da sua aplicação onde as linhas são quebradas.
+
+Podemos criar praticamente qualquer número de atribuições de números de carateres, mas a vida num mundo em que cada tipo de 
+computador utiliza uma codificação de carateres diferente não seria muito conveniente. Este sistema levou à necessidade de 
+introduzir uma norma universal e amplamente aceite implementada por (quase) todos os computadores e sistemas operativos em todo o mundo.
+
+
+O chamado ASCII (abreviação de American Standard Code for Information Interchange) é o mais utilizado, 
+e pode-se assumir que quase todos os dispositivos modernos (como computadores, impressoras, telemóveis, 
+tablets, etc.) usam este código.
+
+O código fornece espaço para 256 carateres diferentes, mas estamos interessados apenas nos primeiros 128. Se quiser ver 
+como o código é construído, veja a tabela em baixo. Clique na tabela para ampliá-la. Olha bem para ela - há alguns 
+factos interessantes. Olhe para o código do caratere mais comum - o espaço. Isto é 32.
+
+
+A Tabela ASCII (Aqui ficaria a tabela com todos os caracteres e seus respectivos números !!!)
+
+
+Agora veja o código da letra minúscula a. Isto é 97. E agora encontre a maiúscula A. O seu código é 65. Agora descubra 
+a diferença entre o código de a e de A. É igual a 32. Esse é o código de um espaço. Interessante, não é?
+
+Note-se também que as letras estão dispostas na mesma ordem que no alfabeto latino.
+
+
+
+---------------
+I18N
+---------------
+
+É claro que o alfabeto latino não é suficiente para toda a humanidade. Os utilizadores desse alfabeto estão em minoria. Foi necessário 
+inventar algo mais flexível e capacitivo do que o ASCII, algo capaz de tornar todo o software do mundo passível de internacionalização, 
+porque línguas diferentes usam alfabetos completamente diferentes, e por vezes estes alfabetos não são tão simples como o latino.
+
+A palavra internationalization (internacionalização) é normalmente abreviada para I18N.
+
+
+I18N Internationalization
+
+
+Porquê? Olhe cuidadosamente - há um I na frente da palavra, a seguir há 18 letras diferentes, e um N no final.
+
+Apesar da origem ligeiramente humorística, o termo é oficialmente utilizado em muitos documentos e normas.
+
+O software I18N é uma norma nos tempos atuais. Cada programa tem de ser escrito de forma a poder ser utilizado em todo o mundo, 
+entre diferentes culturas, línguas e alfabetos.
+
+Uma forma clássica de código ASCII utiliza oito bits para cada sinal. Oito bits significam 256 carateres 
+diferentes. Os primeiros 128 são utilizados para o alfabeto latino padrão (tanto carateres maiúsculos como minúsculos). É possível 
+empurrar todos os outros carateres nacionais utilizados em todo o mundo para os 128 locais restantes?
+
+Não. Não é.
+
+
+--------------------------
+Code points e code pages
+--------------------------
+
+Precisamos agora de um novo termo: um code point.
+
+Um code point é um número que faz um caratere. Por exemplo, 32 é um code point que faz um espaço na codificação ASCII. Podemos dizer que 
+o código ASCII padrão consiste em 128 code points.
+
+Como o ASCII padrão ocupa 128 dos 256 code points possíveis, só se pode fazer uso dos 128 restantes.
+
+Não é o suficiente para todas as línguas possíveis, mas pode ser suficiente para uma língua, 
+ou para um pequeno grupo de línguas semelhantes.
+
+Pode-se definir a metade restante dos code points de forma diferente para línguas diferentes? Sim, pode-se. Tal conceito é chamado code page.
+
+Um code page é uma norma para utilizar os 128 code points superiores para armazenar carateres nacionais específicos. Por exemplo, 
+existem diferentes code pages para a Europa Ocidental e Europa Oriental, alfabetos cirílico e grego, árabe e hebraico, e assim por diante.
+
+Isto significa que o mesmo code point pode fazer carateres diferentes quando usado em code pages diferentes.
+
+Por exemplo, o code point 200 faz Č (uma letra utilizada por algumas línguas eslavas) quando utilizada pela página de 
+código ISO/CEI 8859-2, e faz Ш (uma letra cirílica) quando utilizada pela página de código ISO/CEI 8859-5.
+
+Em consequência, para determinar o significado de um code point específico, é necessário conhecer o code page alvo.
+
+Por outras palavras, os code points derivados do conceito de code page são ambíguos.
+
+
+------------
+Unicode
+------------
+
+As code pages ajudaram a indústria informática a resolver questões I18N durante algum tempo, 
+mas depressa se revelou que não seriam uma solução permanente.
+
+O conceito que resolveu o problema a longo prazo foi o Unicode.
+
+UNICODE
+
+O Unicode atribui carateres únicos (inequívocos) (letras, hífens, ideogramas, etc.) a mais de um milhão de 
+code points. Os primeiros 128 code points de Unicode são idênticos aos ASCII, e os primeiros 256 code points de Unicode são 
+idênticos à página de código ISO/IEC 8859-1 (uma página de código concebida para as línguas da Europa Ocidental).
+
+UCS-4
+
+A norma Unicode não diz nada sobre como codificar e armazenar os carateres na memória e nos ficheiros. Apenas nomeia todos os 
+carateres disponíveis e atribui-os a planos (um grupo de carateres de origem, aplicação, ou natureza semelhante).
+
+UCS-4
+
+Existe mais do que uma norma que descreve as técnicas utilizadas para implementar Unicode em computadores e sistemas de armazenamento de 
+computadores reais. O mais geral deles é o UCS-4.
+
+O nome vem de Universal Character Set (Conjunto de Carateres Universal).
+
+UCS-4 utiliza 32 bits (quatro bytes) para armazenar cada caratere, e o código é apenas o número único dos code points Unicode. Um ficheiro 
+contendo texto codificado UCS-4 pode começar com uma BOM (Byte Order Mark), uma combinação de bits não imprimível que anuncia a 
+natureza do conteúdo do ficheiro. Algumas utilidades podem requerê-lo.
+
+
+Como pode ver, o UCS-4 é uma norma bastante esbanjadora - aumenta o tamanho de um texto em quatro vezes em 
+comparação com a norma ASCII. Felizmente, existem formas mais inteligentes de codificar textos Unicode.
+
+UTF-8
+
+Um dos mais utilizados é o UTF-8.
+
+O nome é derivado de Unicode Transformation Format (Formato de Transformação Unicode).
+
+O conceito é muito inteligente. O UTF-8 utiliza tantos bits para cada um dos code points quantos forem realmente necessários para os representar.
+UTF-8 - gráficos humorísticos
+
+Por exemplo:
+
+    todos os carateres latinos (e todos os caracteres ASCII) ocupam oito bits;
+    Carateres não-latinos ocupam 16 bits;
+    Os ideógrafos da CJK (China-Japão-Coreia) ocupam 24 bits.
+
+
+Devido às características do método utilizado pelo UTF-8 para armazenar os code points, não há necessidade de utilizar a lista técnica, mas algumas das ferramentas procuram-na quando leem o ficheiro, e muitos editores configuraram-na durante a gravação.
+
+Python 3 suporta totalmente Unicode e UTF-8:
+
+    pode utilizar carateres codificados Unicode/UTF-8 para nomear variáveis e outras entidades;
+    pode utilizá-los durante todos os inputs e outputs.
+
+Isto significa que o Python 3 é completamente I18Ned.
+
+
+---------------------
+Resumo Do Conteúdo
+---------------------
+
+1. Os computadores armazenam carateres como números. Existe mais do que uma forma possível de codificar carateres, 
+mas apenas alguns deles ganharam popularidade mundial e são normalmente utilizados em IT: são ASCII (utilizado principalmente para 
+codificar o alfabeto latino e alguns dos seus derivados) e UNICODE (capaz de codificar virtualmente todos os alfabetos utilizados pelos 
+seres humanos).
+
+2. Um número correspondente a um determinado caratere é chamado um codepoint.
+
+3. UNICODE utiliza diferentes formas de codificação quando se trata de armazenar os carateres utilizando ficheiros ou memória do computador: dois deles são UCS-4 e UTF-8 (este último é o mais comum, uma vez que desperdiça menos espaço de memória).
+
+
+

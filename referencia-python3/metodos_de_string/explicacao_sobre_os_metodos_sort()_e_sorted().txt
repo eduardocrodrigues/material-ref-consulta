@@ -1,0 +1,81 @@
+####################################
+#
+# entendendo os métodos sort() e sorted() (ordenação de dados)
+#
+####################################
+
+------------
+Sorting
+------------
+
+A comparação está estreitamente relacionada com o sorting (ordenação) (ou melhor, 
+o sorting é de facto um caso muito sofisticado de comparação).
+
+Esta é uma boa oportunidade para lhe mostrar duas formas possíveis de ordenar listas contendo strings. Tal operação 
+é muito comum no mundo real - sempre que se vê uma lista de nomes, bens, títulos, ou cidades, espera-se que sejam ordenados.
+
+Vamos supor que quer ordenar a seguinte lista:
+
+  greek = ['omega', 'alpha', 'pi', 'gamma']
+
+
+Em geral, o Python oferece duas formas diferentes de ordenar listas.
+
+O primeiro é implementado como uma função chamada sorted().
+
+A função toma um argumento (uma lista) e devolve uma nova lista, 
+preenchida com os elementos do argumento ordenados. (Nota: esta descrição é um pouco simplificada em comparação 
+com a implementação real - discuti-la-emos mais tarde).
+
+A lista original permanece intacta.
+
+Veja o código abaixo, 
+
+  OBS: o método sorted() retorna uma nova lista !!!
+
+  ex:
+
+    # Demonstrating the sorted() function:
+    first_greek = ['omega', 'alpha', 'pi', 'gamma']
+    first_greek_2 = sorted(first_greek)
+
+    print(first_greek) # retorna a seguinte lista: ['omega', 'alpha', 'pi', 'gamma']
+    print(first_greek_2) # retorna a seguinte lista: ['alpha', 'gamma', 'omega', 'pi']
+
+
+e execute-o. O snippet produz o seguinte output:
+
+  ['omega', 'alpha', 'pi', 'gamma'] 
+  ['alpha', 'gamma', 'omega', 'pi'] 
+
+
+O método sort() afeta a própria lista - nenhuma nova lista é criada. A ordenação é realizada na própria situação pelo método chamado sort().
+
+  OBS: o método: sort() afeta a própria lista !!!  
+
+  ex:
+
+    # Demonstrating the sort() method:
+    second_greek = ['omega', 'alpha', 'pi', 'gamma']
+    print(second_greek)
+
+    second_greek.sort()
+    print(second_greek)    
+
+
+O output não foi alterado:
+
+  ['omega', 'alpha', 'pi', 'gamma']
+  ['alpha', 'gamma', 'omega', 'pi']
+
+
+
+
+
+
+
+
+
+
+
+

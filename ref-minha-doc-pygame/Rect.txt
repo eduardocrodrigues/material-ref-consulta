@@ -1,0 +1,21 @@
+#####################################
+#
+#  módulo Rect do pygame
+#
+#####################################
+
+Os objetos Rect() são usados com tanta frequência que estão incluidos em: pygame.locals, portanto,
+se vc tiver: from pygame.locals import * no inicio de seu script, não será necessário usar o nome 
+de um módulo como prefixo.
+
+pygame.Rect() - cria um objeto retângular no pygame.
+    Essa classe possui 4 parâmetros:
+
+        1 - a posição X onde o retângulo será inserido na tela do pygame.
+        2 - a posição Y onde o retângulo será inserido na tela do pygame.
+        3 - a LARGURA do retângulo.
+        4 - a ALTURA do retângulo.
+
+
+
+pygame.rect.

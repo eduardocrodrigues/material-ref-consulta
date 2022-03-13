@@ -1,0 +1,205 @@
+##############################
+#
+# Como funciona a Tupla
+#
+##############################
+
+As tuplas possuem somente dois métodos para elas:
+
+  .count()
+  .index()
+
+
+A primeira e mais clara distinção entre listas e tuples é a sintaxe utilizada 
+para as criar - os tuples preferem usar parêntesis curvos, 
+enquanto as listas gostam de ver parêntesis retos, embora também seja possível criar uma tupla 
+a partir de um conjunto de valores separados por vírgulas.
+
+Veja o exemplo:
+
+  tuple_1 = (1, 2, 4, 8)
+  tuple_2 = 1., .5, .25, .125
+
+
+Existem dois tuples, ambos contendo quatro elementos.
+Vamos imprimi-los:
+
+  tuple_1 = (1, 2, 4, 8)
+  tuple_2 = 1., .5, .25, .125
+
+  print(tuple_1)
+  print(tuple_2)
+
+
+Isto é o que você deve ver na consola:
+
+  (1, 2, 4, 8)  # valor da variável: tuple_1
+  (1.0, 0.5, 0.25, 0.125)  # valor da variável: tuple_2
+
+  Nota: cada elemento tuple pode ser de um tipo diferente (floating-point, 
+  inteiro, ou qualquer outro tipo de dados ainda não introduzidos).
+
+
+
+-------------------------
+Como criar um tupla?
+-------------------------
+
+É possível criar um tuple vazio - são necessários então parêntesis:
+  
+  empty_tuple = ()
+
+
+Se quiser criar um tuple de um elemento, tem de ter em consideração o facto de que, 
+devido a razões de sintaxe (um tuple tem de ser distinguível de um valor comum e único), TEM QUE 
+TERMINAR O VALOR COM UMA VÍRGULA.
+
+  one_element_tuple_1 = (1, )
+  one_element_tuple_2 = 1.,
+
+
+A remoção das vírgulas não estragará o programa em nenhum sentido sintático, 
+mas em vez disso obterá duas variáveis únicas, não tuples.
+
+
+-------------------------------
+Como usar uma tupla? 
+-------------------------------
+
+Se quiser obter os elementos de um tuple a fim de os ler, pode 
+utilizar as mesmas convenções a que está habituado enquanto utiliza listas.
+
+  ############################
+  # criada a tupla
+  my_tuple = (1, 10, 100, 1000)
+
+  ####################################
+  # Imprimindo os indices da tupla
+  print(my_tuple[0])
+  print(my_tuple[-1])
+  print(my_tuple[1:])
+  print(my_tuple[:-2])
+
+  ##################################
+  # percorrendo os itens da tupla
+  for elem in my_tuple:
+      print(elem)
+
+
+As semelhanças podem ser enganadoras - NÃO TENTE MODIFICAR O CONTEÚDO DE UMA TUPLA!, Não é uma lista!, 
+caso contrário gerará um erro de runtime.
+
+
+
+
+------------------------------------
+Como usar um tuple: continuação
+------------------------------------
+
+Que mais podem as tuplas fazer por si?
+
+    a função len() aceita tuples, e devolve o número de elementos contidos no seu interior;
+    o operador + pode juntar tuples (já lhe mostrámos isto)
+    o operador * pode multiplicar tuples, assim como listas;
+    os operadores in e not in trabalham da mesma maneira que nas listas.
+
+
+se pegarmos o código abaixo e executarmos:
+
+  my_tuple = (1, 10, 100)
+
+  t1 = my_tuple + (1000, 10000)
+  t2 = my_tuple * 3
+
+  print(len(t2))
+  print(t1)
+  print(t2)
+  print(10 in my_tuple)
+  print(-10 not in my_tuple)
+
+
+gerará a seguinte saida:
+
+  9  # len() de: t2
+  (1, 10, 100, 1000, 10000) # juntou o valor de: my_tuple com: (1000, 10000)
+  (1, 10, 100, 1, 10, 100, 1, 10, 100) # REPETIU CADA VALOR DA TUPLA 3 VEZES e INSERIU NA PRÓPRIA TUPLA em: t2 
+  True # Verificou se tinha o número: 10 dentro da tupla e retornou o valor: True
+  True # Verificou se o número: -10 não tinha dentro da tupla e retornou o valor: True
+
+
+
+Uma das propriedades mais úteis da tuple é a sua capacidade de aparecer 
+no lado esquerdo do operador de atribuição. Viu este fenómeno há algum tempo, quando foi necessário 
+encontrar uma ferramenta elegante para trocar os valores de duas variáveis.
+
+Dê uma vista de olhos no trecho abaixo:
+  
+  var = 123
+
+  t1 = (1, )
+  t2 = (2, )
+  t3 = (3, var)
+
+  t1, t2, t3 = t2, t3, t1
+
+  print(t1, t2, t3)
+
+
+É mostrado três tuplas que interagem - com efeito, os valores 
+neles armazenados "circulam" - t1 torna-se t2, t2 torna-se t3, e t3 torna-se t1.
+
+ Nota: o exemplo apresenta mais um facto importante: os elementos de um tupla
+ podem ser variáveis, e não apenas literais. Além disso, 
+ podem ser expressões se estiverem no lado direito do operador de atribuição.
+
+
+
+-----------
+EXTRA
+-----------
+
+Também pode criar um tuple usando uma função Python incorporada chamada tuple(). Isto é particularmente útil quando 
+se pretende converter um certo iterável (por exemplo, uma lista, range, string, etc.) num tuple:
+
+  my_tuple = tuple((1, 2, "string"))
+  print(my_tuple)
+
+  my_list = [2, 4, 6]
+  print(my_list)    # outputs: [2, 4, 6]
+  print(type(my_list))    # outputs: <class 'list'>
+  
+  tup = tuple(my_list) # Converte a lista em tupla
+  print(tup)    # outputs: (2, 4, 6)
+  print(type(tup))    # outputs: <class 'tuple'>
+
+
+Da mesma forma, quando se pretende converter um iterável numa lista, pode-se usar uma 
+função Python integrada chamada: list():
+
+  tup = 1, 2, 3, 
+  my_list = list(tup) # converte a tupla em lista
+  print(type(my_list))    # outputs: <class 'list'>
+
+
+Convertendo a tupla em dicionário:
+
+  colors = (("green", "#008000"), ("blue", "#0000FF"))
+
+  colors_dictionary = dict(colors) # Converteu a tupla em dicionário...
+  print(colors_dictionary)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

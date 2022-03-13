@@ -1,0 +1,552 @@
+###############################
+#
+#  Métodos em python
+#
+###############################
+
+
+-------------------
+Métodos em detalhe
+-------------------
+
+Vamos resumir todos os factos relativos à utilização de métodos em classes Python.
+
+Como já sabe, um MÉTODO É UMA FUNÇÃO INCORPORADA DENTRO DE UMA CLASSE.
+
+Existe um requisito fundamental - um MÉTODO É OBRIGADO A TER PELO MENOS UM PARÂMETRO (não existem métodos 
+sem parâmetros - um método pode ser invocado sem argumento, mas não declarado sem parâmetros).
+
+O primeiro (ou único) parâmetro é geralmente chamado self. Sugerimos que siga a convenção - é normalmente usada, 
+e causará algumas surpresas ao usar outros nomes para a mesma.
+
+O nome self sugere a finalidade do parâmetro - IDENTIFICA O OBJETO PARA O QUAL O MÉTODO É INVOCADO.
+
+Se vai invocar um método, não deve passar o argumento para o parâmetro self - o Python irá configurá-lo por si.
+
+O exemplo no código abaixo mostrando a diferença.
+
+  ex:
+
+    class Classy:
+        def method(self):
+            print("method")
+
+
+    obj = Classy()
+    obj.method()
+
+
+Output do código:
+
+  method
+
+
+Note a forma como criámos o objeto - TRATAMOS O NOME DA CLASSE COMO UMA FUNÇÃO, devolvendo um objeto recentemente instanciado da classe.
+
+Se quiser que o método aceite outros parâmetros self, deve:
+
+    colocá-los depois de self na definição do método;
+    entregá-los durante a invocação sem especificar self (como anteriormente)
+
+Tal como aqui:
+
+  ex:
+
+    class Classy:
+        def method(self, par):
+            print("method:", par)
+
+
+    obj = Classy()
+    obj.method(1)
+    obj.method(2)
+    obj.method(3)
+
+
+Output do código:
+
+  method: 1
+  method: 2
+  method: 3
+
+
+
+--------------------------------
+Métodos em detalhe: continuação
+--------------------------------
+
+O parâmetro self é utilizado PARA OBTER ACESSO Á INSTÂNCIA DO OBJETO E AS VARIÁVEIS DA CLASSE.
+
+O exemplo mostra as duas formas de utilizar self:
+
+  ex:
+
+    class Classy:
+        varia = 2
+        def method(self):
+            print(self.varia, self.var)
+
+
+    obj = Classy()
+    obj.var = 3
+    obj.method()
+
+
+Output do código:
+
+  2 3
+
+
+A função self é também utilizado PARA INVOCAR OUTROS MÉTODOS OBJETO/CLASSE DENTRO DA CLASSE.
+
+Tal como aqui:
+
+  ex:
+
+    class Classy:
+        def other(self):
+            print("other")
+
+        def method(self):
+            print("method")
+            self.other()
+
+
+    obj = Classy()
+    obj.method()
+
+
+Output do código:
+
+  method
+  other
+
+
+---------------------------------
+Métodos em detalhe: continuação
+---------------------------------
+
+Se nomear um método como este: __init__, não será um método regular - será um CONSTRUTOR.
+
+Se uma classe tem um construtor, é invocada automática e implicitamente quando o objeto da classe é instanciado.
+
+O construtor:
+
+    - é OBRIGADO A TER O PARÂMETRO: self (é definido automaticamente, como de costume);
+    - PODE (MAS NÃO É NECESSÁRIO) TER MAIS PARÂMETROS do que apenas self; se isto acontecer, 
+    a forma como o nome da classe é utilizado para criar o objeto deve refletir a definição __init__ ;
+    - PODE SER UTILIZADA PARA CONFIGURAR O OBJETO, ou seja, inicializar devidamente o seu estado interno, 
+    criar variáveis de instância, instanciar quaisquer outros objetos se a sua existência for necessária, etc.
+
+
+     
+
+Veja o código abaixo. O exemplo mostra um construtor muito simples a trabalhar.
+
+  ex:
+
+    class Classy:
+        def __init__(self, value):
+            self.var = value
+
+
+    obj_1 = Classy("object")
+
+    print(obj_1.var)
+
+
+Output do código:
+
+  object
+
+
+Observe que o construtor:
+
+    - NÃO PODE DEVOLVER UM VALOR, uma vez que foi concebido para devolver um objeto recém-criado e nada mais;
+    - NÃO PODE SER INVOCADO DIRETAMENTE DO OBJETO OU DE DENTRO DA CLASSE (pode invocar 
+    um construtor de qualquer uma das subclasses do objeto, mas discutiremos esta questão mais tarde).
+
+
+
+--------------------------------
+Métodos em detalhe: continuação
+--------------------------------
+
+Como __init__ é um método, e um método é uma função, pode-se fazer os mesmos truques com construtores/métodos que se fazem com funções comuns.
+
+O exemplo no código abaixo mostra como definir um construtor com um valor de argumento padrão. Teste-o.
+
+  ex:
+
+    class Classy:
+        def __init__(self, value = None):
+            self.var = value
+
+
+    obj_1 = Classy("object")
+    obj_2 = Classy()
+
+    print(obj_1.var)
+    print(obj_2.var)
+
+
+Output do código:
+
+  object
+  None
+
+
+Tudo o que dissemos sobre MANGLING DE NOME DE PROPRIEDADE aplica-se também 
+a nomes de métodos - um método cujo nome começa com __ está (parcialmente) oculto.
+
+O exemplo mostra este efeito:
+
+  ex:
+
+    class Classy:
+        def visible(self):
+            print("visible")
+    
+        def __hidden(self):
+            print("hidden")
+
+
+    obj = Classy()
+    obj.visible()
+
+    try:
+        obj.__hidden()
+    except:
+        print("failed")
+
+    obj._Classy__hidden()
+
+
+Output do código:
+
+  visible
+  failed
+  hidden
+
+
+Execute o programa e teste-o.
+
+
+
+---------------------------------------
+A vida interior das classes e objetos
+---------------------------------------
+
+Cada classe de Python e cada objeto de Python é pré-equipada com um conjunto de atributos úteis que 
+podem ser utilizados para examinar as suas capacidades.
+
+Já conhece um destes - é a propriedade __dict__ .
+
+Vamos observar como lida com os métodos - vejamos o código abaixo:
+
+  ex:
+
+    class Classy:
+        varia = 1
+        def __init__(self):
+            self.var = 2
+
+        def method(self):
+            pass
+
+        def __hidden(self):
+            pass
+
+
+    obj = Classy()
+
+    print(obj.__dict__)
+    print(Classy.__dict__)
+
+
+Execute-o para ver o seu output. Verifique o output com cuidado.
+
+Encontre todos os métodos e atributos definidos. Localize o contexto no qual eles existem: dentro do objeto ou dentro da classe.
+
+output:
+
+  {'var': 2}
+
+  {'__module__': '__main__', 'varia': 1, '__init__': <function Classy.__init__ at 0x7fb322db0320>, 'method': <function Classy.method at 0x7fb322db03b0>, '_Classy__hidden': <function Classy.__hidden at 0x7fb322db0440>, '__dict__': <attribute '__dict__' of 'Classy' objects>, '__weakref__': <attribute '__weakref__' of 'Classy' objects>, '__doc__': None}
+
+
+
+---------------------------------------------------
+A vida interior das classes e objetos: continuação
+---------------------------------------------------
+
+__dict__ é um dicionário. Outra propriedade integrada que vale a pena mencionar é __name__, que é uma string.
+
+A propriedade contém O NOME DA CLASSE Não é nada de excitante, apenas uma cadeia.
+
+  Nota: o atributo __name__ está ausente do objeto - SÓ EXISTE DENTRO DAS CLASSES.
+
+
+Se quiser ENCONTRAR A CLASSE DE UM DETERMINADO OBJETO, pode usar uma função chamada type(), 
+que é capaz (entre outras coisas) de encontrar uma classe que tenha sido utilizada para instanciar qualquer objeto.
+
+Olhe para o código abaixo, execute-o, e veja por si mesmo.
+
+  ex:
+
+    class Classy:
+        pass
+
+
+    print(Classy.__name__)
+    obj = Classy()
+    print(type(obj).__name__)
+
+
+Output do código:
+
+  Classy
+  Classy
+
+
+Observe que uma declaração como esta:
+
+  ex:
+
+    print(obj.__name__)
+
+
+irá causar um erro.
+
+
+
+----------------------------------------------------
+A vida interior das classes e objetos: continuação
+----------------------------------------------------
+
+__module__ é também uma string - ARMAZENA O NOME DO MÓDULO QUE CONTÉM A DEFINIÇÃO DA CLASSE.
+
+Vamos verificá-la - execute o código abaixo:
+
+  ex:
+
+    class Classy:
+        pass
+
+
+    print(Classy.__module__)
+    obj = Classy()
+    print(obj.__module__)
+
+
+Output do código:
+
+  __main__
+  __main__
+
+
+Como sabe, qualquer módulo chamado __main__ não é na realidade um módulo, mas o FICHEIRO ATUALMENTE EM EXECUÇÃO.
+
+
+
+---------------------------------------------------
+A vida interior das classes e objetos: continuação
+---------------------------------------------------
+
+__bases__ é um tuple. O TUPLE CONTÉM CLASSES (não nomes de classe) que são superclasses diretas para a classe.
+
+A ordem é a mesma que é utilizada dentro da definição de classe.
+
+Mostrar-lhe-emos apenas um exemplo muito básico, uma vez que queremos destacar COMO FUNCIONA A HERANÇA.
+
+Além disso, vamos mostrar-lhe como utilizar este atributo quando discutirmos os aspetos objetivos das exceções.
+
+  Nota: APENAS AS CLASSES TÊM ESTE ATRIBUTO - os objetos não o têm.
+
+
+Definimos uma função chamada printbases(), concebida para apresentar claramente o conteúdo do tuple.
+
+Veja o código abaixo. Analise e execute-o.
+
+  ex:
+
+    class SuperOne:
+        pass
+
+
+    class SuperTwo:
+        pass
+
+
+    class Sub(SuperOne, SuperTwo):
+        pass
+
+
+    def printBases(cls):
+        print('( ', end='')
+
+        for x in cls.__bases__:
+            print(x.__name__, end=' ')
+        print(')')
+
+
+    printBases(SuperOne)
+    printBases(SuperTwo)
+    printBases(Sub)
+
+
+ Ele terá como output:
+
+  ( object )
+  ( object )
+  ( SuperOne SuperTwo )
+
+
+Nota: UMA CLASSE SEM SUPERCLASSES EXPLÍCITAS APONTA PARA A CLASSE: OBJECT (uma classe Python predefinida) como seu antepassado direto.
+
+
+
+-------------------------
+Reflexão e introspeção
+-------------------------
+
+Todos estes meios permitem ao programador Python realizar duas importantes atividades específicas a muitas linguagens objetivas. São elas:
+
+    - INTROSPECÇÃO, que é a capacidade de um programa para examinar o tipo ou propriedades de um objeto em runtime;
+    - REFLEXÃO, que vai um passo além, e é a capacidade de um programa para manipular os valores, 
+    propriedades e/ou funções de um objeto em runtime.
+
+
+Por outras palavras, não é necessário conhecer uma definição completa de classe/objeto para manipular o objeto, 
+pois o objeto e/ou a sua classe contêm os metadados que lhe permitem reconhecer as suas características durante a execução do programa. 
+
+
+--------------------
+Investigar classes
+--------------------
+
+O que se pode descobrir sobre as classes em Python? A resposta é simples - tudo.
+
+Tanto a reflexão como a introspeção permitem a um programador fazer qualquer coisa com cada objeto, independentemente da sua proveniência.
+
+Analise o código abaixo:
+
+  ex:
+
+    class MyClass:
+        pass
+
+
+    obj = MyClass()
+    obj.a = 1
+    obj.b = 2
+    obj.i = 3
+    obj.ireal = 3.5
+    obj.integer = 4
+    obj.z = 5
+
+
+    def incIntsI(obj):
+        for name in obj.__dict__.keys():
+            if name.startswith('i'):
+                val = getattr(obj, name)
+                if isinstance(val, int):
+                    setattr(obj, name, val + 1)
+
+
+    print(obj.__dict__)
+    incIntsI(obj)
+    print(obj.__dict__)
+
+
+A função chamada: incIntsI() do nosso exemplo, obtém um objeto de qualquer classe, 
+digitaliza o seu conteúdo a fim de encontrar todos os atributos inteiros com nomes que comecem por i, e incrementa-os por um.
+
+Impossível? De modo algum!
+
+É assim que funciona:
+
+  
+    - linha 1: definir uma classe muito simples...
+    - linhas 3 a 10: ...e preenchê-la com alguns atributos;
+    - linha 12: esta é a nossa função!
+    - linha 13: digitalizar o atributo __dict__ , procurando todos os nomes de atributos;
+    - linha 14: se um nome começar com i...
+    - linha 15: ...use a função getattr() para obter o seu valor atual; nota: getattr() toma dois argumentos: um objeto, 
+    e o seu nome de propriedade (como uma string), e devolve o valor do atributo atual;
+    - linha 16: verificar se o valor é do tipo inteiro, e utilizar a função isinstance() para este fim (discutiremos isto mais tarde);
+    - linha 17: se a verificação correr bem, aumente o valor da propriedade fazendo uso da função setattr() ; a função 
+    toma três argumentos: um objeto, o nome da propriedade (como uma string) e o novo valor da propriedade.
+
+
+Output do código:
+
+  {'a': 1, 'integer': 4, 'b': 2, 'i': 3, 'z': 5, 'ireal': 3.5}
+  {'a': 1, 'integer': 5, 'b': 2, 'i': 4, 'z': 5, 'ireal': 3.5}
+
+
+E é tudo!
+
+
+
+-------------------
+ Resumo da sessão
+-------------------
+
+1. Um método é uma função incorporada dentro de uma classe. O primeiro (ou único) parâmetro de cada método é normalmente nomeado self, 
+que se destina a identificar o objeto para o qual o método é invocado a fim de aceder às propriedades do objeto ou invocar os seus métodos.
+
+2. Se uma classe contém um construtor (um método chamado __init__) não pode devolver qualquer valor e não pode ser invocada diretamente.
+
+3. Todas as classes (mas não objetos) contêm uma propriedade chamada __name__, que armazena o nome da classe. Além disso, 
+uma propriedade chamada __module__ armazena o nome do módulo no qual a classe foi declarada, 
+enquanto a propriedade nomeada __bases__ é um tuple contendo as superclasses de uma classe.
+
+Por exemplo:
+
+  ex:
+
+    class Sample:
+        def __init__(self):
+            self.name = Sample.__name__
+        def myself(self):
+            print("My name is " + self.name + " living in a " + Sample.__module__)
+
+
+    obj = Sample()
+    obj.myself()
+
+
+Output do código:
+
+  My name is Sample living in a __main__
+
+
+
+----------------------
+ exercicio de exemplo
+----------------------
+
+Exercício 3
+
+Consegue prever o output do seguinte código?
+
+    class Snake:
+        pass
+
+
+    class Python(Snake):
+        pass
+
+
+    print(Python.__name__, 'is a', Snake.__name__)
+    print(Python.__bases__[0].__name__, 'can be', Python.__name__)
+
+
+output:
+
+    Python is a Snake
+    Snake can be Python
+
+
+

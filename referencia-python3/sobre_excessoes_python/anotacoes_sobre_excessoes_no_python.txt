@@ -1,0 +1,503 @@
+###############################
+#
+#  Excessoes no Python
+#
+###############################
+
+------------
+Exceções
+------------
+
+
+Cada vez que o seu código tenta fazer algo de errado/tolo/irresponsável/maluco/imprevisível, o Python faz duas coisas:
+
+    para o seu programa;
+    cria um tipo especial de dados, chamado uma exceção.
+
+Ambas estas atividades são designadas por levantar uma exceção. Podemos dizer que o Python levanta sempre uma exceção (ou que foi 
+levantada uma exceção) quando não tem ideia do que fazer com o seu código.
+
+O que acontece a seguir?
+
+    a exceção levantada espera que alguém ou alguma coisa a note e se encarregue dela;
+    
+    se nada acontecer para tratar da exceção levantada, o programa será terminado à força, 
+    e verá uma mensagem de erro enviada para a consola pelo Python;
+    
+    caso contrário, se a exceção for cuidada e tratada adequadamente, o programa suspenso pode ser retomado e a sua execução pode continuar.
+
+O Python fornece ferramentas eficazes que lhe permitem observar exceções, identificá-las e tratá-las eficientemente. Isto é possível 
+devido ao facto de todas as potenciais exceções terem os seus nomes inequívocos, pelo que se pode categorizá-los e reagir adequadamente.
+
+Já conhece alguns nomes de exceção. Dê uma vista de olhos à seguinte mensagem de diagnóstico:
+
+  ValueError: math domain error 
+
+
+A palavra: ValueError acima é apenas o nome da exceção. Vamos familiarizar-nos com algumas outras exceções.
+
+
+------------------------
+Exceções: continuação
+------------------------
+
+Veja o código abaixo. Execute o programa (obviamente incorreto).
+
+  ex:
+
+    value = 1
+    value /= 0
+
+Verá a seguinte mensagem em resposta:
+
+  Traceback (most recent call last):
+  File "div.py", line 2, in 
+  value /= 0
+  ZeroDivisionError: division by zero
+
+
+Este erro de exceção é chamado: ZeroDivisionError. Esse erro ( ZeroDivisionError ) é invocado quando tentamos 
+dividir um valor por 0 (pq dividir qualquer valor por 0 é impossivel !!! )
+
+
+
+------------------------
+Exceções: continuação
+------------------------
+
+Veja o código abaixo. O que acontecerá quando o executar? Verifique.
+
+  ex:
+
+    my_list = []
+    x = my_list[0]
+
+Verá a seguinte mensagem em resposta:
+
+  Traceback (most recent call last):
+  File "lst.py", line 2, in 
+  x = list[0]
+  IndexError: list index out of range
+
+
+Este erro de excessão é chamado: IndexError.
+
+
+-----------------------
+Exceções: continuação
+-----------------------
+
+Como se tratam (em inglês, handle) as exceções? A palavra: try, é fundamental para a solução.
+
+Além disso, também é uma keyword.
+
+A receita para o sucesso é a seguinte:
+
+    primeiro, é preciso tentar fazer alguma coisa;
+    a seguir, tem de verificar se tudo correu bem.
+
+Mas não seria melhor verificar primeiro todas as circunstâncias do código abaixo, e depois fazer algo apenas se for seguro?
+
+  ex:
+
+    first_number = int(input("Enter the first number: "))
+    second_number = int(input("Enter the second number: "))
+
+    if second_number != 0:
+        print(first_number / second_number)
+    else:
+        print("This operation cannot be done.")
+
+    print("THE END.")
+
+
+Assumidamente, esta forma em que o código foi escrito acima pode parecer a mais natural e compreensível, 
+mas na realidade este método não torna a programação mais fácil. Todas estas verificações 
+podem tornar o seu código inchado e ilegível.
+
+O Python prefere uma abordagem completamente diferente.
+
+
+-----------------------
+Exceções: continuação
+-----------------------
+
+Veja o código abaixo. Esta é a abordagem favorita do Python.
+
+  ex:
+
+    first_number = int(input("Enter the first number: "))
+    second_number = int(input("Enter the second number: "))
+
+    try:
+        print(first_number / second_number)
+    except:
+        print("This operation cannot be done.")
+
+    print("THE END.")
+
+
+Nota:
+
+    a keyword try INICIA UM BLOCO DO CÓDIGO que pode ou não estar a funcionar corretamente;
+    a seguir, o Python tenta realizar a ação arriscada; se falhar, é levantada uma exceção e o Python começa a procurar por uma solução;
+    a keyword except inicia um pedaço de código que será EXECUTADO SE ALGUMA COISA DENTRO DO BLOCO try OCORRER MAL - se uma exceção 
+    é levantada dentro de um bloco try anterior, falhará no próprio bloco try, pelo que o código localizado após a keyword except deverá fornecer 
+    uma reação adequada à exceção levantada;
+    retornar ao nível de nesting anterior termina a secção do try-except.
+
+Execute o código e teste o seu comportamento.
+
+Vamos resumir isto:
+
+  ########################################################
+  # exemplo de como é a estrutura: try/except no python
+  #
+
+  try:
+      :
+      :
+  except:
+      :
+      :
+
+
+
+    no primeiro passo, o Python tenta executar todas as instruções colocadas entre as try: e except: declarações;
+    se nada estiver errado com a execução e todas as instruções forem executadas com sucesso, a execução 
+    salta para o ponto após a última linha do bloco except: , e a execução do bloco é considerada completa;
+    se alguma coisa correr mal dentro do bloco try: e except: , a execução salta imediatamente para fora 
+    do bloco e para a primeira instrução localizada após a keyword except: ; isto significa que algumas das 
+    instruções do bloco podem ser silenciosamente omitidas.
+
+
+
+
+-----------------------
+Exceções: continuação
+-----------------------
+
+Esta abordagem tem uma desvantagem importante - se houver a possibilidade de mais do que uma exceção poder saltar 
+para um ramo except: , poderá ter dificuldade em descobrir o que realmente aconteceu.
+
+Tal como no nosso código abaixo. 
+
+  ex:
+
+    try:
+        x = int(input("Enter a number: "))
+        y = 1 / x
+    except:
+        print("Oh dear, something went wrong...")
+
+    print("THE END.")
+
+
+Execute-o e veja o que acontece.
+
+A mensagem: Oh dear, something went wrong... que aparece no console nada diz sobre a razão, enquanto que 
+existem duas causas possíveis para a exceção:
+
+    dados não inteiros inseridos pelo utilizador;
+    um valor inteiro igual a 0 atribuído à variável x .
+
+
+Tecnicamente, existem duas maneiras de resolver o problema:
+
+    construir dois blocos consecutivos try-except , um para cada possível motivo de exceção (fácil, mas causará 
+    um crescimento do código desfavorável)
+    utilizar uma variante mais avançada da instrução.
+
+É assim que se parece:
+
+  ex:
+
+    ######################################################################################################
+    # essa estrutura mostra como criar a estrutura: try/except com MAIS DE UMA VERIFICAÇÃO DE EXCESSÃO !!!
+    #
+
+    try:
+        :
+    except exc1:
+        :
+    except exc2:
+        :
+    except:
+        :
+
+
+É assim que funciona:
+
+    - se o ramo try levanta a exceção exc1, será tratado pelo bloco except exc1: ;
+    - da mesma forma, se o ramo try levanta a exceção exc2, será tratado pelo bloco except exc2: ;
+    - se o ramo try levanta qualquer outra exceção, será tratado pelo bloco não nomeado except .
+
+Passemos à próxima parte do curso e vejamo-lo em ação.
+
+
+Veja o código abaixo. A nossa solução está lá.
+
+  ex:
+
+    try:
+        x = int(input("Enter a number: "))
+        y = 1 / x
+        print(y)
+    except ZeroDivisionError: # é executado se a divisão for feita com o número: 0 ( repare que esse erro é um tipo de erro específico ) 
+        print("You cannot divide by zero, sorry.")
+
+    except ValueError: # é executado se o valor inserido no input for uma string !!! ( repare que esse erro é um tipo de erro específico )
+        print("You must enter an integer value.")
+
+    except: # é uma excessão genérica ( erro genérico ), ou seja, é executada á qualquer tipo de erro que não seja um erro específico !!! 
+        print("Oh dear, something went wrong...")
+
+    print("THE END.")
+
+
+
+O código, quando executado, produz uma das quatro variantes de output seguintes:
+
+    se introduzir um valor inteiro válido, não nulo (por exemplo 5) diz: 
+
+      0.2
+      THE END.
+
+    se introduzir 0 (aqui executa o except: ZeroDivisionError), diz: 
+
+      You cannot divide by zero, sorry.
+      THE END.
+
+    se introduzir qualquer string não inteira (aqui executa o except: ValueError), verá: 
+
+      You must enter an integer value.
+      THE END.
+
+
+    (localmente na sua máquina) se premir Ctrl-C enquanto o programa aguarda a entrada do utilizador (o que provoca uma 
+    exceção chamada: KeyboardInterrupt), o programa diz: 
+
+      Oh dear, something went wrong...
+      THE END.
+    
+
+
+-----------------------
+Exceções: continuação
+-----------------------
+
+Não se esqueça:
+
+    - os ramos except são pesquisados na mesma ordem em que aparecem no código;
+    não deve utilizar mais do que um bloco except, a não ser que cada bloco except seja com um certo nome de exceção;
+    - o número de diferentes ramos except é arbitrário - a única condição é que se utilizar try, deve colocar 
+    pelo menos um except (nomeado ou não) depois dele;
+    - a keyword except não deve ser utilizada sem um precedente try;
+    - se algum dos ramos except for executado, nenhum outro ramo será visitado;
+    - se nenhum dos ramos except especificados correspondem à exceção levantada, a exceção permanece sem ser tratada (discutiremos isso em breve)
+    - se um não nomeado except ramo existir (um sem nome de exceção), tem de ser especificado como o último.
+
+
+  #########################################################################
+  # esse exemplo mostra como a ordem da estrutura try/except deve ser usada
+
+  ex:
+
+    try:
+        :
+    except exc1:
+        :
+    except exc2:
+        :
+    except:
+        :
+
+
+
+Vamos continuar as experiências agora.
+
+Veja o código abaixo. Modificámos o programa anterior - removemos o ramo ZeroDivisionError.
+
+  ex:
+
+    try:
+        x = int(input("Enter a number: "))
+        y = 1 / x
+        print(y)
+    except ValueError:
+        print("You must enter an integer value.")
+    except:
+        print("Oh dear, something went wrong...")
+
+    print("THE END.")
+
+
+O que acontece agora se o utilizador introduzir 0 como um input?
+
+Como não há ramos dedicados para divisão por zero, a exceção levantada 
+cai no ramo geral (sem nome); isto significa que, neste caso, o programa dirá:
+
+  Oh dear, something went wrong...
+  THE END.
+
+
+Experimente você mesmo. Execute o programa.
+
+
+-----------------------
+Exceções: continuação
+-----------------------
+
+Vamos estragar o código mais uma vez.
+
+Olhe para o programa abaixo. Desta vez, retirámos o ramo não nomeado.
+
+  ex:
+
+    try:
+        x = int(input("Enter a number: "))
+        y = 1 / x
+        print(y)
+    except ValueError:
+        print("You must enter an integer value.")
+
+    print("THE END.")
+
+
+O utilizador insere 0 mais uma vez, e:
+
+    - a exceção levantada não será tratada por ValueError - não tem nada a ver com isso;
+    - uma vez que não há outro ramo, deve ver esta mensagem: 
+
+        Traceback (most recent call last):
+        File "exc.py", line 3, in 
+        y = 1 / x
+        ZeroDivisionError: division by zero
+
+
+Aprendeu bastante sobre o tratamento de exceções em Python. Na secção seguinte, 
+centrar-nos-emos nas exceções incorporadas em Python e nas suas hierarquias.
+
+
+
+----------------
+Key takeaways
+----------------
+
+1. Uma exceção é um evento na execução de um programa causado por uma situação anormal. A exceção deve ser tratada 
+para evitar a terminação do programa. A parte do seu código que é suspeita de ser a origem da exceção deve ser colocada dentro do ramo try .
+
+Quando a exceção acontece, a execução do código não é terminada, 
+mas em vez disso salta para o ramo except. Este é o local onde deve ter lugar o tratamento da exceção. O esquema geral 
+de tal construção parece-se com o seguinte:
+
+  ex:
+
+    :
+    # The code that always runs smoothly.
+    :
+
+    try:
+        :
+        # Risky code.
+        :
+    except:
+        :
+        # Crisis management takes place here.
+        : 
+    :
+    # Back to normal.
+    :
+
+
+2. Se precisar de tratar de mais do que uma exceção proveniente do mesmo ramo try, pode adicionar 
+mais do que um ramo except, mas é preciso rotulá-los com nomes de exceção diferentes, como este:
+
+  ex:
+
+    :
+    # The code that always runs smoothly.
+    :
+
+    try:
+        :
+        # Risky code.
+        :
+    except Except_1:
+        # Crisis management takes place here.
+    except Except_2:
+        # We save the world here.
+    :
+    # Back to normal.
+    :
+
+
+No máximo, um dos ramos except é executado - nenhum dos ramos é executado quando a exceção levantada não coincide com as exceções especificadas.
+
+
+3. Não pode acrescentar mais do que um ramo anónimo (não nomeado) except após os nomeados.
+
+  ex:
+
+    :
+    # The code that always runs smoothly.
+    :
+
+    try:
+        :
+        # Risky code.
+        :
+    except Except_1:
+        # Crisis management takes place here.
+    except Except_2:
+        # We save the world here.
+    except:
+        # All other issues fall here.
+    :
+    # Back to normal.
+    :
+
+
+
+Exercício 1
+
+Qual é o output esperado do seguinte código?
+
+  try:
+      print("Let's try to do this")
+      print("#"[2]) # o erro foi gerado nessa linha !!!
+      print("We succeeded!")
+  except:
+      print("We failed")
+  print("We're done")
+
+
+Resposta:
+
+  Let's try to do this
+  We failed
+  We're done
+
+
+
+Exercício 2
+
+Qual é o output esperado do seguinte código?
+
+  try:
+      print("alpha"[1/0]) # tenta fazer o calculo de divisão para definir a posição do indice, mas como a conta é divisível por zero, gera o erro: ZeroDivisionError.
+  except ZeroDivisionError:
+      print("zero")
+  except IndexingError:
+      print("index")
+  except:
+      print("some")
+
+
+Resposta:
+
+  zero 
+
+
+
+Prev

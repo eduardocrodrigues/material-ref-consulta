@@ -1,0 +1,39 @@
+####################################
+#
+# Modulo time do Pygame
+#
+####################################
+
+
+
+pygame.time.Clock() - classe usada para ajudar a restrear o tempo.
+
+
+
+pygame.time.Clock().tick() - retorna o tempo em milisegundos decorrido desde a chamada anterior. Este método 
+deve ser chamado uma vez por frame. Esse método irá computar quantos milisegundos se passaram 
+desde a última chamada. Se vc passar um valor no ARGUMENTO OPCIONAL: framerate=0, a função irá atrasar para manter
+o jogo rodando mais lento do que o valor passado no argumento framerate (por segundo).   
+    Esse método possui 1 parâmetro:
+
+        1 - número que define a quantidade de milisegundos (frames) decorrido desde a chamada anterior (1 segundo é o mesmo que 1000 milisegundos).
+
+    OBS: milisegundos geralmente são usados com eventos de tempo em jogos, pois pode ser mais fácil lidar com 
+    valores inteiros em vez de fracionários; mil ticks de relógio por segundo normalmente proporcionam 
+    uma precisão suficiente para a maioria das tarefas em um jogo. Apesar disso, normalmente prefiro trabalhar 
+    com segundos ao lidar com aspectos como velocidade, pois 250 pixels por segundo 
+    faz mais sentido para mim do que 0,25 pixels por milisegundo. Converter de milisegundos para segundos é simples,
+    basta fazer a divisão por 1000:
+
+        time_passed = pygame.time.Clock(30) # o jogo será executado no máximo á 30 frames por segundo...
+        time_passed_seconds = time_passed / 1000.0 # convertendo o tempo de MILISEGUNDOS para SEGUNDOS...
+
+    OBS2: Se vc não estiver usando o Python3+, não se esqueça de dividir por um valor 
+    de ponto flutuante igual a: 1000.0. Se o ponto decimal não for incluido, o resultado 
+    será arredondado para baixo, para o inteiro mais próximo!
+
+
+
+
+
+

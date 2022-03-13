@@ -1,0 +1,127 @@
+#######################################
+#
+#  Modulo random
+#
+#######################################
+
+------------------------------------------------------------------
+random() - retorna um número de ponto flutuante entre 0 e 1.
+------------------------------------------------------------------
+
+  ex:
+
+    import random
+
+    print(random.random())
+
+
+
+--------------------------------------------------------------------
+randint(start, stop) - retorna um valor aleatório do tipo inteiro.
+--------------------------------------------------------------------
+
+  parametros:
+    start  Required. An integer specifying at which position to start.
+    stop   Required. An integer specifying at which position to end.
+
+     OBS: o valor definido do parâmetro: stop, é tbm INCLUIDO na aparição
+     do valor aleatório. 
+
+
+  ex:
+
+    for num in randint(1, 5):
+        print(num)
+
+
+
+--------------------------------------------------------------------
+randrange(start, stop, step) - etorna um valor aleatório do tipo inteiro.
+--------------------------------------------------------------------
+
+  parametros:
+    start  Required. An integer specifying at which position to start. Default 0
+    stop   Required. An integer specifying at which position to end.
+    step   Optional. An integer specifying the incrementation. Default 1
+
+     OBS: o valor definido do parâmetro: stop, é tbm EXCLUIDO na aparição
+     do valor aleatório. 
+
+  ex:
+    
+    for num in randrange(1, 4):
+        print(num)
+
+
+
+------------------------------------------------------------------
+choice() - retorna um elemento aleatório de uma coleção de dados.
+------------------------------------------------------------------
+
+  ex:
+
+    import random
+
+    array = [1, 'eduardo', 3, 4, 'weverton']
+    v = random.choice(array)
+    print(v)
+
+
+
+------------------------------------------------------------------
+sample(sequence, elements_to_choose) - retorna uma determinada quantidade
+de elementos aleatórios. 
+------------------------------------------------------------------
+
+  parametros:
+    sequence 	Required. A sequence. Can be any sequence: list, set, range etc.
+    elements_to_choose    Required. The size of the returned list.
+
+
+  ex:
+
+    import random
+
+    my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    print(random.sample(my_list, 5)) # retorna 5 elementos aleatórios de uma sequência (nesse caso, da lista: my_list).
+
+
+
+----------------------------------------------------------------------
+seed(num) - gera uma sequencia de números. Se chamado duas vezes 
+com o mesmo valor no parâmetro de: seed(), reproduzirá as mesmas sequências de números.
+----------------------------------------------------------------------
+
+A função seed() é capaz de definir diretamente a seed do gerador. 
+ Vamos mostrar-lhe duas das suas variantes:
+
+   seed() - define a seed com a hora atual;
+   seed(int_value) - define a seed com o valor inteiro int_value.
+
+
+  ex:
+
+    import random
+
+    random.seed(100) # define um valor para o parâmetro do método seed()
+
+    for roll in range(10):
+        print(random.randint(1, 6))
+
+    print('re-seeded')
+
+    random.seed(100) # define um valor para o parâmetro do método seed()
+
+    for roll in range(10):
+        print(random.randint(1, 6))
+
+
+
+
+
+
+
+
+------------------------------------------------------------------
+
+

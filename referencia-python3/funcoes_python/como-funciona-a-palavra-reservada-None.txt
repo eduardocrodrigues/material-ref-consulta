@@ -1,0 +1,74 @@
+############################################
+#
+# Como funciona a palavra reservada: None
+#
+############################################
+
+-----------------------------
+Algumas palavras sobre None
+-----------------------------
+
+Deixe-nos apresentar-lhe um valor muito curioso (para sermos honestos, um valor nulo), chamado None. Os seus dados 
+não representam nenhum valor razoável - na verdade, não é um valor de todo; portanto, não deve tomar parte em nenhuma expressão.
+
+Por exemplo, um snippet como este:
+
+    print(None + 2)
+
+
+causará um erro de runtime, descrito pela seguinte mensagem de diagnóstico:
+
+  TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+
+
+Nota: None é uma keyword.
+
+
+Existem apenas dois tipos de circunstâncias onde None pode ser utilizado em segurança:
+
+    quando o atribui a uma variável (ou o devolve como o resultado de uma função)
+    quando o compara com uma variável para diagnosticar o seu estado interno.
+
+
+Tal como aqui:
+
+    value = None
+    if value is None:
+        print("Sorry, you don't carry any value")
+
+Não se esqueça disto: se uma função não devolver um determinado valor usando 
+uma cláusula: return de expressão, supõe-se que ela devolve implicitamente: None.
+
+
+
+------------------------------------------
+Algumas palavras sobre None: continuação
+------------------------------------------
+
+Veja o código:
+
+    def strange_function(n):
+        if(n % 2 == 0):
+            return True
+
+    print(strange_function(1))
+
+
+É óbvio que a função strangeFunction() devolve: True, quando o seu argumento é par.
+
+O que devolve de outra forma?
+
+Podemos utilizar o seguinte código para o verificar:
+
+    print(strange_function(2)) # retona: True
+    print(strange_function(1)) # retorna: None (pq função que não retorna nada retorna: None por padrão !!!)
+
+Isto é o que veremos como resultado:
+
+    True
+    None
+
+Não fique surpreendido da próxima vez que vir None como resultado 
+de uma função - pode ser o sintoma de um erro sutíl dentro da função.
+
+

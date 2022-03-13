@@ -1,0 +1,125 @@
+#####################################
+#
+#  Encapsulamento Python POO
+#
+#####################################
+
+O encapsulamento (em toda e qualquer linguagem de programação) é usado para protegermos o código
+de um comportamento indevido. 
+
+Antes de entendermos como funciona o emcapsulamento de dados no Python,
+precisamos de entender como o encapsulamento funciona em outras linguagens, 
+pq o Python trabalha com encapsulamento de forma muito diferente das outras linguagens.
+
+Na programação orientada a objetos classica, temos modificadores de acesso para atributos e 
+metodos dentro da classe. Os três modificadores de acesso principais são:
+
+
+    public - é o padrão, usado para definir um atributo ou método como público. Esses atributos podem
+    ser acessados dentro e fora da classe.
+
+    protected - usado para definir um atributo ou método que pode ser usado somente 
+    dentro da estrutura da classe onde foi declarado ou dentro das estruturas das classes filhas (quando 
+    usamos herança).
+
+    private - atributo ou método só pode ser usado (fica privado) somente 
+    dentro da estrutura da classe onde foi criado.
+
+
+
+
+
+########################################
+#
+#  Exemplo de código usando: (self.__atributo) 
+#  (é o equivalente ao private em outras linguagens)
+#
+########################################
+
+
+class BaseDeDados:
+
+    def __init__(self):
+        #
+        # atributos do tipo: self.__atributo, SÓ PODEM SER MANIPULADOS DENTRO DA CLASSE onde foram criados.
+        #
+        # se depois de vc criar uma instância, por exemplo: 
+        #
+        #     bd = BaseDeDados()
+        #
+        #
+        # e tentar inserir algum valor, por exemplo: 
+        #
+        #     bd.__dados = 'um valor qualquer'
+        #
+        #
+        # vc pode pensar que está atribuindo um valor ao atributo privado: self.__dados, definido dentro
+        # da estrutura da classe, só que NÃO É ISSO QUE ESTÁ ACONTECENDO !!!, 
+        # O QUE REALMENTE ESTÁ ACONTECENDO é que VC ESTÁ CRIANDO UM NOVO ATRIBUTO para a classe, DE MESMA NOTAÇÃO 
+        # QUE O ATRIBUTO PRIVADO definido DENTRO DA CLASSE.
+        #
+        # A maneira existente no Python de provar o que estou dizendo é primeiramente criarmos 
+        # a instância da classe:
+        #
+        #    bd = BaseDeDados()
+        #
+        # ##################################################################       
+        # AGORA PRESTE MUITA ATENÇÃO, PORQUE É AQUI QUE ESTÁ O SEGREDO !!!.
+        # ##################################################################
+        #
+        #  Se INSERIRMOS UM VALOR QUALQUER ao suposto atributo interno: self.__atributo
+        #
+        #    bd.__dados = 'um valor qualquer'
+        # 
+        #
+        #  e PEDIRMOS PARA IMPRIMIR O VALOR do atributo: bd.__dados...
+        #
+        #    print(bd.__dados) # imprime o valor
+        #
+        #
+        # O QUE REALMENTE ACONTECEU NAS DUAS LINHAS ACIMA é que FOI CRIADO UM NOVO ATRIBUTO para a classe, 
+        # com um valor do tipo string, PARECIDO COM O ATRIBUTO PRIVADO.
+        #
+        #
+        #  OBS: No Python, existe uma NOTAÇÃO QUE CONSEGUE PEGAR O VALOR DE ATRIBUTOS PRIVADOS da classe:
+        #
+        #     _nomeDaClasse__nomeDoAtributoPrivado 
+        #
+        # VAMOS UTILIZAR A NOTAÇÃO ACIMA para PROVARMOS QUE UM ATRIBUTO PRIVADO definido DENTRO 
+        # DA CLASSE (ou seja, self.__atributo), é DIFERENTE DO ATRIBUTO DE MESMO NOME DEFINIDO NA 
+        # INSTÂNCIA DA CLASSE (ou seja: bd.__atributo), e por conta disso, NÃO PODEMOS SOBREESCREVER 
+        # UM ATRIBUTO PRIVADO A PARTIR DA INSTÂNCIA.
+        #
+        #  Se pedirmos para imprimir as linhas abaixo:  
+        #
+        #    bd = BaseDeDados()
+        #
+        #    bd.__dados = 'um valor qualquer' # novo atributo criado (apesar de possuir exatamente o mesmo nome 
+        #    do atributo privado, É UM ATRIBUTO DIFERENTE DO ATRIBUTO PRIVADO.
+        #
+        #    print(bd.__dados) # imprime o valor do atributo criado pela instância.
+        #    print(_baseDeDados__dados) # imprime o valor do verdadeiro atributo privado da classe.
+        #
+        #
+
+
+        self.__dados = {} # atributo privado, NÃO PODE SER ACESSADO PELA INSTÂNCIA !!! 
+
+    def inserir_cliente(self, id, nome):
+        if 'clientes' not in self.__dados:
+            self.__dados['clientes'] = {id: nome}
+        else:
+            self.__dados['clientes'].update({id: nome})
+
+    def lista_clientes(self):
+        for id, nome in self.__dados['clientes'].items():
+            print(id, nome)
+
+    def apaga_cliente(self, id):
+        del self.__dados['clientes'][id]
+
+
+bd = BaseDeDados()
+bd.inserir_cliente(1, 'Otávio')
+bd.inserir_cliente(2, 'Rose')
+bd.lista_clientes()

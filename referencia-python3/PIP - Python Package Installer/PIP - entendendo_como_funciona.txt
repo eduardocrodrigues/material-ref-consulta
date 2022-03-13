@@ -1,0 +1,455 @@
+###########################
+#
+# Como instalar o pip
+#
+###########################
+
+
+A questão que deve ser colocada agora é: como obter uma faca de queijo adequada? Por outras palavras, 
+como assegurar que o pip está instalado e pronto a funcionar?
+
+A resposta mais precisa é “depende”. A sério.
+
+Algumas instalações Python vêm com o pip, outras não. Além disso, não depende apenas do sistema operativo que utiliza, 
+embora este seja um fator muito importante.
+
+Vamos começar com o MS Windows.
+
+-------------------
+pip no MS Windows
+-------------------
+
+O instalador do MS Windows Python já contém o pip, e por isso não é necessário tomar outras medidas para a sua instalação. Infelizmente, 
+se a variável PATH estiver mal configurada, o pip pode não estar disponível.
+
+Para verificar que não o enganámos, tente fazer isto:
+
+    abra a consola do Windows (CMD ou PowerShell, o que preferir)
+    execute o seguinte comando:
+
+    pip --version
+
+
+no cenário mais otimista (e nós queremos mesmo que isso aconteça) verá algo como isto:
+
+  C:\Users\user>pip --version
+  pip 19.2.3 from c:\program files\python3\lib\site-packages\pip (python 3.8)
+
+  C:\Users\user>
+
+
+a ausência desta mensagem pode significar que a variável PATH ou aponta incorretamente para a localização dos binários Python, 
+ou não aponta de todo para ela; por exemplo, a nossa variável PATH contém a seguinte substring: 
+
+  C:\Program Files\Python3\Scripts\;C:\Program Files\Python3\;
+
+
+a maneira mais fácil de reconfigurar a variável PATH é reinstalar o Python, instruindo o instalador a defini-la por si.
+
+
+
+---------------------
+pip no Linux
+---------------------
+
+Diferentes distribuições de Linux podem comportar-se de forma diferente quando se trata de utilizar o pip. Algumas delas (como o Gentoo), 
+que estão intimamente ligadas ao Python e que o utilizam internamente, podem ter o pip pré-instalado e estão imediatamente prontas a funcionar.
+
+Não esquecer que alguns Linuces podem utilizar mais de uma versão Python simultaneamente, por exemplo, 
+um Python 2 e um Python 3 coexistentes lado a lado. Tais sistemas podem lançar o Python 2 como a versão padrão, 
+e pode ser necessário especificar explicitamente o nome do programa como python3. Neste caso podem haver dois pips diferentes 
+identificados como pip (ou pip2) e pip3. Verifique com cuidado.
+
+Abra a janela do terminal e emita o seguinte comando:
+
+  pip --version
+
+aparecerá algo do tipo no terminal:
+
+  pip 20.0.2 from /usr/lib64/python2.7/site-packages/pip (python 2.7)
+  user@host~$ 
+
+
+Uma resposta semelhante à apresentada na imagem anterior determina que lançou o pip a partir do Python 2, 
+pelo que a próxima tentativa deverá ser a seguinte:
+
+  pip3 --version
+
+aparecerá algo do tipo no terminal:
+
+  pip 20.0.2 from /usr/lib64/python3.6/site-packages/pip (python 3.6)
+  user@host~$   
+
+
+Como pode ver, temos agora a certeza de que estamos a utilizar a versão apropriada do pip.
+
+
+
+
+Infelizmente, algumas distribuições Linux não têm o pip pré-instalado, mesmo que o próprio Python esteja 
+instalado por padrão (algumas versões do Ubuntu podem-se comportar desta forma). Neste caso, tem duas possibilidades:
+
+    instalar o pip como um pacote de sistema usando um gestor de pacotes dedicado (por exemplo, apt em sistemas tipo Debian)
+    instalar o pip usando mecanismos internos do Python.
+
+O primeiro é definitivamente melhor. Embora existam alguns scripts inteligentes que são capazes de descarregar e instalar o pip ignorando o SO, 
+desencorajamo-lo de os usar. Este método pode colocá-lo em apuros.
+
+Veja - tentámos lançar o pip3 e falhámos. O nosso SO (desta vez utilizámos o Ubuntu Budgie) sugeriu a utilização 
+do apt para instalar o pacote chamado python3-pip:
+
+  user@host:~$ pip3
+
+  Command 'pip3' not found, but can be installed with:
+  
+  sudo apt install python3-pip
+
+
+É um bom conselho, e vamos segui-lo, mas precisaremos de direitos administrativos para o fazer. Não se esqueça que diferentes Linuces podem usar diferentes gestores de pacotes (por exemplo, pode ser pacman se usar o Arch Linux, ou yum usado por distribuições derivadas do Red Hat).
+
+De qualquer forma, todos esses métodos devem obter o pip (ou pip3) instalado e a funcionar.
+
+
+Veja o que aconteceu quando seguimos a sugestão do SO:
+
+  user@host:~$ sudo apt install python3-pip
+  Reading package lists... Done
+  Building dependency tree
+  Reading state information... Done
+  The following addicional packages will be installed:
+    ...
+  
+
+
+Como pode ver, o SO decidiu instalar não só o próprio pip, 
+mas também um par de componentes adicionais necessários ao pip. Isto é normal - não se alarme.
+
+Quando o apt termina o seu trabalho, somos finalmente capazes de utilizar o pip3:  
+
+  user@host:~$ pip3 --version
+  pip 9.0.1 from /usr/lib/python3/dist-packages (python 3.6)
+  user@host:~$
+
+
+Se for um utilizador de Mac e tiver instalado o Python 3 usando o instalador brew, o pip já está presente no seu sistema e pronto a funcionar. Verifique-o emitindo o comando mencionado anteriormente:
+
+  pip3 --version
+
+e aguarde a resposta:
+
+  user@user - % pip3 --version
+  pip 20.0.2 from /usr/local/lib/python3.7/dist-packages/pip (python 3.7)
+  user@user - %
+
+
+
+-------------------
+Como usar o pip
+-------------------
+
+Agora estamos prontos para perguntar ao pip o que pode fazer por nós. Vamos a isso - emita o seguinte comando:
+
+  pip help
+
+
+e aguarde a resposta do pip. É este o seu aspeto:  
+
+  C:\Users\user>pip help
+
+  Usage:   
+    pip <command> [options]
+
+  Commands:
+    install                     Install packages.
+    download                    Download packages.
+    uninstall                   Uninstall packages.
+    freeze                      Output installed packages in requirements format.
+    list                        List installed packages.
+    show                        Show information about installed packages.
+    check                       Verify installed packages have compatible dependencies.
+    config                      Manage local and global configuration.
+    search                      Search PyPI for packages.
+    wheel                       Build wheels from your requirements.
+    hash                        Compute hashes of package archives.
+    completion                  A helper command used for command completion.
+    debug                       Show information useful for debugging.
+    help                        Show help for commands.
+
+
+
+Não se esqueça que poderá ser obrigado a substituir o pip pelo pip3 se o seu ambiente assim o exigir.
+
+A lista produzida pelo pip resume todas as operações disponíveis, e a última delas é help, que já acabámos de utilizar.
+
+Se quiser saber mais sobre qualquer uma das operações listadas, pode utilizar a seguinte forma de invocação do pip:
+
+  pip help operation
+
+
+Por exemplo, a linha:
+
+  pip help install
+
+irá mostrar-lhe informações detalhadas sobre o uso e parametrização do comando install .
+
+Se quiser saber que pacotes Python foram instalados até agora, pode usar a operação list — assim:
+
+  pip list
+
+O output que verá é bastante imprevisível. Não fique surpreendido se o seu ecrã acabar por ser preenchido 
+com conteúdos completamente diferentes. O nosso parece-se com o seguinte:
+
+  C:\Users\user> pip list
+  Package      Version
+  ----------   ----------
+  pip          20.1.1
+  setuptools   41.2.0
+
+  C:\Users\user>
+
+
+Como pode ver, existem duas colunas na lista, uma que mostra o nome do pacote instalado, e a outra que mostra 
+a versão do pacote. Não podemos prever o estado da sua instalação Python.
+
+A única coisa que sabemos com certeza é que a sua lista contém as duas linhas que vemos 
+na nossa lista: pip e setuptools. Isto acontece porque o SO está convencido de que 
+um utilizador que quer o pip irá muito provavelmente precisar das setuptools em breve. Não está errado.
+
+
+A lista do pip não é muito informativa, e pode não satisfazer a sua curiosidade. Felizmente, existe um comando 
+que lhe pode dizer mais acerca de qualquer um dos pacotes instalados (observe a palavra installed). A sintaxe do comando é a seguinte:
+
+  pip show package_name
+
+
+Vamos usá-lo de uma forma ligeiramente enganadora - queremos convencer o pip a 
+confessar algo sobre si próprio. É assim que o fazemos:
+
+  pip show pip
+
+
+Parece um pouco estranho, não parece? Apesar disso, funciona bem, e a auto-apresentação 
+do pip parece consistente e atual:
+
+  C:\Users\user> show pip
+  Name: pip
+  Version: 20.0.2
+  Summary: The PyPA recommended tool for installing Python packages.
+  Home-page: https://pip.pypa.io/
+  Author: The pip developers
+  Author-email: pypa-dev@groups.google.com
+  License: MIT
+  Location: /usr/lib/python3/dist-packages
+  Requires: 
+  Required-by: 
+  
+
+Pode perguntar-se: de onde vêm estes dados? Será o pip realmente tão perspicaz? De modo algum — as informações que aparecem 
+no ecrã são retiradas do interior do pacote que está a ser mostrado. Por outras palavras, 
+o criador do pacote é obrigado a equipá-lo com todos os dados necessários (ou a expressá-los com maior precisão - metadados).
+
+Veja as duas linhas na parte inferior do output. Elas mostram:
+
+    quais os pacotes necessários para utilizar com sucesso o pacote (Requires:)
+    quais os pacotes que precisam do pacote para serem utilizados com sucesso (Required-by:)
+
+Como pode ver, ambas as propriedades estão vazias. Sinta-se à vontade 
+para tentar usar o comando show em relação a qualquer outro pacote instalado.
+
+O poder do pip vem do facto de ele ser na realidade uma porta de entrada para o universo do software Python. Graças a isso, 
+é possível navegar e instalar qualquer uma das centenas de pacotes prontos a usar reunidos nos repositórios PyPI. Não se esqueça 
+que o pip não é capaz de armazenar todo o conteúdo PyPI localmente (é desnecessário e não seria rentável).
+
+Com efeito, o pip utiliza a Internet para consultar o PyPI e para descarregar os dados necessários. Isto significa que 
+tem de ter uma ligação de rede a funcionar sempre que quiser pedir ao pip por qualquer coisa que possa envolver 
+interações diretas com a infraestrutura PyPI.
+
+Um destes casos ocorre quando se pretende pesquisar através do PyPI a fim de encontrar um pacote desejado. Este tipo de pesquisa 
+é iniciado pelo seguinte comando:
+
+  pip search anystring
+
+
+O anystring fornecido por si será pesquisado em:
+
+    Os nomes de todos os pacotes;
+    as strings sumário de todos os pacotes.
+
+Esteja ciente de que algumas pesquisas podem gerar uma verdadeira avalanche de dados, 
+por isso tente ser o mais específico possível. Por exemplo, uma consulta de aparência inocente como esta:
+
+  pip search pip
+
+produz mais de 100 linhas de resultados (experimente-o você mesmo — não acredite na 
+nossa palavra). A propósito — a pesquisa é case insensitive.
+
+Se não é fã de leitura na consola, pode utilizar a forma alternativa de navegar 
+pelo conteúdo PyPI oferecida por um motor de busca, disponível em: https://pypi.org/search.
+
+
+Assumindo que a sua pesquisa é bem sucedida (ou que está determinado a instalar um pacote específico de 
+um nome já conhecido) pode utilizar o pip para instalar o pacote no seu computador.
+
+Dois cenários possíveis podem ser postos em ação agora:
+
+    pretende instalar um novo pacote apenas para si - não estará disponível para qualquer outro utilizador (conta) existente no 
+    seu computador; este procedimento é o único disponível se não conseguir elevar as suas permissões e agir como administrador do sistema;
+    decidiu instalar um novo sistema de pacotes em todo o sistema - tem direitos administrativos e não tem medo de os utilizar.
+
+Para distinguir entre estas duas ações, pip utiliza uma opção dedicada denominada --user (note o duplo hífen). A presença 
+desta opção instrui o pip a agir localmente em nome do seu utilizador (não-administrativo).
+
+Se não adicionar isto, o pip assume que você é como um administrador do sistema e não fará nada para o corrigir se não o for.
+
+No nosso caso, vamos instalar um pacote chamado pygame — é uma biblioteca extensa e complexa que 
+permite aos programadores desenvolver jogos de computador usando Python.
+
+O projeto está em desenvolvimento desde 2000, por isso é um pedaço de código maduro e fiável. Se quiser saber mais 
+sobre o projeto e sobre a comunidade que o lidera, visite https://www.pygame.org.
+
+Se você é um administrador do sistema, pode instalar o pygame usando o seguinte comando:
+
+  pip install pygame
+
+
+Se você não é um administrador, ou não quer engordar o seu sistema operativo instalando o sistema pygame em todo o sistema, 
+pode instalá-lo apenas para si:
+
+  pip install --user pygame
+
+
+Cabe-lhe a si decidir qual dos procedimentos acima referidos quer que se realize.
+
+O pip tem o hábito de exibir uma animação textual extravagante indicando o progresso da instalação, 
+por isso veja o ecrã com cuidado - não perca o espetáculo! Se o processo for bem-sucedido, verá algo assim:
+
+  C:\Users\user> pip install --user pygame
+  Collecting pygame
+  Downloading pygame-1.9.6-cp38-cp38-win32.whl (4.4 MB)
+      [------------------------------------] 4.4 MB 88 kb/s
+  Installing collected package: pygame
+  Successfully installed pygame-1.9.6
+
+  C:\Users\user>
+
+
+Encorajamo-lo a utilizar:
+
+  pip show pygame
+
+e
+
+  pip list
+
+
+para obter mais informações sobre o que realmente aconteceu.
+
+
+O pip install tem duas capacidades adicionais importantes:
+
+    é capaz de atualizar um pacote instalado localmente - por exemplo, se quiser ter a certeza de que 
+    está a utilizar a última versão de um determinado pacote, pode executar o seguinte comando:
+
+      pip install -U package_name
+
+
+    onde -U significa atualização. 
+
+      Nota: esta forma do comando faz uso da opção --user para o mesmo fim que foi apresentado anteriormente;
+
+
+    é capaz de instalar uma versão selecionada pelo utilizador de um pacote (pip instala por defeito a versão 
+    mais recente disponível); para atingir este objetivo deve usar a seguinte sintaxe:
+
+      pip install package_name==package_version
+
+
+    (note o sinal duplo de igual); por exemplo
+
+      pip install pygame==1.9.2
+
+
+Se algum dos pacotes atualmente instalados já não for necessário e quiser ver-se livre deles, 
+o pip também será útil. O seu comando uninstall executará todos os passos necessários.
+
+A sintaxe necessária é clara e simples:
+
+  pip uninstall package_name
+
+
+por isso, se já não quiser o pygame, pode executar o seguinte comando:
+
+  pip uninstall pygame
+
+
+O pip vai querer saber se tem a certeza sobre a escolha que está a fazer - esteja preparado 
+para dar a resposta certa.
+
+O processo tem este aspeto:
+
+  C:\User\user>pip uninstall pygame
+  Found existing installation: pygame 1.9.6
+    Would remove:
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\_camera.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\_pygame.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\_surface.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\bitmask.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\camera.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\fastevents.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\font.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\freetype.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\mask.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\mixer.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\palette.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\pgarrinter.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\pgbufferproxy.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\pgcompat.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\pgopengl.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\pygame.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\scrap.h
+    c:\Users\user\appdata\roaming\python\python38\include\pygame\surface.h
+    c:\Users\user\appdata\roaming\python\python38\site-packages\pygame-1.9.6.dist-info\*
+    c:\Users\user\appdata\roaming\python\python38\site-packages\pygame\*
+Proceed (y/n)? y
+  Sucessfully uninstalled pygame-1.9.6
+
+C:\Users\user>
+
+
+
+=========================
+# Key takeaways
+=========================
+
+1. Um repositório (ou repo para abreviar) concebido para recolher e partilhar código Python gratuito existe e funciona sob 
+o nome Python Package Index (PyPI) embora também seja provável que o encontre com o nome de nicho The Cheese Shop. O site da Loja 
+está disponível em: https://pypi.org/.
+
+2. Para fazer uso da The Cheese Shop foi criada a ferramenta especializada chamada pip (pip installs packages 
+enquanto pip significa... ok, não se importe). Como o pip pode não ser implantado como parte da instalação padrão Python, 
+é possível que tenha de o instalar manualmente. O pip é uma ferramenta de consola.
+
+3. Para verificar a versão do pip, devem ser emitidos os seguintes comandos:
+
+  pip --version
+
+ou
+
+  pip3 --version
+
+
+Verifique você mesmo qual destes funciona para si no ambiente do seu sistema operativo.
+
+4. A lista das principais atividades de pip é a seguinte:
+
+    pip help operation - mostra uma breve descrição do pip;
+    pip list - mostra a lista de pacotes atualmente instalados;
+    pip show package_name - mostra informações de package_name incluindo as dependências do pacote;
+    pip search anystring - pesquisa através das diretorias PyPI a fim de encontrar pacotes cujo nome contenha anystring;
+    pip install name - instala o name em todo o sistema (esperar problemas quando não tem direitos administrativos);
+    pip install --user name - instala o name apenas para si; nenhum outro utilizador da sua plataforma será capaz de o utilizar;
+    pip install -U name - atualiza o pacote previamente instalado;
+    pip uninstall name - desinstala o pacote instalado anteriormente;
+
+
+  

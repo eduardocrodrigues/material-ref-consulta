@@ -1,0 +1,226 @@
+############################
+#
+# Modulo platform
+#
+############################
+
+------------------------------
+Como saber onde se encontra?
+------------------------------
+
+Por vezes, pode ser necessário descobrir informações não relacionadas com Python. Por exemplo, 
+pode precisar de saber a localização do seu programa dentro do ambiente maior do computador.
+
+Imagine o ambiente do seu programa como uma pirâmide constituída por uma série de camadas ou plataformas.
+
+
+   Camadas de ambiente do programa
+
+
+As camadas são:
+
+    o seu código (em execução) está localizado na parte superior;
+    O Python (mais precisamente - o seu ambiente de runtime) encontra-se diretamente abaixo;
+    a camada seguinte da pirâmide é preenchida com o SO - o ambiente Python fornece algumas das suas 
+    funcionalidades utilizando os serviços do sistema operativo; o Python, embora muito poderoso,
+    não é omnipotente - é forçado a utilizar muitos ajudantes se for processar ficheiros ou comunicar com dispositivos físicos;
+    a camada mais inferior é o hardware - o processador (ou processadores), interfaces de rede, 
+    dispositivos de interface humana (ratos, teclados, etc.) e toda a outra maquinaria necessária para fazer 
+    funcionar o computador; o sistema operativo sabe como conduzi-lo, e usa muitos truques para conduzir 
+    todas as peças num ritmo consistente.
+
+
+Isto significa que algumas das suas ações (ou melhor, do seu programa) têm de percorrer um longo caminho para 
+serem executadas com sucesso - imagine que:
+
+    o seu código quer criar um ficheiro, por isso invoca uma das funções de Python;
+    O Python aceita a ordem, rearranja-a para cumprir os requisitos do SO local (é como colocar 
+    o selo "aprovado" no seu pedido) e envia-a (isto pode lembrá-lo de uma cadeia de comando)
+    o SO verifica se o pedido é razoável e válido (por exemplo, se o nome do ficheiro está em conformidade 
+    com algumas regras de sintaxe) e tenta criar o ficheiro; tal operação, aparentemente muito simples, 
+    não é atómica - consiste em muitos pequenos passos dados pelo...
+    hardware, que é responsável pela ativação de dispositivos de armazenamento (disco rígido, 
+    dispositivos de estado sólido, etc.) para satisfazer as necessidades do SO.
+
+Normalmente, não está ciente de todo este alarido - quer que o ficheiro seja criado e pronto.
+
+Mas por vezes deseja-se saber mais - por exemplo, o nome do SO que hospeda o Python, e algumas características que 
+descrevem o hardware que hospeda o SO.
+
+Existe um módulo que fornece alguns meios que lhe permitem saber onde está e que componentes trabalham para si. O módulo 
+é chamado platform. Mostrar-lhe-emos algumas das funções que ele lhe proporciona.
+
+
+---------------------------------
+O módulo: platform
+---------------------------------
+
+O módulo platform do python é usado para acessar DADOS DE PLATAFORMA SUBJACENTES tal como hardware, 
+sistema operacional e informações sobre versão do interpretador.
+
+Existe uma função que lhe pode mostrar todas as camadas subjacentes num só relance, denominada platform, também. Apenas 
+devolve uma string descrevendo o ambiente; assim, o seu output é mais dirigido ao ser humano do que ao processamento 
+automatizado (vê-lo-á em breve).
+
+É assim que pode invocá-la:
+
+  platform(aliased = False, terse = False)
+
+
+E agora:
+
+    aliased → quando definido para True (ou qualquer valor não nulo) pode fazer com que a função apresente 
+    os nomes alternativos das camadas subjacentes em vez dos nomes comuns;
+    terse → quando definido para True (ou qualquer valor não nulo) pode convencer a função a apresentar 
+    uma forma mais breve do resultado (se possível)
+ 
+
+Executámos o nosso programa de amostra utilizando três plataformas diferentes
+
+  from platform import platform
+
+  print(platform())
+  print(platform(1))
+  print(platform(0, 1))
+
+
+isto é o que obtivemos:
+
+  Intel x86 + Windows Vista (32 bit):
+
+    Windows-Vista-6.0.6002-SP2
+    Windows-Vista-6.0.6002-SP2
+    Windows-Vista
+
+
+  Intel x86 + Gentoo Linux (64 bits):
+
+    Linux-3.18.62-g6-x86_64-Intel-R-_Core-TM-_i3-2330M_CPU_@_2.20GHz-with-gentoo-2.3
+    Linux-3.18.62-g6-x86_64-Intel-R-_Core-TM-_i3-2330M_CPU_@_2.20GHz-with-gentoo-2.3
+    Linux-3.18.62-g6-x86_64-Intel-R-_Core-TM-_i3-2330M_CPU_@_2.20GHz-with-glibc2.3.4
+
+
+  Raspberry PI2+ Linux Raspbian (32 bits):
+
+    Linux-4.4.0-1-rpi2-armv7l-with-debian-9.0
+    Linux-4.4.0-1-rpi2-armv7l-with-debian-9.0
+    Linux-4.4.0-1-rpi2-armv7l-with-glibc2.9
+
+
+Também pode executar o programa de amostra em IDLE na sua máquina local para verificar qual o output que terá.
+
+
+------------------------------------------------------------------
+
+------------------------------------------------------------------
+platform.platform(aliased, terse) - usado para pegar informações sobre a máquina do computador.
+------------------------------------------------------------------
+
+  parâmetros:
+    
+    aliased → quando definido para True (ou qualquer valor não nulo) pode fazer com que a função apresente 
+    os nomes alternativos das camadas subjacentes em vez dos nomes comuns;
+    
+    terse → quando definido para True (ou qualquer valor não nulo) pode convencer a função a apresentar 
+    uma forma mais breve do resultado (se possível)
+
+  
+  ex:
+  
+    from platform import platform
+
+    print(platform())
+    print(platform(1))
+    print(platform(0, 1))
+
+
+
+------------------------------------------------------------------
+platform.machine() - retorna uma string mostrando o nome genérico (arquitetura) do processador da máquina.
+------------------------------------------------------------------
+
+  parâmetros:
+  
+    não possui parâmetros...
+
+
+  ex:
+    from platform import machine
+
+    print(machine()) # mostrará a arquitetura do processador (x_86, x_64, ARM, etc...)
+
+
+
+------------------------------------------------------------------
+platform.system() - retorna o nome do sistema operacional que estamos usando.
+------------------------------------------------------------------
+
+  parâmetros:
+  
+    não possui parâmetros...
+
+
+  ex:
+    from platform import system
+
+    print(platform.system())
+
+
+
+------------------------------------------------------------------
+platform.version() - retorna a versão do Sistema Operacional
+------------------------------------------------------------------
+
+  parâmetros:
+  
+    não possui parâmetros...
+
+
+  ex:
+    from platform import version
+
+    print(platform.version())
+
+
+
+------------------------------------------------------------------
+platform.python_implementation() - devolve uma string denotando a implementação do Python (esperar CPython aqui, 
+a menos que decida utilizar qualquer ramo de Python não canónico)
+------------------------------------------------------------------
+
+  parâmetros:
+  
+    não possui parâmetros...
+
+
+  ex:
+    from platform import python_implementation
+
+    print(platform.python_implementation()) # retorna a palavra: Cpython
+
+
+
+------------------------------------------------------------------
+platform.python_version_tuple() - devolve uma tupla de três elementos.
+------------------------------------------------------------------  
+
+  parâmetros:
+
+    a PARTE PRINCIPAL da versão do Python
+    a parte SECUNDÁRIA;
+    o NÚMERO do patch level.
+
+
+  ex:
+    from platform import python_version_tuple
+
+    for atr in python_version_tuple():
+        print(atr)
+
+
+
+------------------------------------------------------------------  
+
+------------------------------------------------------------------  
+
+

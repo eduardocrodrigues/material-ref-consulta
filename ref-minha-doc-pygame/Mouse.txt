@@ -1,0 +1,123 @@
+##########################################
+#
+#    Classe mouse do Pygame
+#
+##########################################
+
+
+pygame.mouse.get_pos() - é o método que RETORNA UMA TUPLA, que contêm as coordenadas da posição: x,y do mouse, posicionado na tela do pygame.
+  OBS: o método pygame.mouse.get_pos() é independente (ou seja, NÃO DEPENDE de nenhum evento para funcionar).
+
+
+
+
+pygame.mouse.set_visible() - habilita / desabilita a visibilidade do mouse na tela do Pygame.
+    Esse método possui 1 parâmetro:
+
+        1 - insira um valor boleano (True ou False)
+
+      OBS: se vc definir o método: pygame.mouse.set_visible() com o valor False,
+      o Pygame desabilitará o cursor do mouse na tela do Pygame. Se o mouse tiver sido
+      desabilitado, e vc usar o método: pygame.mouse.set_visible() com o valor True,
+      o Pygame habilitará o cursor do mouse na tela novamente.
+
+      OBS2: se vc combinar o metodo: pygame.mouse.set_visible() com valor: False,
+      e o método: pygame.event.set_grab() com valor: True, como mostra as duas linhas abaixo:
+
+        ex:
+
+          pygame.mouse.set_visible(False)
+          pygame.event.set_grab(True)
+
+      vc habilitará uma funcionalidade do Pygame chamada: ÁREA VIRTUAL INFINITA DO MOUSE, que é uma funcionalidade
+      que IMPEDE QUE O PYGAME LIMITE O MOUSE Á ÁREA INTERNA DAS DIMENSÕES DA TELA do Pygame, ou seja, o mouse PERTENCERÁ
+      SOMENTE Á TELA DO PYGAME ( por conta do método: pygame.event.set_grab(True) ), e vc CONSEGUIRÁ ROLAR O MOUSE
+      PARA QUALQUER LADO DA TELA INFINITAMENTE ( por causa do método: pygame.event.set_grab() que foi definido com valor: True,
+      junto com o método: pygame.mouse.set_visible(), que foi definido com valor: False. O efeito colateral de usar esse método
+      é que você NÃO PODERÁ USAR O MOUSE PARA FECHAR A JANELA DO PYGAME, com isso será necessário
+      oferecer uma maneira alternativa de encerrar o script.
+
+      Se vc DEFINIR OS DOIS MÉTODOS: ( pygame.mouse.set_visible() e pygame.event.set_grab() ) com valor: True nos parêmtros,
+      VC VERÁ QUE O CURSOR DO MOUSE FICARÁ LIMITADO SOMENTE A PARTE INTERNA DA TELA.
+
+        exemplo de codigo:
+
+        import pygame
+
+
+        RED = (190, 0, 0)
+
+        pygame.init()
+
+        screen = pygame.display.set_mode((640, 480), 0, 32)
+
+        running = True
+
+        while running:
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+
+                # fecha a janela do Pygame apertando a tecla ESC
+                if event.type == pygame.KEYDOWN:
+                    if event. key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        exit()
+
+            screen.fill(RED)
+
+
+            pygame.mouse.set_visible(True)
+            pygame.event.set_grab(True)
+
+
+            pygame.display.update()
+
+
+
+
+pygame.mouse.get_pressed() - retorna uma tupla com três valores boleanos, um para o BOTÃO ESQUERDO,
+outro para o BOTÃO DO MEIO (RODINHA DO MOUSE), e outro para o BOTÃO DIREITO. Se algum desses valores for True,
+é sinal de que o botão correspondente do mouse estava pressionado no momento da chamada quando o botão foi pressionado.
+    Esse método NÃO POSSUI parâmetros:
+
+    OBS: Uma maneira alternativa de usar essa função está sendo apresentada a seguir, em que a tupla
+    é desempacotada em três valores:
+
+        left_mouse_button, middle_mouse_button, right_mouse_button = pygame.mouse.get_pressed()
+
+
+
+
+pygame.mouse.get_rel() - retorna o movimento relativo do mouse (conhecido tbm
+como os mickeys do mouse) como uma tupla com o movimento (x, y) relativos.
+    Esse método NÃO POSSUI parâmetros.
+
+    OBS; Os VALORES RELATIVOS do mouse REPRESENTAM A DISTÂNCIA QUE O MOUSE SE MOVEU DESDE A ÚLTIMA CHAMADA)
+
+
+
+
+pygame.mouse.set_pos() - define a posição do mouse. Aceita as coordenadas como uma tupla ou uma lista com valores: x,y.
+    Esse método possui 1 parâmetro:
+
+        1 - insira uma tupla ou uma lista com dois valores: x,y
+
+
+
+
+pygame.mouse.get_focused() - retorna True se a janela do Pygame estiver recebendo entrada do mouse. Quando o Pygame for
+executado em uma janela, ele receberá entradas do mouse somente quando a janela estiver
+selecionada e estiver na frente do display.
+    Esse método NÃO POSSUI parâmetros.
+
+
+
+
+pygame.mouse.set_cursor() -
+
+
+
+pygame.mouse.get_cursor() -

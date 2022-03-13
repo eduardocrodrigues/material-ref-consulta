@@ -1,0 +1,95 @@
+###########################################
+#
+#  Classe font do Pygame
+#
+###########################################
+
+O módulo de fontes usa fontes True-Type (TTFs), utilizadas na maioria dos sistemas para renderiar um texto regular
+e de alta qualidade. Haverá muitas dessas fontes instaladas em seu computador e elas poderão ser usadas pelo módulo de fontes.
+
+O módulo de fontes disponibiliza outras funções, assim como as dos objetos Font() e SysFont(), que, ocasionalmente, vc
+precisará usar. Eles são, em sua maior parte, funcionalidades informativas, e foram concebidos para retornar diversas
+informações ralacionadas ás fontes. Há funções simulam textos em negrito e em itálico, porém é melhor usar uma fonte
+dedicada para negrito e para itálico. Para obter detalhes completos sobre o módulo de fontes, consulte a
+documentação em: www.pygame.org/docs/ref/fonts.html.
+
+
+=================================
+ Classe SysFont()
+=================================
+pygame.font.SysFont() - classe utilizada para a utilização de fontes do sistema operacional.
+  esse método possui 2 parâmetros:
+
+      1 - o nome da fonte (insira somente o nome da fonte no formato string)
+      2 - o número do tamanho da fonte (em pixels)
+
+      veja um exemplo na linha abaixo:
+
+        my_font = pygame.font.SysFont("arial", 16)
+
+
+      OBS: o pygame procurará por uma fonte de nome "arial" no sistema do computador, se não encontrá-la,
+      uma fonte default do computador será retornada.
+
+
+
+pygame.font.SysFont().get_fonts() - retorna uma lista de fontes instaladas no sistema do computador.
+  esse método não possui parâmetros
+
+
+
+pygame.font.SysFont().get_linesize() - Retorna a altura em pixels da linha de texto com a fonte.
+    Esse método NÂO POSSUI parâmetros.
+
+
+
+
+
+
+
+==================================
+ Classe Font()
+==================================
+pygame.font.Font() - classe utilizada para usar fontes baixadas da internet.
+  esse método possui 2 parâmetros:
+
+    1 - o nome da fonte (insira "nomeDAFonte.ttf" no formato string)
+    2 - o número do tamanho da fonte (em pixels)
+
+    Veja um exemplo na linha abaixo:
+
+      my_font = pygame.font.Font("my_font.ttf", 16)
+
+
+
+pygame.font.Font().render() - usado para renderizar o texto na tela do pygame.
+  esse método possui 4 parâmetros:
+
+      1 - texto (uma string é inserida no primeiro parâmetro)
+      2 - True ou False (que define se vai ser usado o Anti-Aliasing)
+      3 - define a cor do texto (usando valores rgb: (0, 0, 0))
+      4 - PARÃMETRO OPCIONAL (define uma cor de fundo para o texto renderizado)
+
+      Veja um exemplo na linha abaixo:
+
+      my_font = pygame.font.Font("my_font.ttf", 16)
+      renderFont = my_font.render("Pygame is cool", True, (0, 0, 0), (255, 255, 255))
+      screen.blit(renderFont, (40, 40))
+
+
+      OBS: O primeiro parâmetro de render() é o texto que você deseja renderizar. Esse parâmetro
+      deve corresponder a uma única linha. Se quiser ter várias linhas, você deverá dividir a string e
+      usar várias chamadas render().
+
+        Veja um exemplo na linha abaixo:
+
+          my_font = pygame.font.Font("my_font.ttf", 16)
+          renderFont1 = my_font.render("Pygame is", True, (0, 0, 0), (255, 255, 255))
+          renderFont2 = my_font.render("the best programming language", True, (0, 0, 0), (255, 255, 255))
+          screen.blit(renderFont1, (40, 40))
+          screen.blit(renderFont2, (100, 100))
+
+
+
+
+pygame.font

@@ -1,0 +1,781 @@
+##########################################
+#
+#    Classe Surface do Pygame
+#
+##########################################
+
+===========================================================
+ Trechos IMPORTANTES tirado do livro: Introdução ao Pygame
+===========================================================
+
+As imagens são carregadas no Pygame  por meio de uma única linha simples: pygame.image.load(), que aceita
+o nome do arquivo da imagem que você quer carregar e retorna um objeto de superfície, que é um contêiner
+para uma imagem. As superfícies podem representar diversos tipos de imagem, porém o pygame oculta a maior
+parte desses detalhes para que possamos tratá-las de maneiras bem semelhantes. Depois que tivermos uma superfície
+em memória, podemos desenhar nessa superfície, transformá-la ou copiá-la em outra superfície para compor
+uma imagem. Até mesmo A TELA É REPRESENTADA COMO UM OBJETO DE SUPERFÍCIE. A chamada
+inicial a: pygame.display.set_mode() RETORNA UM OBJETO DE SUPERFÍCIE que representa o display (a tela do pygame).
+
+Uma chamada a: pygame.image.load() é uma das maneiras de criar uma superfície. Ela CRIA UMA SUPERFÍCIES COM AS CORES e
+AS DIMENSÕES CORRESPONDENTES AO ARQUIVO DE IMAGEM, no entanto podemos criar superfícies em branco de qualquer
+tamanho necessário (supondo que haja memória suficiente para armazená-la). Para criar uma superfície em branco,
+chame o construtor: pygame.Surface() com uma tupla que contenha as dimensões necessárias. A linha a seguir cria
+uma superfície de: 256 x 256 pixels.
+
+
+  blank_surface = pygame.Surface((256, 256))
+
+
+sem outras parâmetros, essa linha cria uma superfície com o mesmo número de cores do display. Geralmente, é isso que
+vc vai querer, pois é mais rápido copiar as imagens quando elas tiverem o mesmo número de cores que o diplay do pygame.
+
+Há também um parâmetro (depht=0) para: pygame.display.set_mode() e define o número máximo de cores na superfície. Em geral,
+é melhor não definir esse parâmetro (ou defini-lo com: 0), pois o Pygame seleciona uma profundidade que corresponda ao display,
+mas, se quiser informações de alpha na superfície, você deverá definir o valor de: (depht=0) para 32. A linha a seguir
+cria uma superfície com informações de alpha:
+
+
+  blank_alpha_surface = pygame.Surface((256, 256), depth=32)
+
+
+Ao usar objetos de superfície, não se preocupe com o modo como as informações da imagem serão armazenadas na memória,
+pois o Pygame ocultará esses detalhes de você. Assim, na maioria das vezes, o formato da imagem é algo com que você não
+precisará se preocupar, pois o seu código funcionará independentemente dos tipos de imagem usados. A única desvantagem
+dessa conversão automática é que o Pygame terá mais trabalho a fazer se você estiver usando imagens com
+formatos diferentes, e isso poderá, possivelmente, reduzir o desempenho do jogo. A solução será converter todas as suas
+imagens para o mesmo formato. Os objetos de superfície têm um método: convert() para isso.
+
+Se .convert() for CHAMADO SEM NENHUM PARÀMETRO, A SUPERFÍCIE SERÁ CONVERTIDA PARA O FORMATO DA SUPERFÍCIE
+DO DISPLAY (TELA DO PYGAME). Isso é conveniente, pois, em geral, É MAIS RÁPIDO COPIAR SUPERFÍCIES QUANDO
+A ORIGEM E O DESTINO SÃO DO MESMO TIPO - e a maior parte das imagens será copiada para o display
+em algum momento. Inserir convert() em todas as chamadas a: pygame.image.load() é uma boa ideia
+para garantir que suas imagens estejam no formato mais rápido para o display. A exceção ocorrerá quando
+sua imagem tiver um canal alpha, pois convert() poderá descartá-lo. Felizmente, o Pygame
+disponibiliza um método: convert_alpha(), que converte a superfície para um formato rápido, porém
+preserva qualquer informação de alpha da imagem. Já usamos ambos os métodos no capítulo 3; as duas
+linhas a seguir foram retiradas da listagem 3.1:
+
+
+  background = pygame.image.load(background_image_filename).convert()
+  mouse_cursor = pygame.image.load(mouse_image_filename).convert_alpha()
+
+
+O background é apenas um retângulo sólido, portanto podemos usar o método: .convert(). Entretanto o cursor
+do mouse tem bordas irregulares e precisa de informação de alpha, portanto chamamos o método: .convert_alpha().
+
+Tanto o método: .convert(), quanto o método: .convert_alpha(), podem aceitar outra superfície como parâmetro. Se
+esse parâmetro for fornecido, a superfície será convertida para que corresponda á outra superfície.
+
+Tenha em mente que, para usar as linhas anteriores, será necessário ter um objeto de superfície
+já definido; caso contrário, você receberá um erro, pois nenhum modo de vídeo terá sido especificado.
+
+
+
+==============================================================
+ Entendendo como funciona a leitura de imagens
+ no Pygame COM e SEM os métodos: .convert() e .convert_alpha()
+
+    OBS: conteúdo tirado de um vídeo do youtube
+==============================================================
+
+vamos criar uma tabela abaixo, representando uma imagem de moeda de um jogo, onde
+OS NÚMEROS REPRESENTAM OS PIXELS DA IMAGEM, sendo que os números (ZEROS) NÃO REPRESENTA NENHUM DADO da imagem,
+e os números (UM), REPRESENTAM OS PIXELS DESENHADOS NA IMAGEM:
+
+    ----------------------------------
+    |0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 |
+    |0 0 0 0 0 1 1 1 1 1 1 0 0 0 0 0 |
+    |0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 |
+    |0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 |
+    |0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 |
+    |0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 |
+    |0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 |
+    |0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 |
+    |0 0 0 0 0 1 1 1 1 1 1 0 0 0 0 0 |
+    |0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 |
+    |--------------------------------|
+
+
+Quando carregamos uma imagem no Pygame (usando: pygame.image.load()), e NÃO USAMOS os métodos:
+
+
+   .convert() e/ou .convert_alpha()
+
+
+o Pygame CARREGA OS DADOS DA IMAGEM PARA A MEMÓRIA do computador LENDO PIXEL POR PIXEL DA IMAGEM. Isso faz
+com que o Pygame tenha mais trabalho para renderizar as imagens na tela do pygame, conseguentemente
+deixando a renderização das imagens mais lenta no jogo.
+
+Veja como a leitura é feita no exemplo abaixo:
+
+
+     1 2 3 4 5 6 7 8 9 etc...
+     | | | | | | | | | | | | | | | |
+     V V V V V V V V V V V V V V V V
+    ----------------------------------
+    |0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 |
+    |0 0 0 0 0 1 1 1 1 1 1 0 0 0 0 0 |
+    |0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 |
+    |0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 |
+    |0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 |
+    |0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 |
+    |0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 |
+    |0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 |
+    |0 0 0 0 0 1 1 1 1 1 1 0 0 0 0 0 |
+    |0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 |
+    |--------------------------------|
+
+
+Quando inserimos uma imagem no display do pygame (na tela do pygame, usando o método: screen.blit()) e
+USAMOS os métodos:
+
+
+   .convert() e/ou .convert_alpha()
+
+
+o Pygame faz a leitura dos dados (renderização da imagem) no display do Pygame LENDO
+BLOCO POR BLOCO DE PIXELS DA IMAGEM (BLOCOS LINHA POR LINHA NA HORIZONTAL), fazendo
+com que A RENDERIZAÇÃO SEJA MAIS RÁPIDA.
+
+Veja no exemplo abaixo como funciona:
+
+
+    ----------------------------------
+    |0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 | <-- LEITURA DA PRIMEIRA LINHA INTEIRA de pixels
+    |0 0 0 0 0 1 1 1 1 1 1 0 0 0 0 0 | <-- LEITURA DA SEGUNDA LINHA INTEIRA de pixels
+    |0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 | <-- LEITURA DA TERCEIRA LINHA INTEIRA de pixels
+    |0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 | <-- LEITURA DA QUARTA LINHA INTEIRA de pixels
+    |0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 | <-- LEITURA DA QUINTA LINHA INTEIRA de pixels
+    |0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 | <-- etc...
+    |0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 |
+    |0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 |
+    |0 0 0 0 0 1 1 1 1 1 1 0 0 0 0 0 |
+    |0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 |
+    |--------------------------------|
+
+
+agora vc sabe o porque de usar os métodos: .convert() e/ou .convert_alpha() em imagens
+carregadas no pygame. Lembrando que:
+
+  O método: .convert() é usado em imagens que NÃO POSSUEM canal alpha na imagem.
+
+  O método: .convert_alpha() é usado em imagens que POSSUEM canal alpha na imagem.
+
+
+
+
+
+=====================================
+ métodos da classe Surface()
+=====================================
+
+
+pygame.Surface() - usado para criar superfícies no pygame.
+    Esse método possui 2 parâmetros:
+
+        1 - uma tupla representando a largura e a altura
+        2 - PARÂMETRO OPCIONAL (depth = 24), que representa a profundidade de cor que a surface vai receber.
+
+
+pygame.Surface.fill() - usado para preencher uma superfície com uma cor. Muito usado tbm para preencher
+com uma cor o fundo da tela do pygame (afinal, a tela do pygame é uma surface tbm!), para limpar os rastros
+dos objetos em movimento dentro da tela do pygame. o PARÂMETRO: (rect=None) QUE ACEITA UM OBJETO
+DO TIPO: pygame.Rect(), irá limitar o preenchimento para uma área específica da superfície.
+    Esse método possui 3 parâmetros:
+
+        1 - uma cor (usando uma tupla com os valores rgb: (r, g, b))
+        2 - PARÃMETRO OPCIONAL (rect=None), que recebe um objeto do tipo: pygame.Rect() ou uma lista
+            com os valores: [x, y, largura, altura], usado para limitar o preenchimento da área especificada
+            pelo objeto: pygame.Rect(). O preenchimento será contido por uma superfície
+            que usa o método: .set_clip(), preenchendo somente a área delimitada pelo método: .set_clip().
+        3 - PARÂMETRO OPCIONAL (special_flag), (não sei para que serve, rsrsrsrsrs)
+
+        OBS: Se vc desenhar sobre toda a tela do pygame com outros métodos, não será necessário
+        limpá-la com uma chamada do método: .fill()
+
+
+
+pygame.Surface.subsurface() - esse método recebe um retângulo que define a parte da superfície-pai que
+ele deve cobrir, retornando um novo objeto surface com o mesmo formato e cor da área pegada da superfície-pai.
+    Esse método possui 1 parâmetro:
+
+        1 - insira um objeto: pygame.Rect() ou insira uma lista: [x, y, largura, altura] ou podemos
+            tbm inserir os valores: x, y, largura, altura representando a área que queremos pegar
+            da superfície-pai.
+
+        OBS: ao trabalhar com subsuperfícies, é importante lembrar-se de que elas têm seu próprio sistema
+        de coordenadas. Em outras palavras, O PONTO (0, 0) de uma SUBSURFACE será SEMPRE
+        O CANTO SUPERIOR ESQUERDO da superfície-pai, independente de onde a superfície-pai estiver.
+
+        veja um exemplo abaixo de como o método: subsurface() funciona:
+
+            my_image_font = 'font.png'
+
+            letters = []
+            letters["a"] = my_font_image.subsurface((0, 0), (80, 80)) # retorna uma surface (retorna uma fatia (letra) da imagem da superfície-pai)
+            letters["b"] = my_font_image.subsurface((80, 0), (80, 80)) # retorna uma surface (retorna uma fatia (letra) da imagem da superfície-pai)
+
+
+
+pygame.Surface.get_width() - retorna o tamanho da largura de uma superficie.
+
+    OBS: superficies no pygame são:
+
+	- a tela do pygame
+	- uma imagem no pygame
+
+
+
+pygame.Surface.get_height() - retorna o tamanho da altura de uma superfície.
+
+    OBS: superficies no pygame são:
+
+	- a tela do pygame
+	- uma imagem no pygame
+
+
+
+pygame.Surface.blit() - desenha uma superfície dentro de outra superfície.
+    Esse método possui 2 parâmetros:
+
+	1 - insira uma superficie (pode ser uma imagem, pode ser a própria tela do pygame, etc...)
+	2 - uma tupla que define a posição: x,y em que a superficie será inserida dentro de outra superfície, ou podemos
+            inserir um objeto: pygame.Rect(), onde será pego somente o (x,y) desse objeto.
+
+
+
+pygame.Surface.set_clip() - define uma área de clipping (clipping significa: recorte), isto é, um retângulo que define
+a parte da tela (ou seja, define uma área da surface) em que poderemos desenhar.
+    Esse método possui 1 parâmetro:
+
+        1 - insira um objeto do tipo: pygame.Rect(x, y, largura, altura), ou insira o valor: None.
+
+    Exemplo de como podemos configurar o método: set_clip():
+
+
+        import pygame
+
+
+        BLACK = (0, 0, 0)
+        RED = (225, 0, 0)
+        GREEN = (0, 255, 0)
+        BLUE = (0, 0, 255)
+        GREENLIGHT = (0, 180, 0)
+        YELLOW = (200, 200, 0)
+        WHITE = (255, 255, 255)
+
+        pygame.init()
+
+        screen = pygame.display.set_mode((400, 500)) # define a tela do pygame
+
+
+        running = True
+        while running:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+        # se vc define um preenchimento de cor em uma superfície ANTES DE CHAMAR
+        # O MÉTODO: set_clip() em uma superfície, TODA A SUPERFÍCIE SERÁ PREENCHIDA. agora,
+        # SE VC PREENCHER uma superfície DEPOIS DE VC CHAMAR O MÉTODO: set_clip(), SERÁ
+        # PREENCHIDO SOMENTE A ÁREA DELIMITADA PELO MÉTODO: set_clip().
+        screen.fill(GREENLIGHT) # preenche de cor toda a superfície da tela do pygame
+
+        # se vc quiser inserir qualquer coisa na superfície, como por exemplo, inserir uma imagem, ou desenhar na superfície
+        # com algum método da classe: pygame.draw.algumaCoisa, faça isso antes
+        # da chamada do método: set_clip(), porque tudo que vc inserir na superfície
+        # antes da chamada do método: set_clip(), vc PODERÁ POSICIONAR ESSES ELEMENTOS EM QUALQUER LUGAR DA SUPERFÍCIE.
+        # Como exemplo eu desenhei esse retângulo da linha abaixo entre as duas áreas
+        # delimitadas pelas duas funções: set_clip() para mostrar que ANTES DA FUNÇÃO: set_clip(), PODEMOS
+        # DESENHAR/INSERIR COISAS NA SUPERFÍCIE, EM QUALQUER LUGAR DA NOSSA SUPERFÍCIE.
+        pygame.draw.rect(screen, RED, [60, 210, 30, 30])
+
+
+
+        # o método: set_clip() delimita uma área dentro de uma superfície (que nesse nosso caso,
+        # é a tela do pygame), isso significa que, a partir do momente que configuramos a nossa
+        # superficie com o método: set_clip(), TUDO QUE INSERIMOS NA SUPERFÍCIE DEPOIS DESSA LINHA, FICARÁ
+        # DENTRO DA ÁREA DELIMITADA PELO MÉTODO: set_clip()
+        screen.set_clip([0, 0, 200, 200])
+
+        # método: fill() preenchendo O FUNDO SOMENTE DA ÁREA DELIMITADA PELO MÉTODO: set_clip().
+        screen.fill(YELLOW)
+
+        pygame.draw.rect(screen, RED, [20, 20, 30, 30])
+        pygame.draw.rect(screen, RED, [60, 40, 30, 30])
+        pygame.draw.circle(screen, BLUE, (195, 190), 20)
+
+
+
+        # o método: set_clip() delimita uma área dentro de uma superfície (que nesse nosso caso,
+        # é a tela do pygame)
+        # quando delimitamos uma segunda área em uma mesma superfície com o método: set_clip(), TUDO QUE
+        # INSERIMOS NA SUPERFÍCIE DEPOIS DESSA LINHA, FICARÁ DENTRO DESSA SEGUNDA ÁREA DELIMITADA POR ESSE MÉTODO: set_clip().
+        screen.set_clip([0, 250, 250, 400])
+
+        # método: fill() preenchendo SOMENTE A ÁREA DELIMITADA PELO MÉTODO: set_clip().
+        screen.fill(YELLOW)
+
+        pygame.draw.circle(screen, BLUE, (250, 260), 20)
+        pygame.draw.rect(screen, RED, [20, 20, 30, 30])
+        pygame.draw.rect(screen, RED, [60, 40, 30, 30])
+        pygame.draw.circle(screen, BLUE, (245, 390), 20)
+
+
+
+        pygame.display.update()
+
+
+
+
+pygame.Surface.get_clip() - retorna um retângulo da atual área de: pygame.surface.set_clip(). A superfície
+irá sempre retornar um retângulo válido que nunca irá estar fora dos limites da imagem. Se o método: set_clip() foi
+configurado com o valor: None, na área de clipping, a superfície irá retornar um retângulo com toda a área da superfície.
+    Esse método RETORNA UM OBJETO DO TIPO: pygame.Rect(), e não possui parâmetro.
+
+
+
+pygame.Surface.set_at() - usada para desenhar pixels individuais em uma superfície.
+    Esse método possui 2 parâmetros:
+
+        1 - uma tupla representando a posição (x, y) da tela (ou seja, da surface) onde será inserido o pixel.
+        2 - uma cor (usando uma tupla com os valores rgb: (r, g, b) ou (r, g, b, a)). Definir
+            pixels fora da área da superfície ou fora da área de clipping (clipping significa: recorte) da surface,
+            não terá efeito.
+
+
+    Exemplo de como funciona o método: set_at():
+
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+    from random import randint
+
+
+    pygame.init()
+
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    while True:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+        rand_col = (randint(0, 255), randint(0, 255), randint(0, 255))
+
+        for _ in range(100):
+            rand_pos = (randint(0, 639), randint(0, 479))
+            screen.set_at(rand_pos, rand_col) # usamos o método: .set_at() aqui !!!!
+
+        pygame.display.update()
+
+
+
+
+pygame.Surface.get_at() - Verifica SE EM UMA DETERMINADA COORDENADA (x,y) DE UMA SUPERFÍCIE, se há um objeto
+em cima dessa localização, RETORNANDO O VALOR DA COR DO OBJETO que está EM CIMA DESSA COORDENADA (x,y).
+    Esse método possui 1 parâmetro:
+
+        1 - define a coordenada (x,y) que vc quer pegar o pixel na superfície.
+
+        OBS: Obter pixels será ocasionalmente necessário para detecção de colisão para que o código
+        possa determinar onde está o personagem do jogador ao observar a cor embaixo dele. Se todas as
+        plataformas e obstáculos forem de determinada cor (ou de um conjunto de cores),
+        isso funcionará muito bem. o método: get_at() aceita apenas um parâmetro, que deve ser uma tupla
+        de coordenadas (x, y) do pixel que vc quer verificar na superfície.
+
+        OBS2: O método: get_at() pode ser bem lento quando estiver lendo de superfícies de hardware. O display
+        pode ser uma superfície de hardware, especialmente se vc estiver executando em modo de tela cheia - portanto,
+        você deverá evitar obter pixels do display.
+
+
+        Exemplos de como funciona o método: get_at():
+
+
+        import pygame
+
+        from pygame.locals import *
+        from sys import exit
+        from random import randint
+
+        BLACK = (0, 0, 0)
+        RED = (225, 0, 0)
+        GREEN = (0, 255, 0)
+        BLUE = (0, 0, 255)
+        YELLOW = (200, 200, 0)
+        WHITE = (255, 255, 255)
+
+
+        pygame.init()
+
+        screen = pygame.display.set_mode((640, 480), 0, 32)
+
+        ###################################
+        # Nosso Player (Branco)
+        surf = pygame.Surface((30, 30))
+        surf.fill(WHITE)
+        rect = surf.get_rect()
+        rect.x = 50
+        rect.y = 50
+        vel = 2
+
+
+        ###################################
+        # bloco para fazer a colisão com o nosso Player
+        surf2 = pygame.Surface((50, 50))
+        surf2.fill(GREEN)
+        rect2 = surf2.get_rect()
+        rect2.x = 250
+        rect2.y = 270
+
+
+        clock = pygame.time.Clock()
+        FPS = 60
+
+        #######################################
+        # variáveis usadas no método: get_at()
+        #
+        posX = 90
+        posY = 60
+
+        while True:
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+
+            screen.fill(BLACK)
+
+            keys = pygame.key.get_pressed()
+            if keys[K_a]:
+                rect.x += -vel
+            if keys[K_d]:
+                rect.x += vel
+            if keys[K_w]:
+                rect.y += -vel
+            if keys[K_s]:
+                rect.y += vel
+
+
+            screen.blit(surf, (rect.x, rect.y)) # insere na tela o nosso player
+
+            screen.blit(surf2, (rect2.x, rect2.y)) # insere na tela o bloco para testarmos a colisão
+
+            # definindo a coordenada na tela do pygame (ou seja, definindo a coordenada na surface: screen, do Pygame) e
+            # retornando o valor...
+            cor_do_objeto_em_cima_da_coordenada_posX_posY = screen.get_at((posX, posY))
+            # imprimindo o valor retornado (que é a cor do objeto que está em cima da coordenada)
+            print(f'Na posição {(posX, posY)} da tela do pygame, a Cor Retornada é: {cor_do_objeto_em_cima_da_coordenada_posX_posY}')
+
+
+            pygame.display.update()
+            clock.tick(FPS)
+
+
+
+
+pygame.Suface.lock() - usado para BLOQUEAR UMA SUPERFÍCIE, para que o pygame possa desenhar nessa superfície bloqueada.
+    Esse método NÃO POSSUI parâmetros.
+
+       OBS: Sempre que o Pygame desenhar em uma superficie, ela deverá estar inicialmente BLOQUEADA. QUANDO uma SUPERFÍCIE
+       estiver BLOQUEADA, o Pygame terá controle total sobre a superfície, e NENHUM OUTRO PROCESSO DO COMPUTADOR
+       PODERÁ USÁ-LA até que A SUPERFÍCIE esteja DESBLOQUEADA. O BLOQUEIO e o DESBLOQUEIO ocorrerão AUTOMATICAMENTE
+       SEMPRE QUE você DESENHAR SOBRE UMA SUPERFÍCIE, PORÉM isso PODERÁ SE TORNAR INEFICIENTE SE o Pygame TIVER DE REALIZAR
+       MUITOS BLOQUEIOS E DESBLOQUEIOS.
+
+       No EXEMPLO DE CÓDIGO ABAIXO, há um loop que chama o método: .set_at() cem vezes, o que resulta
+       no Pygame BLOQUEANDO e DESBLOQUEANDO A SUPERFÍCIE: screen CEM VEZES. PODEMOS REDUZIR
+       O NÚMERO de BLOQUEIOS e DESBLOQUEIOS e AGILIZAR O LOOP ao FAZER O BLOQUEIO e DESBLOQUEIO MANUALMENTE. O código abaixo,
+       é idêntico ao código de exemplo em: pygame.Surface.get_at(), porém EXECUTA MAIS RÁPIDO,
+       pois HÁ UMA CHAMADA AO MÉTODO: pygame.Surface.lock(), ANTES DE DESENHAR NA TELA, E UMA CHAMADA
+       AO MÉTODO: pygame.Surface.unlock() DEPOIS QUE TODOS OS PIXELS FOREM DESENHADOS NA TELA.
+
+       OBS2: deve haver o MESMO NÚMERO DE CHAMADAS PARA DESBLOQUEAR quantas forem AS CHAMADAS PARA DESBLOQUEAR a SUPERFÍCIE.
+       Se vc ESQUECER-SE DE DESBLOQUEAR UMA SUPERFÍCIE, o PYGAME PODERÁ DEIXAR DE RESPONDER.
+
+
+       Exemplos de como funciona o método: .lock():
+
+
+       import pygame
+
+       from pygame.locals import *
+       from sys import exit
+       from random import randint
+
+
+       pygame.init()
+
+       screen = pygame.display.set_mode((640, 480), 0, 32)
+
+       while True:
+
+           for event in pygame.event.get():
+               if event.type == pygame.QUIT:
+                   pygame.quit()
+                   exit()
+
+           rand_col = (randint(0, 255), randint(0, 255), randint(0, 255))
+
+           ################################################
+           # BLOQUEIA A SUPERFÍCIE: screen, para que o loop for POSSA DESENHAR NA SUPERFÍCIE: screen.
+           screen.lock()
+
+           for _ in range(100):
+               rand_pos = (randint(0, 639), randint(0, 479))
+               screen.set_at(rand_pos, rand_col) # usamos o método: .set_at() aqui !!!!
+
+           ################################################
+           # DESBLOQUEIA A SUPERFÍCIE: screen (SEMPRE QUE BLOQUEARMOS UMA SUPERFÍCIE MANUALMENTE,
+           # DEVEMOS DESBLOQUEAR A MESMA SUPERFÍCIE TBM MANUALMENTE)
+           screen.unlock()
+
+           pygame.display.update()
+
+
+
+pygame.Suface.unlock() - usado para DESBLOQUEAR UMA SUPERFÍCIE, para que os outros processos do pygame possam usa-la normalmente.
+    Esse método NÃO POSSUI parâmetros.
+
+       OBS: Sempre que o Pygame desenhar em uma superficie, ela deverá estar inicialmente BLOQUEADA. QUANDO uma SUPERFÍCIE
+       estiver BLOQUEADA, o Pygame terá controle total sobre a superfície, e NENHUM OUTRO PROCESSO DO COMPUTADOR
+       PODERÁ USÁ-LA até que A SUPERFÍCIE esteja DESBLOQUEADA. O BLOQUEIO e o DESBLOQUEIO ocorrerão AUTOMATICAMENTE
+       SEMPRE QUE você DESENHAR SOBRE UMA SUPERFÍCIE, PORÉM isso PODERÁ SE TORNAR INEFICIENTE SE o Pygame TIVER DE REALIZAR
+       MUITOS BLOQUEIOS E DESBLOQUEIOS.
+
+       No EXEMPLO DE CÓDIGO ABAIXO, há um loop que chama o método: .set_at() cem vezes, o que resulta
+       no Pygame BLOQUEANDO e DESBLOQUEANDO A SUPERFÍCIE: screen CEM VEZES. PODEMOS REDUZIR
+       O NÚMERO de BLOQUEIOS e DESBLOQUEIOS e AGILIZAR O LOOP ao FAZER O BLOQUEIO e DESBLOQUEIO MANUALMENTE. O código abaixo,
+       é idêntico ao código de exemplo em: pygame.Surface.get_at(), porém EXECUTA MAIS RÁPIDO,
+       pois HÁ UMA CHAMADA AO MÉTODO: pygame.Surface.lock(), ANTES DE DESENHAR NA TELA, E UMA CHAMADA
+       AO MÉTODO: pygame.Surface.unlock() DEPOIS QUE TODOS OS PIXELS FOREM DESENHADOS NA TELA.
+
+       OBS2: deve haver o MESMO NÚMERO DE CHAMADAS PARA DESBLOQUEAR quantas forem AS CHAMADAS PARA DESBLOQUEAR a SUPERFÍCIE.
+       Se vc ESQUECER-SE DE DESBLOQUEAR UMA SUPERFÍCIE, o PYGAME PODERÁ DEIXAR DE RESPONDER.
+
+       OBS3: NEM TODAS as superfícies PRECISAM SER BLOQUEADAS. As SUPERFÍCIES DE HARDWARE
+       PRECISAM SER (a tela geralmente é uma superfície de hardware), mas AS SUPERFÍCIES SIMPLES DE SOFTWARE NÃO PRECISAM.
+       O PYGAME DISPONIBILIZA UM MÉTODO: pygame.Surface.mustlock(), em objetos de superfície QUE RETORNA: True SE UMA
+       SUPERFÍCIE EXIGIR um BLOQUEIO. O VALOR DE RETORNO do método: .mustlock() PODE SER VERIFICADO
+       ANTES DE EFETUAR UM BLOQUEIO ou um DESBLOQUEIO, porém NÃO HÁ PROBLEMA ALGUM EM BLOQUEAR uma SUPERFÍCIE EM QUE
+       isso NÃO SEJA NECESSÁRIO, portanto você poderá bloquear QUALQUER superfície em que planeje desenhar bastante.
+
+
+       Exemplos de como funciona o método: .unlock():
+
+
+       import pygame
+
+       from pygame.locals import *
+       from sys import exit
+       from random import randint
+
+
+       pygame.init()
+
+       screen = pygame.display.set_mode((640, 480), 0, 32)
+
+       while True:
+
+           for event in pygame.event.get():
+               if event.type == pygame.QUIT:
+                   pygame.quit()
+                   exit()
+
+           rand_col = (randint(0, 255), randint(0, 255), randint(0, 255))
+
+           ################################################
+           # BLOQUEIA A SUPERFÍCIE: screen, para que o loop for POSSA DESENHAR NA SUPERFÍCIE: screen.
+           screen.lock()
+
+           for _ in range(100):
+               rand_pos = (randint(0, 639), randint(0, 479))
+               screen.set_at(rand_pos, rand_col) # usamos o método: .set_at() aqui !!!!
+
+           ################################################
+           # DESBLOQUEIA A SUPERFÍCIE: screen (SEMPRE QUE BLOQUEARMOS UMA SUPERFÍCIE MANUALMENTE,
+           # DEVEMOS DESBLOQUEAR A MESMA SUPERFÍCIE TBM MANUALMENTE)
+           screen.unlock()
+
+           pygame.display.update()
+
+
+
+
+pygame.Surface.mustlock() - retorna um valor boleano que diz se uma superfície pode ser bloqueada ou não.
+    Esse método NÂO POSSUI parâmetros.
+
+        Não tem exemplo de código !!!!
+
+
+
+
+pygame.Surface.blit() - usado para inserir os dados de uma superfície para outra superfície.
+    Esse método possui 3 parâmetros:
+
+        1 - insira uma superfície.
+        2 - insere a superfície (definida no primeiro parâmetro) na posição (x,y) na superfície destino.
+        3 - OPCIONAL (rect=[0,0,0,0]), usado para PEGAR PARTE DA SUPERFÍCIE DEFINIDA NO PRIMEIRO PARÂMETRO,
+            e INSERIR NA SUPERFÍCIE DESTINO (geralmente a superfície destino é a tela do Pygame, mas pode
+            ser qualquer outra superfície do Pygame).
+
+        OBS: O método dos objetos de superfície que provavelmente você usará com mais frequência
+        é o método: .blit(), que é um acrônomo para: BIT BLOCK TRANSFER. blitting simplesmente
+        quer dizer: copiar dados de imagem de uma superfície para outra superfície. Você o usará
+        para desenhar: BACKGROUNDS, FONTES, PERSONAGENS, e praticamente tudo o mais em um jogo.
+
+    ------------------------------------------------------------
+    exemplo1 de código,, usando o método: .blit() SEM O PARÂMETRO OPCIONAL:
+    ------------------------------------------------------------
+
+    import pygame
+
+    from pygame.locals import *
+    from sys import exit
+    from random import randint
+
+    BLACK = (0, 0, 0)
+    RED = (225, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (200, 200, 0)
+    WHITE = (255, 255, 255)
+
+
+    pygame.init()
+
+    screen = pygame.display.set_mode((640, 480), 0, 32)
+
+    ###################################
+    # Nosso Player (Amarelo)
+    surf = pygame.Surface((30, 30))
+    surf.fill(YELLOW)
+    rect = surf.get_rect()
+    rect.x = 50
+    rect.y = 50
+    vel = 2
+
+
+    ###################################
+    # bloco para fazer a colisão com o nosso Player amarelo
+    surf2 = pygame.Surface((50, 50))
+    surf2.fill(GREEN)
+    rect2 = surf2.get_rect()
+    rect2.x = 200 # definindo a posição X do bloco na tela
+    rect2.y = 200 # definindo a posição Y do bloco na tela
+
+    print(type(rect))
+    print(type(rect2))
+
+
+    ###################################
+    # relógio dos frames do jogo
+    clock = pygame.time.Clock()
+    FPS = 60
+
+    while True:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+        screen.fill(BLACK)
+
+        keys = pygame.key.get_pressed()
+        if keys[K_a]:
+            rect.x += -vel
+        if keys[K_d]:
+            rect.x += vel
+        if keys[K_w]:
+            rect.y += -vel
+        if keys[K_s]:
+            rect.y += vel
+
+
+        screen.blit(surf, (rect.x, rect.y)) # insere o nosso player na tela
+
+        # Aqui vc deve prestar muita atenção ao inserir um objeto na tela
+        # usando o método: .blit(). Quando definimos uma surface
+        # no nosso código (por exemplo, usando: pygame.Surface(), ou carregando uma imagem ao nosso código),
+        # podemos CONVERTER essa SUPERFÍCIE EM UM OBJETO do tipo: pygame.Rect(), USANDO O MÉTODO: .get_rect(), fazendo
+        # com que O NOSSO OBJETO DE SUPERFÍCIE SE TRANSFORME EM UM OBJETO do tipo: pygame.Rect().
+        # Quando queremos inserir um objeto em uma superfície (no nosso caso, inserir na tela do Pygame), usando
+        # o método: .blit(), devemos inserir no primeiro parâmetro do método: .blit() a SUPERFÍCIE DO NOSSO OBJETO,
+        # e no segundo parãmetro, DEVEMOS INSERIR o (x,y) DA ÁREA RETÂNGULAR GERADA pelo método: .get_rect(), ou seja,
+        # DEVEMOS INSERIR (rect.x, rect.y) da ÁREA RETÂNGULAR DO nosso OBJETO.
+        screen.blit(surf2, (rect2.x, rect2.y))
+
+        # Se ao inserir (nessa caso, inserir na tela do Pygame) uma superfície usando o método: blit(),
+        # E NÃO TER GERADO A ÁREA RETÂNGULAR DESSA SUPERFÍCIE (usando o método: get_rect() PARA USAR (rect.x, rect.y) no segundo parâmetro de: blit()),
+        # E DEFINIR VALORES QUE NÃO SEJAM DO: (rect.x, rect.y) do nosso objeto, e TENTAR FAZER TESTE DE COLISÃO, O TESTE DE COLISÃO NÃO FUNCIONARÁ !!!
+        # A linha abaixo mostra isso, tente passar com o player (cubo amarelo) nesse retângulo, não funcionará a colisão !!!
+        #    OBS: a área retângular da superfície: (surf2), tem o nome de: (rect2).
+        screen.blit(surf2, (100, 100))
+
+        # O parâmetro OPCIONAL (rect=[0, 0, 0, 0]) recortando parte da superfície origem (chamada de: surf2) e
+        # inserindo essa parte recortada na superfície destino (que é a tela do Pygame, ou seja, inserindo em: screen)
+        # screen.blit(surf2, (0,0), [20, 20, 70, 70])
+
+
+        if rect.colliderect(rect2):
+            print('dsasdfafdsa')
+
+
+        pygame.display.update()
+        clock.tick(FPS)
+
+    ----------------------------------------------------------------------
+    exemplo2 de código, usando o método: .blit() COM O PARÂMETRO OPCIONAL:
+    ----------------------------------------------------------------------
+
+        import pygame
+
+        from pygame.locals import *
+        from sys import exit
+        from random import randint
+
+
+        BLACK = (0, 0, 0)
+        RED = (225, 0, 0)
+        GREEN = (0, 255, 0)
+        BLUE = (0, 0, 255)
+        GREENLIGHT = (0, 180, 0)
+        YELLOW = (200, 200, 0)
+        WHITE = (255, 255, 255)
+
+
+        pygame.init()
+
+        screen = pygame.display.set_mode((640, 480), 0, 32)
+
+        surf = pygame.Surface((200, 200))
+        surf.fill(YELLOW)
+
+        while True:
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+
+            #screen.fill(BLACK)
+
+            screen.blit(surf, (0,0))
+            screen.blit(surf, (0,0) [20, 20, 70, 70])
+
+
+            pygame.display.update()
+
+
+
+
+pygame.surface.get_size() - retorna uma tupla com a largura e a altura da superfície.
+    Esse método NÃO POSSUI parâmetros.

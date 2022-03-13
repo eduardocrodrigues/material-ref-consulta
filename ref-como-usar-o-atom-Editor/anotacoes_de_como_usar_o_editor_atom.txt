@@ -1,0 +1,100 @@
+##################################
+#
+# Atalhos ATOM EDITOR
+#
+##################################
+
+================================
+ Atalhos de teclado Principais
+================================
+
+CTRL + SHIFT + p - usado para procurar coisas dentro do Editor Atom.
+CTRL + P / CTRL + T - usado para encontrar arquivos no computador para abrir no Atom.
+CTRL + , - abre as configurações do Atom.
+CTRL + N - cria um novo arquivo.
+CTRL + W - fecha o arquivo atual.
+CTRL + SHIFT + T - abre o último arquivo recentemente fechado.
+F11 - Atom fica no modo FULLSCREEN.
+CTRL + \ - abre e fecha a coluna lateral que exibe os arquivos no atom.
+CTRL + G - vai para uma determinada linha no arquivo (insira o número da linha).
+CTRL + SHIFT + I - abre uma janela modo developer.
+CTRL + } - muda a identação.
+CTRL + { - muda a identação.
+
+
+##########################################
+#
+# Como funciona a aba settings do Atom
+#
+##########################################
+
+------------------------
+ Core
+------------------------
+1 - IGNORED NAMES - Permite ignorar nomes de arquivos.
+2 - WARM ON LARGE FILE LIMIT - relacionado a arquivos grandes...
+
+
+---------------------------
+ Editor
+---------------------------
+1 - Font Family - insira o nome da sua fonte favorita aqui.
+2 - Font Size -  insira o tamanho que vc quer aqui.
+3 - Show Indent Guide - esta opção habilita linhas de identação na vertical para mostrar as identações no código.
+4 - Tab Type - a opção AUTO verifica os espaços de tabulação em um arquivo e padroniza todos com o mesmo tamanho de tabulação.
+5 - Tab Lenght - define a quantidade de espaços deve ter a tabulação nas linhas de código.
+6 - Scroll Past End - permite rolarmos as linhas do arquivo além das linhas do arquivo.
+
+
+---------------------------
+ Package
+---------------------------
+É onde instalamos os pacotes no Editor Atom. Exemplos de alguns pacotes:
+1 - Markdown preview - mostra uma prévia de como está o documento README.md criado para o github.
+    Basta clicar em cima do arquivo com o botão direito, e selecionar a opção: Markdown Preview.
+
+OBS: depois de instalado um plugin no Atom, existe a aba Settings do plugin, é nessa aba que
+configuramos alguns comportamentos que queremos que o plugin se comporte.
+
+
+----------------------------
+ System
+----------------------------
+1 - Show in File Context Menu - exibe o editor Atom como opção de escolha ao clicar com o botão direito do mouse sobre um arquivo.
+2 - Show in Folder Context Menu -exibe o editor Atom como opção de escolha ao clicar com o botão direito do mouse sobre uma pasta.
+
+
+-----------------------------
+ KeyBindings
+-----------------------------
+ É onde mostra todas as teclas de atalho do próprio editor Atom e de todos os plugins instalados no Atom.
+
+
+----------------------------
+ Themes
+----------------------------
+Na opção: UI Themes, vc seleciona o tema que deseja para o seu Atom.
+    Se vc clicar na engrenagem em: UI Themes, vc verá essas opções abaixo:
+        1 - Font Size - define o tamanho da Fonte.
+        2 - Layout Mode - nada tão importante, ele ajusta o Atom de acordo com o tamanho da janela.
+        3 - Tab Sizing - define o tamanho do espaço de cada aba aberta no atom.
+
+Na opção: Syntax Theme: vc seleciona o tipo de fonte para o seu Atom.
+
+
+------------------------------
+ Updates
+------------------------------
+Aba que exibe se temos alguma atualização para ser feita no Editor Atom.
+
+
+------------------------------
+ Install
+------------------------------
+É onde instalamos pacotes do Atom ou temas do Atom.
+
+  Se vc instalou um plugin, vá até a opção: packages, e ele será mostrado que está instalado.
+  Se vc instalou um tema, vá até a opção: theme, e mude para o tema instalado.
+
+
+

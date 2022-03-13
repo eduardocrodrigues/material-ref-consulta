@@ -1,0 +1,211 @@
+########################################
+#
+#  Módulo Joystick do Pygame
+#
+########################################
+
+Embora a palavra joystick geralmente seja usado para referir-se a um controlador de jogos
+de qualquer tipo, tecnicamente, ela descreve uma alavanca usada em simuladores de vôo.
+
+Atualmente, o joypad é mais popular entre os usuários de jogos e, com frequência, acompanha os consoles.
+Os joypads se encaixam confortavelmente em duas mãos e têm muitos botões,
+além de um pad direcional e duas alavancas analógicas controladas com os polegares. Pense nos controladores
+de seu Xbox ou Playstation. Muitas pessoas conectam o controlador de seu Xbox em seus computadores.
+
+    joystick - usado para referir-se a um controlador de jogos de qualquer tipo, tecnicamente, ela descreve uma alavanca usada em simuladores de vôo.
+
+    joypad - é um nome mais específico, os joypads são os controles que vêm com os consoles de video-game.
+
+    d-pad - O d-pad é um pequeno circulo ou um botão em forma de cruz no joypad - é usado para indicar
+    a direção quando uma de suas extremidades é pressionada, geralmente com o polegar. Se pudessemos observar
+    a parte de baixo do d-pad, veriamos que há quatro interruptores organizados em forma de cruz. Ao pressionar
+    o pad em qualquer direção, você pressionará também um ou dois desses interruptores, que são interpretados como
+    teclas de direção para as oito direções. Os d-padspodem representar uma tecnologia antiga, porém, com frequência, são
+    a melhor opção para determinadas ações em jogos. Gosto de usar os d-pads para selecionar Menus,
+    percorrer mapas do jogo, e saltar em jogos de plataforma.
+
+    O Pygame refere-se aos d-pads como "hats", pois os joysticks têm um controle semelhante ao d-pad diretamente sobre
+    a alavanca. Em nosso caso, porém, hat e d-pad serão iguais.
+
+    Ao pressionar o d-pad, o Pygame envia um evento JOYHATMOTION. Esse evento contem
+    três valores: joy, hat e value. O primeiro valor: joy, é o indice do joystick em que o evento foi gerado; hat é o
+    indice do hat pressionado e value indica a direção do pressionamento. O valor hat, na verdade, é uma tupla com
+    as alterações nos eixos x e y - um número negativo para o eixo indica para a esquerda ou para baixo, enquanto que
+    numero positivo indica para direita ou para cima.
+
+        NOTA: não há nenhum evento up e down para os d-pads, pois, quando ele é solto, ele retorna para o meio e outro
+        evento JOYHATMOTION é enviado.
+
+
+    O Pygame trata as alavancas analógicas como dois eixos individuais: um para o eixo x (esquerda e direita) e outro
+    para o eixo y (para cima e para baixo). O motivo para trata-los separadamente deve-se ao fato de as mesmas funções
+    serem usadas para outros dispositivos que possam ter um único eixo, embora as alavancas analógicas, de longe, sejam
+    os dispositivos mais comuns.
+
+    O evento para para o movimento da alavanca analógica é JOYAXISMOTION, que fornece
+    três informações: joy, axis e value. O primeiro valor: joy, é o ID do objeto joystick; axis é um índice
+    para o eixo e value indica a posição atual do eixo, que varia entre: -1 (para a ESQUERDA e para BAIXO) e
+    +1 (para a DIREITA ou para CIMA).
+
+        Nota: O eixo x vem sempre primeiro do que o eixo y, portanto a primeira alavanca
+        utiliza os indices 0 e 1 para os eixos. Se houver uma segunda alavanca analógica disponível,
+        as posições 2 e 3 serão usadas.
+
+O módulo joystick do Pygame trata todos os tipos de controladores com a mesma interface e não faz distinção
+entre os diversos dispositivos disponíveis. Isso é bom, pois não queremos escrever um código para cada
+controlador de jogos existentes por aí!
+
+
+
+
+pygame.joystick.init() - inicia o módulo joistick. É chamada automaticamente por pygame.init(), portanto raramente
+será necessário chamá-la.
+
+
+
+pygame.joystick.quit() - encerra o módulo joystick. Assim como pygame.joystick.init(), essa função é chamada automaticamente e,
+sendo assim, não é necessária com frequência.
+
+
+
+pygame.joystick.get_init() - retorna True se o módulo joystick for inicializado. Se retornar False,
+as duas funções: ( pygame.joystick.get_count() e pygame.joystick.Joystick() ) não funcionarão.
+
+
+
+pygame.joystick.get_count() - retorna o número de Joysticks conectados ao computador no momento.
+
+
+
+==================================
+ Classe Joystick()
+==================================
+pygame.joystick.Joystick() - cria um novo objeto Joystick usado para acessar todas as informações desse joystick. O construtor
+aceita o ID do joystick - o primeiro joystick tem ID igual a 0, o próximo tem ID igual a 1 e assim por diante,
+até a quantidade de joysticks disponível no sistema.
+    Esse método possui 1 parâmetro:
+
+        1 - insira o ID do joystick. O ID do joystick é identificador do joystick conectado no Pygame.
+
+    OBS: O método: pygame.joystick.Joystick(), cria objetos Joystick para qualquer joystick
+    que quisermos usar. Esses objetos joystick podem ser usados para consultar informações sobre o joystick,
+    assim como para obter o estado de qualquer botão e a posição de qualquer alavanca analógica. Aqui está
+    o modo como podemos obter o primeiro joystick conectado ao computador:
+
+        joystick = None
+        if pygame.joystick.get_count() > 0:
+            joystick = pygame.joystick.Joystick(0)
+
+
+    Esse código utiliza uma variável chamada joystick que fará referência ao primeiro joystick. Ela será
+    inicilmente definida com None porque é possivel que não haja nenhum joystick conectado
+    ao computador. Se houver pelo menos um joystick conectado ( pygame.joystick.get_count() > 0 ), um objeto joystick
+    será criado para o primeiro ID de joystick, que sempre será 0. Devemos tomar cuidado ao trabalhar dessa maneira,
+    pois se tentarmos usar joystick quando ele for igual a None, o Python gerará uma exceção. Portanto teste antes se
+    há um joystick verificando se joystick é diferente de None antes de tentar utiliza-lo.
+
+
+
+
+pygame.joystick.Joystick.get_id() - retorna o ID do joystick (o mesmo ID disponibilizado ao construtor Joystick)
+
+
+
+pygame.joystick.Joystick.get_name() - retorna o nome do Joystick (geralmente, é uma string fornecida pelo fabricante). Essa
+string é única para todos os joysticks.
+
+
+pygame.joystick.Joystick.get_numbuttons() - Retorna o número de botões apertados no joystick. Esses botões
+tem um estado (on \ off) boleano, ou seja, (True ou False). Botões geram evento: pygame.JOYBUTTOMDOWN quando pressionado
+e geram evento: pygame.JOYBUTTOMUP quando o botão e solto.
+    Esse método NÃO POSSUI parâmetros.
+
+    OBS: Como ocorre com outros dispositivos de entrada, você terá duas opões
+    para acessar o joypad: por meio de eventos ou consultando o estado do ped diretamente. Quando
+    um botão for pressionadao no pad, o Pygame ferará um evento JOYBUTTOMDOWN que contém o ID
+    do joystick e o índice do botão (os botões são numerados a pertir de 0). A quantidade de botões
+    no joystick pode ser obtida com a função: pygame.joystick.get_numbuttons(). Quando um botão for solto,
+    o Pygame gerará um evento JOYBUTTOMUP correspontente, com as mesmas informações.
+
+
+
+
+pygame.joystick.Joystick.get_button() - recebe o índice do botão no parêmetro e retorna o seu estado (ou seja,
+se o botão foi ativado ou não).
+    Esse método possui 1 parâmetro:
+
+        1 - insira o índice do botão no parãmetro.
+
+    OBS: Detectar o estado dos botões do joypad é um pouco diferente de detectar teclas e botões do mouse. Em vez de
+    obter uma lista de valores booleanos, utilize a função: pygame.joystick.get_button() dos objetos joystick,
+    que aceita o índice do botão e retorna o seu estado. Apesar de poder acessar o estado de um botão do joystick a
+    qualquer momento, em geral, objter uma imagem instantânea do estado dos botões no inicio de cada frame é uma boa
+    idéia. Dessa maneira, podemos ter verteza de que o estado não mudará á medida que desenharmos a tela. Aqui está
+    o modo como podemos obter uma lista de booleanos com os estados dos botões:
+
+        joystick_buttons = []
+        for button_no in range(joystick.get_numbuttons()):
+            joystick_buttons.append(joystick.get_button(button_no))
+
+
+
+
+pygame.joystick.Joystick.get_hat() - Retorna uma tupla (x, y) com a atual posição do hat (o hat é o: d-pad dos controles),
+de um controle. A posição é dada como dois valores representando a posição (x, y) do hat. (0, 0) significa centralizado. Um
+valor -1 significa esquerda ou para baixo, e um valor 1 significa: direita ou para cima. Então (-1, 0) significa ESQUERDA,
+(1, 0) significa DIREITA, (0, 1) significa: PARA CIMA, (1, 1) significa: PARA CIMA E ESQUERDA ao mesmo tempo, etc....
+Cada coordenada pode ser 1 ou -1, mas nunca um valor entre esses números.
+
+    Esse método possui 1 parâmetro:
+
+        1 - insira o INDICE do controle que vc quer pegar os valores do d-pad desse controle.
+
+    OBS: quando fazemos a verificação de controles conectados ao Pygame com o método: pygame.joystick.get_count(),
+    cada controle encontrado pelo Pygame possui um indice, é esse índice que inserimos no parâmetro
+    do método: .get_hat(). A partir do momento que inserimos o índice correspondente ao controle que queremos usar
+    no método: .get_hat(), o método: .get_hat() retorna as coordenadas (x, y) do d-pad do controle correspondente.
+
+
+
+
+pygame.joystick.Joystick.get_numhats() - retorna o número de d-pads em um joystick.
+
+
+
+pygame.joystick.Joystick.get_numaxes() - retorna a quantidade de eixos x e y existentes em um controle de video-game. O valor
+retornado é um número inteiro mostrando como resposta a quantidade de eixos existentes no controle.
+    Esse método NÂO POSSUI parâmetro.
+
+    OBS: para ficar mais claro, os eixos de um controle são as linhas imaginárias x e y existentes em
+    cada alavanca do controle ou em cada d-pad do controle). Para ficar mais claro ainda, faça
+    com a mão o sinal da cruz católico (pai, filho, espirito, santo) em cima da cada alavanca e
+    em cima do d-pad de um controle playstation, e vc perceberá que cada alavanca
+    tem um eixo x (linha horizontal) e y (linha vertical),
+    e o d-pad tbm possui um eixo x (linha horizontal) e y (linha vertical), totalizando 6 eixos (axes).
+
+
+
+
+pygame.joystick.Joystick.get_axis() - retorna um valor entre -1 e +1 para um eixo. Essa função aceita
+o índice do eixo em que vc está interessado.
+    Esse método possui 1 parâmetro:
+
+        1 - insira o número do eixo.
+
+    OBS: os números de eixo funcionam assim:
+
+        0 - representa o eixo x da alavanca direita do controle de video-game.
+        1 - representa o eixo y da alavanca direita do controle de video-game.
+
+        3 - representa o eixo x da alavanca esquerda do controle de video-game.
+        4 - representa o eixo y da alavanca esquerda do controle de video-game.
+
+
+
+pygame.joystick.Joystick.get_numballs() - retorna o número de trackballs do joystick. Um trackball é semelhante
+a um mouse, porém fornece somente o movimento relativo.
+
+
+
+pygame.joystick.Joystick.get_ball() - retorna uma tupla que contém o movimento relativo nos eixos x e y de um trackball desde a última
+chamada a get_ball. Essa função aceita o índice do trackball em que vc está interessado.
