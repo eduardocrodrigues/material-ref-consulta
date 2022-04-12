@@ -1,0 +1,125 @@
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+#
+# modulo time
+#
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+time.time() - retorna a quantidade de segundos somados desde 01/01/1970.
+OBS:utilize time.time() dentro dos parênteses de time.ctime() para converter os números do 
+método em uma string com: "o_nome_do_dia_da_semana, o_nome_do_mês, o_dia, hora:min:seg, ano_atual".
+OBS2: utilize time.time() no inicio do programa e time.time() no final do mesmo programa, e então
+faça: (inicio_programa = time.time() - final_programa = time.time()) para fazer o calculo de por
+quanto tempo o programa ficou sendo executado, até a finalização do mesmo. 
+
+time.asctime() - retorna uma string com: Nome_do_Dia_da_Semana, nome_do_mês, dia, hora:min:seg, ano.
+
+time.ctime() - retorna uma string com: "o_nome_do_dia_da_semana, o_nome_do_mês, o_dia, hora:min:seg, ano_atual".
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+time.gmtime() - Retorna uma struct_time do tempo em UTC (ou seja, meridiano de Greenwich)
+OBS: utilize time.gmtime() dentro dos parênteses de time.asctime() para retornar uma string.
+
+time.localtime() - retorna uma struct_time do tempo local da 
+máquina com: ano, mês, dia, horas, minutos, segundos, dia da semana, dia do ano, DST). 
+OBS: utilize time.localtime() dentro dos parênteses de time.asctime() para retornar uma string com esse comando.
+
+'''
+0   tm_year     (por exemplo, 1993)
+1   tm_mon      é o mês (que vai de 1 a 12).
+2   tm_mday     dia do mês (que vai de 1 a 31).
+3   tm_hour     hora (que vai de (0 a 23).
+4   tm_min      minutos (que vai de (0 a 59).
+5   tm_sec      segundos (que vai de (0, 61).
+6   tm_wday     numero do dia da semana (que vai de (0 a 6) Segunda-feira é 0).
+7   tm_yday     num de dias do ano (que vai de (1, 366).
+8   tm_isdst    0, 1 or -1; see below
+N/A tm_zone     nome da timezone
+N/A tm_gmtoff   Variação de segundos a leste do UTC
+
+podemos também acessar esses dados por nome, ex:
+
+import time
+
+agora = time.localtime()
+
+print('Ano: %d' % agora.tm_year)
+print('Mês: %d' % agora.tm_mon)
+print('Dia: %d' % agora.tm_mday)
+print('Hora: %d' % agora.tm_hour)
+print('Minuto: %d' % agora.tm_min)
+print('Segundo: %d' % agora.tm_sec)
+print('Dia da semana: %d' % agora.tm_wday)
+print('Dia do ano: %d' % agora.tm_yday)
+print('Horário de verão: %d' % agora.tm_isdst)
+
+OBS2: anotações sobre algumas siglas do time.localtime(), abaixo...
+#Época = Tempo em que se começou a medir o tempo no computador (para Unix, 1970)
+#Time Zone = Fuso horário = representa a diferença de horário com relação a um fuso tomado como padrão(greenwich)
+#UTC = Tempo universal coordenado = fuso horário de referência a partir do qual se calculam todas as outras zonas horárias do mundo
+#18:24
+#DST = Daylight Saving Time = Horário de Verão
+#+1
+#Tempo Local = Tempo no fuso e com o DST apropriado
+#16:24
+'''
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+time.sleep(3) - pausa a execução do programa (defina o número de segundos entre parênteses).
+
+time.process_time() - usado para saber o tempo de execução de 
+um programa (mede o tempo de eficiência de execução de um programa),esse metodo retorna uma
+sequência de numeros, esses números são a velocidade de execução do programa.
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+time.strftime() - permite a formatação do tempo em string. Você pode passar o 
+formato desejado para a string, seguindo os códigos de formatação da tabela abaixo:
+
+Código          Descrição
+%a     | dia da semana abreviado    
+-------------------------------------------------------------------------------------------
+%A     | nome do dia da semana
+-------------------------------------------------------------------------------------------
+%b     | nome do mês abreviado
+-------------------------------------------------------------------------------------------
+%B     | nome do mês completo
+-------------------------------------------------------------------------------------------
+%c     | data e hora conforme configuração regional
+-------------------------------------------------------------------------------------------
+%d     | dia do mês (01-31)
+-------------------------------------------------------------------------------------------
+%H     | hora no formato 24h (00-23)
+-------------------------------------------------------------------------------------------
+%I     | hora no formato 12h
+-------------------------------------------------------------------------------------------
+%j     | dia do ano 001-366
+-------------------------------------------------------------------------------------------
+%m     | mês (01-12)
+-------------------------------------------------------------------------------------------
+%M     | minutos (00-59)
+-------------------------------------------------------------------------------------------
+%p     | AM ou PM
+-------------------------------------------------------------------------------------------
+%S     | segundos (00-61)
+-------------------------------------------------------------------------------------------
+%U     | número da semana (00-53), onde a semana 1 começa após o primeiro domingo.
+-------------------------------------------------------------------------------------------
+%w     | dia da semana (0-6) onde 0 é domingo.
+-------------------------------------------------------------------------------------------
+%W     | número da semana (00-53), onde a semana 1 começa após a primeira segunda-feira.
+-------------------------------------------------------------------------------------------
+%x     | representação regional da data.
+-------------------------------------------------------------------------------------------
+%X     | representação regional da hora
+-------------------------------------------------------------------------------------------
+%y     | ano (00-99)
+-------------------------------------------------------------------------------------------
+%Y     | ano com 4 digitos.
+-------------------------------------------------------------------------------------------
+%Z     | nome do fuso horário
+-------------------------------------------------------------------------------------------
+%      | simbolo de %           
+-------------------------------------------------------------------------------------------
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+

@@ -1,0 +1,102 @@
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# comandos do os.path
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+os.path.abspath('j/k/l/m') - retorna o caminho absoluto do caminho (path) passado como
+parametro. Se o caminho não começar com (/), será retornado o caminho completo a partir da raiz, caso
+contrário (se começar com (/)), será retornado somente o caminho inserido na string.
+OBS: observe que 'j/k/l/m' é apenas uma string. As funções de os.path não verificam se esse caminho
+realmente existe. Na realidade, os.path, na maioria da vezes, oferece apenas funções inteligentes para 
+manipulação de caminhos como strings. 
+
+os.path.basename('j/k/l/m') - retorna apenas a última pasta do caminho, no exemplo, a pasta 'm'.
+OBS: considere que os.path.basename() retorna a parte do caminho á direita da última barra, 
+e que os.path.dirname() retorna o caminho á esquerda. Você até pode combinar o resultado dessas 
+duas funções com a função split(), que retorna uma tupla onde os elemenos são iguais aos 
+reultados de dirname e basename.
+
+os.path.dirname('j/k/l/m') - retorna todo o caminho a esquerda da ultima barra a direita, ou seja, a 
+última barra a direita (nesse exemplo na string) é a barra atrás do m, então, todo o caminho 
+definido na string a partir dessa barra atrás do m, será retornada. 
+OBS: Mais uma vez, esses metodos do os.path não verificam se 'm' é um arquivo ou diretório. 
+OBS2: considere que os.path.basename() retorna a parte do caminho á direita da última barra, e que 
+os.path.dirname() retorna o caminho á esquerda. Você até pode combinar o resultado dessas 
+duas funções com a função split, que retorna uma tupla onde os elemenos são iguais aos 
+reultados de dirname e basename.
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+OBS: somente usado no SISTEMA WINDOWS
+os.path.splitdrive('C:raiz/pasta0/pasta1/pasta2') - No Windows, você pode também usar a 
+função os.path.spitdrive() para separar a letra do drive do caminho em si. A função retorna uma 
+tupla, onde a letra do drive é o primeiro elemento, e o restante do caminho, o segundo.
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+os.path.join() - A função os.path.join() junta os componentes de um caminho, 
+separando-os com barras, se necessário. Veja o exemplo da listagem 9.25. No Windows, a função verifica se
+o nome termina com ":" e, nesse caso, não insere uma barra, permitindo a criação de um 
+caminho relativo. Podemos combinar o resultado dessa  função com os.path.abspath() e 
+obter um caminho a partir da raiz. Veja que a manipulação da letra do drive é feita automaticamente.
+
+exemplo listagem 9.25
+
+>>> import os.path
+>>>
+>>> os.path.join("C:", "dados", "programas")
+'C:dados\\programas'
+>>> os.path.abspath(os.path.join("C:", "dados", "programas"))
+'C:\\python3\\dados\\programas'
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+os.path.isdir('.') - verifica se o caminho definido na string é um diretório.
+
+ex:
+
+import os
+import os.path
+
+#para cada item na lista de diretórios...
+for a in os.listdir('.'):
+
+    # se o item é um diretório...
+    if os.path.isdir(a):
+        #imprime os diretórios  
+	print("%s/" % a)
+
+    #senão se o item é um arquivo...
+    elif os.path.isfile(a):
+        #imprime os arquivos
+	print("%s" % a)
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+os.path.isfile('.') - verifica se o caminho definido na string é um arquivo.
+
+os.path.exists('z') - verifica se o diretório existe no seu sistema operacional.
+ex:
+
+import os.path
+
+if os.path.exists('pasta1'):
+    print("O diretório pasta1 existe.")
+else:
+    print("O diretório pasta1 não existe")
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+os.path.splitext('nomeDoArquivo.txt') - retorna a string no parametro dividida em duas, uma será 
+o nome do arquivo e a outra será a extensão do aquivo, a saída ficará assim: 'nomeDoArquivo', '.txt'.
+
+os.path.join('caminho/até/uma/pasta', arquivo.jpg) - pega o caminho até a pasta definida no 
+primeiro parametro, e junta com a string do segundo parametro, a saída desse 
+comando ficará assim: 'caminho/até/uma/pasta/arquivo.jpg'.
+
+os.path.getsize('arquivo.txt') - retorna o tamanho do arquivo em bytes.
+
+os.path.getctime('arquivo.txt') - retorna a data e hora da criação.
+
+os.path.getmtime('arquivo.txt') - retorna data e hora de modificação.
+
+os.path.getatime('arquivo.txt') - retorna data e hora de acesso.
+
+OBS:utilize os quatro comandos acima dentro de time.ctime() para retornar os 
+valores em string (para isso vc deve importar a biblioteca time, é claro!!!).

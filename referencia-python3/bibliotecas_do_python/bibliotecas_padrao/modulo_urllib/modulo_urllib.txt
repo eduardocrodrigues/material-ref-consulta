@@ -1,0 +1,13 @@
+BIBLIOTECA urllib
+
+
+urllib.request - biblioteca usada para se comunicar com a internet.
+
+urllib.request.urlopen() - é usada para abrir uma pagina da internet.
+
+urllib.request.pathname2url() - é usada para inserir o nome de um caminho do 
+sistema, (ex: /home/usuário/fotos) para ser usado como url (no exemplo que eu vi,
+esse comando foi armazenado em uma variável e usado para dentro de um href="" para
+gerar links para a pagina html criada com o arquivo python).
+
+

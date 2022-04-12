@@ -1,0 +1,385 @@
+MÓDULO tkinter
+
+
+
+import tudo da biblioteca tkiner.
+
+from tkinter import *
+
+
+
+crie uma janela no aplicativo com a variável app.
+app = Tk()   # Tk() é com o T Maiúsculo.
+
+
+dê um nome a janela.
+app.title("You tkinter application")
+
+
+forneça as coordenadas da janela e os valores de tamanho.
+app.geometry('450x100+200+100')
+
+
+inicie o laço de evento tkinter.
+app.mainloop  
+
+
+no módulo tkinter, você não precisa escrever um laço while para
+ loops como em programas não GUI, no tkinter, chame o método mainloop
+como no exemplo acima.
+
+
+para adicionar um botão ao seu aplicativo, use um código como este
+ abaixo, assegurando de que colocará estas duas linhas de código
+ANTES da chamada para mainloop():
+
+
+ adicione um botão á janela, forneça-lhe um texto e um valor de largura.
+
+  b1 = Button(app, text = "Click me!", width = 10)
+
+
+
+O método pack() vincula o botão recém-criado á janela existente.
+
+  b1.pack()
+
+ 
+
+O método pack() vêm com opções de parâmetro
+ o método pack() permite que você posicione o botão na janela do aplicativo.Se
+você fornecer um valor do parâmetro (side) para pack(), poderá controlar
+onde o botão aparece na janela. Eis os valores vãlidos para (side):
+
+
+
+  posiciona o botão no lado esquerdo da janela.
+  pack(side = 'left')
+
+
+  posiciona o botão no lado direito da janela.
+  pack(side = 'right')
+
+
+  posiciona o botão na parte superior da janela.
+  pack(side = 'up')
+
+
+  posiciona o botão na parte inferior da janela.
+  pack(side = 'bottom')
+
+
+
+também é possivel adicionar um preenchimento em volta dos
+ botões (para deixá-los mais bonitos em sua janela):
+
+
+   posiciona o botão com 10 pixels de preenchimento em todos os quatro lados.
+   pack(padx = 10, pady = 10)
+
+
+
+Há uma convenção no mundo Python que SUGERE NOMEAR OS PROGRAMAS tkinter
+ com uma EXTENSÂO ".pyw", em OPOSIÇÂO ao ".py" usual. Isto ajuda ao sistema
+operacionala executar devidamente seus programas tkinter, especialmente no Windows.
+
+
+
+para conectar o código aos botões, crie uma função e coloque o código que
+ você deseja executar em sua própria função, e então, insira o nome da 
+função no código do botão fornecendo um parâmetro chamado command, assim: 
+
+
+
+  função que vc criou para ser ativada quando clicar no botão:
+  def button_click():
+      print("I've just been clicked")
+
+
+
+  usando o parâmetro (command) e inserindo o nome da função:
+  b = button(app, text = "Click on me!", width = 15, command = button_click)
+
+
+
+
+Os elementos da interface que você adiciona a uma GUI são conhecidos
+ como COMPONENTES (ou widgets), Você já conhece um: o botão, mas
+há muitos outros, veja mais alguns abaixo:
+
+
+  Drop-down list (significa lista suspensa)
+   Um componente que permite selecionar um item em uma lista grande.
+
+
+
+  Label (Rótulo/selo)
+   Um componente que exibe uma mensagem de string em uma janela
+
+
+
+  Text Box (Caixa de texto)
+   Um componente que fornece um modo de pequenas e grandes quantidades de
+   texto serem fornecidas.
+
+
+
+  Menu
+   Uma lista de opções de comando que é anexada á parte superior de uma janela.
+
+
+  Combo box (Caixa de combinação)
+   A combinação de uma lista suspensa e uma caixa de texto.
+
+
+
+  Dialog box (Caixa de diálogo)
+   Uma janela separada que aparece para solicitar informações adicionais
+   ao usuário.  
+
+
+
+  
+para criar um label (selo/rotulo para a GUI), vc cria similar á mesma forma
+ que um botão, assim:
+
+
+  l = label(app, text = 'When you are ready, click on the buttons!', height = 3)
+
+
+  e não se esqueça de invocar o método pack() do componente, assim:
+  l.pack()
+
+
+
+IntVar() - numero inteiro (da biblioteca tkinter) usada em uma variável que
+ atualiza números da GUI "como se fosse mágica". 
+
+
+
+Button() - um componente de botão tkinter.
+
+Label() - um componente de etiqueta/rótulo tkinter.
+
+
+
+Componentes tkinter para strings na GUI
+
+  para entrada de texto simples de uma linha só (componente Entry() )
+
+
+
+ Entry(app) - é usado para entrada de texto
+  simples (entrada de texto de uma linha só).
+
+
+ Text(app) - é usado para entrada de texto de várias linhas.
+
+
+ .get() - usado para ler uma string.
+
+
+ .insert(0, "Banana") - usado para mudar o conteúdo de um componente.
+   o primeiro parametro indica o indice a ser inserido a mudança, e o
+    segundo parametro vc insere a palavra ou o texto a ser mudado.
+
+
+
+ .delete(0, END) - usado para deletar o conteúdo de um componente.
+   o primeiro parametro indica o indice a ser inserido a mudança, e o
+    segundo parametro vc deleta a palavra ou o texto a ser mudado. Para
+     deletar todo o conteúdo do campo, insira a palavra END no segundo 
+      parametro e todo o texto do campo será apagado.
+
+
+
+   para entradas de texto de várias linhas (componente Text() )
+
+
+ .get("1.0", END) - é usado para ler uma string (conteúdo dp campo). O primeiro
+  parâmetro no numero um (1) indica o numero da linha a ser lida, e o 
+ segundo número zero (0) do primeiro parametro indica o número da coluna a ser lida.
+
+
+ O END dentro dos métodos get() e delete() é um valor especial que representa
+  o último caractere no campo (dentro do(s) campo(s) de entrada de dados).
+
+
+
+ .delete("1.0", END) - segue o mesmo formato da função acima, só que deletando
+   na linha e coluna definida no primeiro parametro.
+
+
+
+ .insert() - segue o mesmo formato das duas funções acima, só que inserindo na
+   linha e coluna definida no primeiro parâmetro e definindo o texto a ser
+    inserido no segundo parâmetro..
+
+
+
+  OBS: TENHA CUIDADO COM O MODO COMO VOCÊ NUMERA AS LINHAS E AS
+        COLUNAS NOS CAMPOS Text(), AS LINHAS COMEÇAM EM 1 (UM), MAS AS COLUNAS
+         COMEÇAM EM 0 (ZERO).
+
+
+
+lembre-se que o método .pack() adiciona componentes a janela,
+ e se não for definido nenhum parâmetro ao componente .pack() significa
+  que vc deixa para o tkinter decidir como é melhor dispor as coisas na GUI.
+
+
+não é necessário atribuir variáveis ao componente Label() se
+ não for preciso controla - las.
+
+
+
+Radiobutton() - Útil para quando vc deseja selecionar um item em
+ um grupo no tkinter.
+
+
+
+Obs: as opções de seleção do Radiobutton() devem ser iseridas um na
+ sequencia do outro no código.
+
+
+
+use a função StringVar() para definir mais de um radiobutton() de forma que eles
+ identifiquem uns aos outros (caso se for para selecionar somente uma opção
+entre mais de uma), pq só assim ao selecionar uma opção na GUI, as outras não 
+ estarão marcadas como selecionadas.Use esse parãmetro
+na função Radiobutton(), assim:
+
+
+   Radiobutton(app, variable = StringVar(), text = "Cambridge, MA",
+                value = "Cambridge, MA").pack()
+
+
+
+OptionMenu() - Útil quando vc deseja selecionar um item em um GRANDE grupo
+ de itens no tkinter. ex:
+
+
+   OptionMenu(app, StringVar(), *options).pack()
+    o *options significa: Pegar o resto dos parametros desta lista
+     e inseri-los aqui.
+
+
+
+
+
+
+CRIANDO CAIXAS DE MENSAGEM NO PYTHON
+  
+ Todo o código da caixa de mensagem está contido em um módulo tkinter chamado
+  messagebox, portanto a primeira coisa a fazer é importar o módulo, assim:
+   
+    import tkinter.messagebox
+
+
+ Então, você está pronto para proceguir.Dentro do módulo messagebox, há muitas
+  caixas de diálogo diferentes para escolher.Mas todas elas ficam em duas
+ categorias principais.
+
+
+
+Caixas de mensagens que dizem coisas
+  
+ para exibir uma mensagem simples na tela, você pode exibir uma caixa
+  de mensagem assim:
+
+    tkinter.messagebox.showinfo("Delivery", The cupcake have arrived in Instanbul")
+
+ o primeiro parâmetro recebe o titulo da caixa de mensagem, e o segundo parâmetro
+  recebe o conteúdo da mensagem.
+
+
+
+Caixas de mensagem que perguntam coisas
+
+ Se você precisar de uma caixa de mensagem que faça pergunta aos usuários, precisará
+  verificar o valor de retorno para saber o que eles escolheram:
+
+    variável = tkinter.messagebox.askyesnocancel("Gift", "Gift wrap the package?")
+ 
+ um valor é atribuido a "variável" definida depois do usuário clicar em
+  um dos botões.
+
+
+
+Caixas de mensagem disponiveis no tkinter
+
+showinfo() - cria caixa de mensagem mostrar informação
+
+Showwarning() - cria caixa de mensagem mostrar aviso
+
+Showerror() - cria caixa de mensagem mostrar erro
+
+askquestion() - cria caixa de mensagem pergunta  
+
+askokcancel() - cria caixa de mensagem pergunta ok/cancel
+
+askyesnocancel() - cria caixa de mensagem yes/no/cancel
+
+askretrycancel() - cria caixa de mensagem tentar de novo/cancel
+
+
+As caixas de mensagem que exibem informações são chamadas de "show...()".
+
+As caixas de mensagem que fazem perguntas são chamadas de "aks...()".
+
+
+
+ELEMENTOS DA INTERFACE GRÁFICA GUI (tkinter)
+
+
+window manager
+
+ As propriedades Window Manager são chamadas de "WM_..."
+     
+ WM_TAKE_FOCUS - (Tenha foco) - Uma mensagem enviada para sua janela principal
+  quando a janela foi selecionada depois de um clique do mouse.
+
+ WM_SAVE_YOURSELF - (Salve-se) - Uma mensagem enviada para sua janela principal
+  quando o sistema operacional está finalizando.
+
+ WM_DELETE_WINDOW - (Delete a janela) - Uma mensagem enviada para sua janela
+  principal quando a caixa para fechar foi clicada.
+
+protocol() - Para capturar o evento antes dele chegar ao tkinter, chame o
+ método protocol() de seu aplicativo e identifique a função que deve ser 
+chamada, ao invés de executar o comportamento padão. ex:
+
+   app.protocol("WM_DELETE_WINDOW", shutdown)
+
+  o primeiro parâmetro recebe a propriedade Window Manager, e o segundo parâmetro
+   recebe a função que será usada de funcionalidade da janela.
+
+app.destroy() - usado para terminar um aplicativo GUI do tkinter.
+
+
+Caixas de verificação tkinter
+
+IntVar() - 
+
+ checkbutton() - um componente usado para criar caixas de verficação
+  no tkinter (checkbox).
+ 
+ get() - método tkinter que pega um valor.
+
+ 
+Criando o controle de volume (slider)
+
+ DoubleVar() - como IntVar() e StringVar(), mas usada para manter um número
+  com ponto flutuante.
+
+ Scale() - um componente tkinter que cria um escalas/sliders. ex:
+   
+   Scale(app, variable = DubleVar(),
+          from_ = 0.0,
+          to = 1.0,
+          resolution = 0.1,
+          command = change_volume,
+          label = "Volume",
+          orient = HORIZONTAL)
+
+  volume_scale.pack(side = RIGHT)

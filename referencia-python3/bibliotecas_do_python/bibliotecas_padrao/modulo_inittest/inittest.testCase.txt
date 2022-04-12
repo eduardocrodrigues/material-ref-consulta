@@ -1,0 +1,21 @@
+#para fazer testes para saber se as funções de um programa estão
+#funcionando corretamente, utilize primeiramente o import abaixo:
+
+from unittest import TestCase
+
+OBS:Do jeito que eu aprendi, vc cria uma classe e passa TestCase como parametro de herança,
+para que a classe criada possa utilizar os metodos para verificar se as funções estão funcionando
+corretamente. 
+
+
+#Metodos herdados de TestCase para verificação das funções...
+assertEqual(funcao, resultado) - verifica se a função (que vc insere no primeiro parametro) retorna o 
+mesmo resultado (inserido no segundo parametro).
+
+assertLess(funcao, resultado) - verifica se a função (que vc insere no primeiro parametro) retorna um 
+resultado é MENOR do que o resultado (o resultado inserido no segundo parametro).
+
+assertLessEqual(funcao, resultado) - verifica se a função (que vc insere no primerio parametro) retorna um
+resultado MENOR OU IGUAL ao resultado (o resultado inserido no segundo parametro).
+
+

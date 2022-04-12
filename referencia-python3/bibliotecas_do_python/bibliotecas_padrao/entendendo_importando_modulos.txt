@@ -1,0 +1,51 @@
+IMPORTANDO MODULOS
+
+Modulos são arquivos, e da mesma forma que vc pode importar modulos da biblioteca 
+padrão do python com:
+
+    from 'nome do modulo' import *     #O sinal de '*' significa tudo
+
+
+com o comando acima, você pode usar as funções sem o uso do nome do modulo
+para chamar a função. ex: 
+
+    exemplo com o modulo math:
+        ao invez de usar assim: math.sqrt(), vc usa somente assim: sqrt() (sem utilizar o math. )
+
+    exemplo com o modulo random:
+        ao inves de usar assim: random.random(), vc usa somente assim: random()	(sem utilizar o random. )
+
+
+
+Caso vc importe o modulo assim:
+
+
+    import 'nome do modulo'    
+
+
+
+que é a forma mais recomendada,será necessário o uso do nome do modulo 
+seguido do ponto '.' seguido do nome da função, assim:
+    
+
+    Modulo.nomeDaFunção
+
+
+
+lembrando que é sempre uma boa prática de programação criar módulos para
+reutilização do mesmo em várias partes de um programa, ou para a reutilização
+do mesmo em programas diferentes tbm. 
+
+
+vc pode criar um arquivo em uma pasta, e usa-lo como modulo para os arquivos na
+mesma pasta, da mesma forma como na biblioteca padrão do python, usando o mesmo
+comando acima, ex:
+
+
+     Modulo.nomeDaFunção	
+
+
+
+
+
+

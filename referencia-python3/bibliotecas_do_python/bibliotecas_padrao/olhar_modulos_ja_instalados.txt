@@ -1,0 +1,4 @@
+Para ver quais os módulos já estão instalados no python, abra o IDLE-Python e utilize o método:
+
+    help(modules)
+

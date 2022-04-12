@@ -1,0 +1,100 @@
+#importando o modulo
+import os
+
+os.getcwd() - exibe o caminho até o atual diretorio de trabalho.
+
+os.chdir() - sai do diretorio atual para o diretorio que
+vc quiser (insira a string com o caminho do diretorio para o qual deseja mudar como parametro)
+
+    OBS: se vc inserir essa string com dois pontos ("..") como parametro do metodo os.chdir(), vc volta 
+    uma pasta anterior a do repositório atual.
+
+    OBS2: se vc inserir essa string ("../nome_do_repositório"), o metodo os.chdir() sai do
+    repositório atual e já entra na pasta de mesmo nome, que existe anterior ao 
+    seu repositório corrente (atual). Essa string funciona igual a linha de caminhos que
+    usamos no terminal linux para acessar as pastas, essa string ("../..") volta duas pastas
+    anteriores a partir do diretório atual, se á duas pastas atrás existir uma
+    pasta com nome fotos por exemplo, vc pode acessar assim: ("../../fotos").
+
+
+os.listdir() - lista os diretorios existentes no diretorio atual.
+
+    OBS: vc pode usar o os.listdir() para listar o que tem dentro de uma pasta inserindo o
+    caminho da pasta em uma string, assim: 'pasta1/pasta2/pasta3', e será listado tudo o que tem
+    dentro da ultima pasta definida na string.
+
+
+os.mkdir() - cria somente um diretorio (insira uma string com um nome como parametro).
+
+os.makedirs() - cria mais de um diretorio ao mesmo tempo, um dentro do outro (insira a string com os nomes dos diretórios como parametro assim: diretorio1/sub-diretorio2/sub-diretorio3... e assim por diante), 
+
+  ex:
+     os.makedirs("avô/pai/filho") #cria as pastas uma dentro da outra de uma só vez.
+     os.makedirs("avô/mâe/filha") #cria ainda dentro da pasta avô a pasta mãe e filha uma dentro da outra.
+
+
+os.rmdir() - remove somente 1 diretorio (insira o nome do diretorio em string como parametro)..
+
+os.removedirs() - remove varios diretorios subsequentes de uma vez 
+só, (insira a string com os nomes dos diretórios para remoção como parametro 
+assim: diretorio1/sub-diretorio2/sub-diretorio3... e assim por diante). 
+
+
+os.remove() - remove somente os arquivos (insira o nome do arquivo em string como parametro).
+OBS:vc pode pode inserir uma string com o caminho das pastas até onde está o
+arquivo para remove-lo (a partir do seu repositório atual, é claro!!!), 
+assim, ex: pasta1/pasta2/pasta3/nomeDoArquivo. 
+
+os.rename() - usado para renomear o nome de um diretorio (insira o nome atual do
+diretorio no primeiro parametro, e insira o nome a ser 
+mudado no segundo parametro). ou tbm para mover um arquivo (insira o nome do arquivo no
+primeiro parametro, e insira o caminho para onde o arquivo será 
+mudado (vc deve inserir o nome do arquivo após inserir o caminho da(s) pasta(s)), ex: /pasta1/pasta2/nomeDoArquivo 
+no segundo parametro).
+  
+  OBS: vc pode mover um diretório para outro caminho de diretório(s) tbm, especificando no 
+  primeiro parametro o caminho dos diretórios até o diretório que vc quer mover (mudar para outro lugar) 
+  (a partir do seu diretório atual, é claro!), e inserindo no segundo parametro o caminho para o qual
+  vc quer que o diretório seja colocado, assim vc consegue mudar um diretório para outro lugar. xD!!! 
+
+
+os.walk() - usado para exibir os diretorios, e os arquivos, dentro de um diretório. 
+dentro de cada diretorio. 
+ 
+  ex:
+
+    import os
+
+    #a variável dirpath representa o diretório inserido dentro dos parênteses do os.walk(), ou seja, 
+    #o método os.walk() começará a fazer o percorrimento dos diretórios e arquivos A PARTIR do DIRETÓIO definido
+    #dentro do os.walk(). 
+    for dirpath, dirnames, filenames in os.walk(nomeDaPasta):
+        print('Current Path:', dirpath)
+        print('Directories:', dirnames)
+	print('Files:', filenames)
+        print()
+
+
+
+os.environ.get() - exibe o valor da(s) variavel(is) de ambiente do sistema (variaveis do bash).
+
+
+os.sep() - exibe quantas barras (/) tem o diretório atual (que é sempre 1 barra).
+OBS: pode ser usado dentro de um método .count() para contar quantas barras existem dentro de 
+uma string definida como um caminho de pastas. 
+
+  ex: 
+
+    diretorio = 'caminho/entre/as/pastas/aninhadas'
+
+
+#o metodo os.sep() exibe o separador (barras que separam as pastas na string), no caso,
+#como estamos usando um método o os.sep() dentro de um método .count(), o método .count() retornará
+#o valor de quantas vezes aparece a barra na string. 
+d = diretorio.count(os.sep())
+
+print(d)  
+
+
+
+

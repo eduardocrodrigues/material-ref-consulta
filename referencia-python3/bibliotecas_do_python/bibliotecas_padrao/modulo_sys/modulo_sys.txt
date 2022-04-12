@@ -1,0 +1,18 @@
+#para importar o modulo sys
+import sys
+
+
+sys.version - retorna a versão do python no sistema com a data e o horário do dia.
+sys.copiright - exibe o copiright do python.
+sys.executable - exibe o caminho de onde está o executável do python no sistema.
+sys.builtin_module_names - retorna uma tupla exibindo os modulos embutidos do python.
+sys.modules - retorna um dicionário com cada modulo existente no python que pode ser importado/usado.
+sys.platform - retorna uma string informando qual é o seu sistema operacional.
+sys.exit() - usado para sair do sistema.
+sys.flush() - 
+sys.strerr.write() - usado para escrever uma saida de erro padrão em uma condição do programa.
+
+sys.argv - retorna um array de strings com os valores inseridos como parametros na linha de comando do sistema,ex:
+  python3 nome_do_arquivo.py parametro1 parametro2 parametro3
+  #OBS: na linha de comando do Sistema Operacional, insira primeiro sempre python3 no inicio da linha de comando
+  #seguido do nome_do_arquivo que contém o sys.argv, seguido dos parametros que vc deseja.   

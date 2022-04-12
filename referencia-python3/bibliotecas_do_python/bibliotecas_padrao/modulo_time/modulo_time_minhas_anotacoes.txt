@@ -1,0 +1,11 @@
+import time
+
+time.asctime() - exibe o nome_do_dia, nome_do_mes, num_dia, hora-min-seg, ano.
+time.gmtime() - exibe: (tm_year=2017, tm_mon=11, tm_mday=4, tm_hour=12, tm_min=9, tm_sec=20,
+ tm_wday=5, tm_yday=308, tm_isdst=0)
+time.localtime() - exibe: (tm_year=2017, tm_mon=11, tm_mday=4, tm_hour=10, tm_min=9, tm_sec=32,
+ tm_wday=5, tm_yday=308, tm_isdst=1)
+time.time() - mostra o numero em segundos desde 1/01/1970 até a data atual.
+time.sleep(x) - para o tempo em segundos definido no parametro.
+time.daylight - mostra se é horario de verão, se o numero for 1, é horário
+ de verão, se o numero for 0, então não é.
